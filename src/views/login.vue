@@ -150,20 +150,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Attr, Rules, LoginForm } from '@/types/login';
 
-interface Attr {
-    message: string;
-    type?: 'error' | 'info' | 'success' | 'warning';
-}
-interface Rules {
-    [key: string]: Attr[];
-}
-
-@Component({
-    components: {},
-})
+@Component
 export default class Login extends Vue {
-    private form = {
+    private form: LoginForm = {
         system: '',
         name: '',
         password: '',
@@ -179,7 +170,7 @@ export default class Login extends Vue {
     }
 
     // 数据为空校验
-    private validater(data: any, rules: Rules): boolean {
+    private validater(data: LoginForm, rules: Rules): boolean {
         let ret = false;
         for (const key in rules) {
             const rule: Attr[] = rules[key];
