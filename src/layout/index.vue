@@ -1,13 +1,14 @@
 <template>
     <section class="ry-container">
-        <ry-header />
+        <ry-aside />
 
         <main class="ry-main">
-            <ry-aside />
-            <router-view class="ry-main-view" />
-        </main>
+            <ry-header />
 
-        <ry-footer />
+            <router-view class="ry-main-view"></router-view>
+
+            <ry-footer />
+        </main>
     </section>
 </template>
 
@@ -15,17 +16,24 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { ryFooter, ryHeader, ryAside } from './component';
 
-@Component({ components: { ryFooter, ryHeader, ryAside } })
+@Component({
+    components: {
+        ryFooter,
+        ryHeader,
+        ryAside,
+    },
+})
 export default class Layout extends Vue {}
 </script>
 
 <style lang="less">
 .ry-container {
     display: flex;
-    flex-direction: column;
     height: 100vh;
+    overflow: hidden;
     .ry-main {
         display: flex;
+        flex-direction: column;
         flex: 1;
     }
     .ry-main-view {
