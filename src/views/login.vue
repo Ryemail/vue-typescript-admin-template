@@ -1,3 +1,88 @@
+<template>
+    <main class="login">
+        <header class="header">
+            <img class="logo" src="@/assets/image/logo.png" alt="青橄榄" />
+        </header>
+        <section class="content">
+            <div class="content-form">
+                <div class="rectangle"><img src="@/assets/image/rectangle.png" /></div>
+                <el-form ref="form" class="login-form" :model="form">
+                    <div class="login-form-title">登录</div>
+                    <el-form-item label="企业账号">
+                        <el-input v-model="form.system" placeholder="请输入企业账号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="个人账号">
+                        <el-input v-model="form.name" placeholder="请输入个人账号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="账号密码">
+                        <el-input v-model="form.password" placeholder="请输入账号密码"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" class="login-button" round @click="onSubmit">立即登录</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </section>
+        <footer class="login-footer">
+            <div class="copyright">
+                <p>杭州青橄榄网络技术有限公司</p>
+                <p>Tel：0571-87208806</p>
+                <p>Add：杭州市 西湖区 西湖国际科技大厦 D楼 中座 617</p>
+                <p>Copyright © 2015-2016 Golive All Rights Reserved 浙ICP备14020207号-4</p>
+            </div>
+            <div>
+                <img src="@/assets/image/code.png" class="qrcode" />
+                <p>青橄榄网络</p>
+            </div>
+        </footer>
+    </main>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { Attr, Rules, LoginForm } from '@/types/login';
+
+@Component
+export default class Login extends Vue {
+    private form: LoginForm = {
+        system: '',
+        name: '',
+        password: '',
+    };
+
+    // 登录
+    private onSubmit() {
+        this.validater(this.form, {
+            system: [{ message: '请输入企业账号' }],
+            name: [{ message: '请输入个人账号' }],
+            password: [{ message: '请输入账号密码' }],
+        });
+    }
+
+    // 数据为空校验
+    private validater(data: LoginForm, rules: Rules): boolean {
+        let ret = false;
+        for (const key in rules) {
+            const rule: Attr[] = rules[key];
+
+            for (let i = 0; i < rule.length; i++) {
+                if (!data[key].length) {
+                    const type = rule[i].type ? rule[i].type : 'error';
+                    this.$message({
+                        type: type,
+                        message: rule[i].message,
+                    });
+                    ret = true;
+                    break;
+                }
+            }
+            if (ret) break;
+        }
+        return ret;
+    }
+}
+</script>
+
 <style lang="less" scoped>
 .login {
     height: 100%;
@@ -107,88 +192,3 @@
     }
 }
 </style>
-
-<template>
-    <main class="login">
-        <header class="header">
-            <img class="logo" src="@/assets/image/logo.png" alt="青橄榄" />
-        </header>
-        <section class="content">
-            <div class="content-form">
-                <div class="rectangle"><img src="@/assets/image/rectangle.png" /></div>
-                <el-form ref="form" class="login-form" :model="form">
-                    <div class="login-form-title">登录</div>
-                    <el-form-item label="企业账号">
-                        <el-input v-model="form.system" placeholder="请输入企业账号"></el-input>
-                    </el-form-item>
-                    <el-form-item label="个人账号">
-                        <el-input v-model="form.name" placeholder="请输入个人账号"></el-input>
-                    </el-form-item>
-                    <el-form-item label="账号密码">
-                        <el-input v-model="form.password" placeholder="请输入账号密码"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" class="login-button" round @click="onSubmit">立即登录</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-        </section>
-        <footer class="login-footer">
-            <div class="copyright">
-                <p>杭州青橄榄网络技术有限公司</p>
-                <p>Tel：0571-87208806</p>
-                <p>Add：杭州市 西湖区 西湖国际科技大厦 D楼 中座 617</p>
-                <p>Copyright © 2015-2016 Golive All Rights Reserved 浙ICP备14020207号-4</p>
-            </div>
-            <div>
-                <img src="@/assets/image/code.png" class="qrcode" />
-                <p>青橄榄网络</p>
-            </div>
-        </footer>
-    </main>
-</template>
-
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { Attr, Rules, LoginForm } from '@/types/login';
-
-@Component
-export default class Login extends Vue {
-    private form: LoginForm = {
-        system: '',
-        name: '',
-        password: '',
-    };
-
-    // 登录
-    private onSubmit() {
-        this.validater(this.form, {
-            system: [{ message: '请输入企业账号' }],
-            name: [{ message: '请输入个人账号' }],
-            password: [{ message: '请输入账号密码' }],
-        });
-    }
-
-    // 数据为空校验
-    private validater(data: LoginForm, rules: Rules): boolean {
-        let ret = false;
-        for (const key in rules) {
-            const rule: Attr[] = rules[key];
-
-            for (let i = 0; i < rule.length; i++) {
-                if (!data[key].length) {
-                    const type = rule[i].type ? rule[i].type : 'error';
-                    this.$message({
-                        type: type,
-                        message: rule[i].message,
-                    });
-                    ret = true;
-                    break;
-                }
-            }
-            if (ret) break;
-        }
-        return ret;
-    }
-}
-</script>
