@@ -1,23 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
+import { UserState } from './modules/user';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-    state: {
-        userInfo: null,
-        token: '',
-    },
-    mutations: {},
-    actions: {},
-    modules: {},
+interface RootState {
+    user: UserState;
+}
+export default new Vuex.Store<RootState>({
     plugins: [
         createPersistedState({
             storage: window.sessionStorage,
             reducer(val) {
+                console.log(val, 'ddd');
                 return {
-                    userInfo: val.userInfo,
+                    token: val.user.token,
+                    name: val.user.name,
                 };
             },
         }),

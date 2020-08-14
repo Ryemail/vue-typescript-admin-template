@@ -9,4 +9,8 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 export default class Header extends Vue {}
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.ry-header {
+    height: 60px;
+}
+</style>

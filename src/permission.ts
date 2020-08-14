@@ -12,7 +12,6 @@ const whiteList = ['/login']; // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
     // start progress bar
     NProgress.start();
-
     // determine whether the user has logged in
     const hasToken = getToken();
 
@@ -33,6 +32,7 @@ router.beforeEach(async (to, from, next) => {
                     // const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
 
                     // router.addRoutes(accessRoutes);
+                    console.log(to, 'to');
 
                     next({ replace: true });
                 } catch (error) {

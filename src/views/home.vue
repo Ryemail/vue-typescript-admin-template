@@ -5,17 +5,15 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { util } from '@/utils';
+import { storeUser } from '@/store/modules/user';
 
 @Component
 export default class Home extends Vue {
     created() {
         console.log(util.format('yyyy-MM-dd'));
+        storeUser['setName']('阮垚');
     }
 }
 </script>
 
-<style lang="less" scoped>
-img {
-    width: 200px;
-}
-</style>
+<style lang="less" scoped></style>

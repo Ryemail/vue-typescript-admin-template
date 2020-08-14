@@ -1,12 +1,13 @@
 <template>
-    <section class="ry-layout">
+    <section class="ry-container">
         <ry-header />
 
-        <router-view />
+        <main class="ry-main">
+            <ry-aside />
+            <router-view class="ry-main-view" />
+        </main>
 
         <ry-footer />
-
-        <ry-aside />
     </section>
 </template>
 
@@ -18,4 +19,17 @@ import { ryFooter, ryHeader, ryAside } from './component';
 export default class Layout extends Vue {}
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.ry-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    .ry-main {
+        display: flex;
+        flex: 1;
+    }
+    .ry-main-view {
+        flex: 1;
+    }
+}
+</style>
