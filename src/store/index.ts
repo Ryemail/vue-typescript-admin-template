@@ -2,11 +2,13 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import { UserState } from './modules/user';
+import { AppState } from './modules/app';
 
 Vue.use(Vuex);
 
 interface RootState {
     user: UserState;
+    app: AppState;
 }
 export default new Vuex.Store<RootState>({
     plugins: [

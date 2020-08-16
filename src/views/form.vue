@@ -1,12 +1,12 @@
+<style lang="less"></style>
+
 <template>
-    <section class="detail">detail</section>
+    <div class="form">form</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Detail extends Vue {}
+export default class Form extends Vue {}
 </script>
-
-<style lang="less"></style>

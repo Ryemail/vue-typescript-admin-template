@@ -3,11 +3,13 @@ import store from './store';
 import { Message } from 'element-ui';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css'; // progress bar style
-import { getToken } from '@/utils/auth'; // get token from cookie
+import { getToken, setToken } from '@/utils/auth'; // get token from cookie
 
 NProgress.configure({ showSpinner: false });
 
 const whiteList = ['/login']; // no redirect whitelist
+
+setToken('12345');
 
 router.beforeEach(async (to, from, next) => {
     // start progress bar
@@ -32,7 +34,6 @@ router.beforeEach(async (to, from, next) => {
                     // const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
 
                     // router.addRoutes(accessRoutes);
-                    console.log(to, 'to');
 
                     next({ replace: true });
                 } catch (error) {

@@ -17,4 +17,7 @@ export default class App extends Vue {}
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
 }
+#nprogress .bar {
+    background: #61c5c1 !important;
+}
 </style>

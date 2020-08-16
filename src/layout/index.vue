@@ -1,13 +1,15 @@
 <template>
-    <section class="ry-container">
-        <ry-aside />
+    <section class="ry-container" :class="{ 'container-open-active': sidebar.opened }">
+        <ry-aside :show-logo="settings.logo" />
 
         <main class="ry-main">
             <ry-header />
 
-            <router-view class="ry-main-view"></router-view>
+            <transition name="fade-transform" mode="out-in">
+                <router-view :key="key" class="ry-main-view" />
+            </transition>
 
-            <ry-footer />
+            <ry-footer v-if="settings.footer" />
         </main>
     </section>
 </template>
@@ -15,6 +17,8 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { ryFooter, ryHeader, ryAside } from './component';
+import settings from '@/settings';
+import { storeApp } from '@/store/modules/app';
 
 @Component({
     components: {
@@ -23,21 +27,44 @@ import { ryFooter, ryHeader, ryAside } from './component';
         ryAside,
     },
 })
-export default class Layout extends Vue {}
+export default class Layout extends Vue {
+    get key() {
+        return this.$route.path;
+    }
+    get settings() {
+        return settings;
+    }
+    get sidebar() {
+        return storeApp.sidebar;
+    }
+}
 </script>
 
 <style lang="less">
 .ry-container {
-    display: flex;
     height: 100vh;
-    overflow: hidden;
+    width: 100%;
+    position: relative;
+
     .ry-main {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
+        margin-left: 200px;
+        position: relative;
+        min-height: 100%;
     }
     .ry-main-view {
-        flex: 1;
+        padding: 80px 20px 0;
+    }
+
+    &.container-open-active {
+        .ry-main {
+            margin-left: 56px;
+        }
+        .ry-aside {
+            width: 56px;
+        }
+        .ry-header {
+            width: calc(100% - 56px);
+        }
     }
 }
 </style>

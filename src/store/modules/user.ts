@@ -13,6 +13,24 @@ class User extends VuexModule implements UserState {
 
     public name = '';
 
+    public routes = [
+        {
+            name: 'table',
+            path: '/table',
+            icon: '',
+            children: [
+                { name: 'table1', path: 'table1', icon: '' },
+                { name: 'table2', path: 'table2', icon: '' },
+            ],
+        },
+        {
+            name: 'tree',
+            path: 'tree',
+            icon: '',
+        },
+        { name: 'form', path: 'form', icon: '' },
+    ];
+
     @Mutation
     private setToken(token: string) {
         this.token = token;

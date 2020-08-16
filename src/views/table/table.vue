@@ -1,5 +1,7 @@
 <template>
-    <section class="table"></section>
+    <section class="table">
+        <router-link to="/detail">details</router-link>
+    </section>
 </template>
 
 <script lang="ts">
