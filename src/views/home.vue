@@ -1,12 +1,12 @@
 <template>
-    <section class="tree">home</section>
+    <section class="home">home</section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Tree extends Vue {
+export default class Home extends Vue {
     created() {
         //
     }

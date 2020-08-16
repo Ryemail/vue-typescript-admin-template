@@ -15,8 +15,13 @@ class User extends VuexModule implements UserState {
 
     public routes = [
         {
+            name: '首页',
+            path: 'home',
+            icon: '',
+        },
+        {
             name: 'table',
-            path: '/table',
+            path: 'table',
             icon: '',
             children: [
                 { name: 'table1', path: 'table1', icon: '' },

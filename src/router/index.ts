@@ -13,6 +13,18 @@ VueRouter.prototype.push = function push(location: Location) {
 
 const routes: Array<RouteConfig> = [
     {
+        path: '/',
+        name: 'home',
+        component: Layout,
+        meta: { active: 'home' },
+        children: [
+            {
+                path: 'index',
+                component: () => import('../views/home.vue'),
+            },
+        ],
+    },
+    {
         path: '/form',
         name: 'form',
         component: Layout,
@@ -25,6 +37,7 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
+
     {
         path: '/tree',
         name: 'tree',

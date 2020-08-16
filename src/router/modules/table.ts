@@ -1,7 +1,7 @@
 import Layout from '@/layout/index.vue';
 
 export default {
-    path: '/',
+    path: '/table',
     component: Layout,
     redirect: '/table1',
     name: 'table',
