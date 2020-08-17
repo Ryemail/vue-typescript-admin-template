@@ -12,14 +12,15 @@ VueRouter.prototype.push = function push(location: Location) {
 };
 
 const routes: Array<RouteConfig> = [
+    tableRoutes,
     {
         path: '/',
-        name: 'home',
+        redirect: '/home',
         component: Layout,
-        meta: { active: 'home' },
         children: [
             {
-                path: 'index',
+                path: 'home',
+                name: 'home',
                 component: () => import('../views/home.vue'),
             },
         ],
@@ -28,12 +29,11 @@ const routes: Array<RouteConfig> = [
         path: '/form',
         name: 'form',
         component: Layout,
-        meta: { active: 'form' },
+        meta: {},
         children: [
             {
                 path: 'index',
                 component: () => import('../views/form.vue'),
-                meta: {},
             },
         ],
     },
@@ -41,7 +41,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/tree',
         name: 'tree',
-        meta: { active: 'tree' },
+        meta: {},
         component: Layout,
         children: [
             {
@@ -50,33 +50,7 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
-    // tableRoutes,
-    {
-        path: '/',
-        component: Layout,
-        name: 'table',
-        meta: { title: 'table', icon: 'el-icon-s-help' },
-        children: [
-            {
-                path: 'table1',
-                name: 'table1',
-                component: () => import('@/views/table/table.vue'),
-                meta: { active: 'table1' },
-            },
-            {
-                path: 'table2',
-                name: 'table2',
-                component: () => import('@/views/table/table2.vue'),
-                meta: { active: 'table2' },
-            },
-            {
-                path: 'detail',
-                name: 'detail',
-                component: () => import('@/views/table/detail.vue'),
-                meta: { active: 'table1' },
-            },
-        ],
-    },
+
     {
         path: 'login',
         name: 'login',

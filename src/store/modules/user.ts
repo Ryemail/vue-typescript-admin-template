@@ -15,25 +15,28 @@ class User extends VuexModule implements UserState {
 
     public routes = [
         {
-            name: '首页',
-            path: 'home',
+            path: '/home',
+            name: 'home',
+            title: '首页',
             icon: '',
         },
         {
+            path: '/table',
             name: 'table',
-            path: 'table',
+            title: 'table',
             icon: '',
             children: [
-                { name: 'table1', path: 'table1', icon: '' },
-                { name: 'table2', path: 'table2', icon: '' },
+                { path: '/table/table1', name: 'table1', title: 'table1', icon: '' },
+                { path: '/table/table2', name: 'table2', title: 'table2', icon: '' },
             ],
         },
         {
+            path: '/tree',
             name: 'tree',
-            path: 'tree',
+            title: 'Tree',
             icon: '',
         },
-        { name: 'form', path: 'form', icon: '' },
+        { path: '/form', name: 'form', title: 'form', icon: '' },
     ];
 
     @Mutation

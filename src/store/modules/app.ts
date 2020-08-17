@@ -19,7 +19,6 @@ class App extends VuexModule implements AppState {
 
     @Mutation
     private toggleSideBar() {
-        console.log(this.sidebar.opened);
         this.sidebar.opened = !this.sidebar.opened;
         if (this.sidebar.opened) {
             Cookies.set('sidebarStatus', '1');

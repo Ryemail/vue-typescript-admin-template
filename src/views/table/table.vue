@@ -1,6 +1,6 @@
 <template>
     <section class="table">
-        <router-link to="/detail">details</router-link>
+        <router-link to="/table/detail">details</router-link>
     </section>
 </template>
 

@@ -3,7 +3,7 @@
         <ry-logo v-if="showLogo" :collapse="isCollapse" />
         <el-menu
             :class="{ 'logo-container': showLogo }"
-            :default-active="$route.meta.active"
+            :default-active="$route.name"
             background-color="#3E3E69"
             text-color="#C3C3DB"
             :collapse="isCollapse"
@@ -37,12 +37,7 @@ export default class Aside extends Vue {
     }
     @Watch('$route')
     onRoute() {
-        console.log(this.$route, this.$route.meta.active);
-    }
-
-    setActive() {
-        console.log(this.$route.meta.active, '2345');
-        return this.$route.meta.active;
+        console.log(this.$route);
     }
 }
 </script>
@@ -85,6 +80,9 @@ export default class Aside extends Vue {
         height: 100%;
         /deep/ .el-scrollbar__wrap {
             overflow-x: hidden;
+        }
+        /deep/ .is-horizontal {
+            display: none;
         }
     }
 }
