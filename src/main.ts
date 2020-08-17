@@ -10,6 +10,8 @@ import store from './store';
 
 import './permission';
 
+import '@/components';
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);

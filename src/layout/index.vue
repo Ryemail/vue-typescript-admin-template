@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { ryFooter, ryHeader, ryAside } from './component';
 import settings from '@/settings';
 import { storeApp } from '@/store/modules/app';
