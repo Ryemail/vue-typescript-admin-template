@@ -54,11 +54,22 @@ export default class Aside extends Vue {
     left: 0;
     z-index: 1001;
     transition: width 0.28s;
-    .el-menu {
+    /deep/ .el-menu {
         height: 100%;
         width: 100% !important;
         &.logo-container {
             height: calc(100% - 60px);
+        }
+        &.el-menu--collapse {
+            .el-submenu__title {
+                padding: 0 !important;
+            }
+            .sub-icon {
+                margin: 0 16px !important;
+            }
+            .el-tooltip {
+                padding: 0 !important;
+            }
         }
     }
     /deep/ .el-submenu {
