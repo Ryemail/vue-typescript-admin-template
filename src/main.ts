@@ -12,6 +12,8 @@ import './permission';
 
 import '@/components';
 
+import '../mock';
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);

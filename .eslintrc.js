@@ -16,6 +16,7 @@ module.exports = {
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        camelcase: [2, { properties: 'never' }], //强制驼峰命名规则
     },
     overrides: [
         {

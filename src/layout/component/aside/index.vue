@@ -63,6 +63,9 @@ export default class Aside extends Vue {
             .sub-icon {
                 margin: 0 16px !important;
             }
+            .el-submenu__icon-arrow {
+                display: none;
+            }
             .el-tooltip {
                 padding: 0 !important;
             }
