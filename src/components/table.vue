@@ -7,6 +7,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-@Component({ name: 'RyTable' })
-export default class extends Vue {}
+@Component
+export default class RyTable extends Vue {}
 </script>

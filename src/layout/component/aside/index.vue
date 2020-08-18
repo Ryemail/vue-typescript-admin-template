@@ -35,10 +35,6 @@ export default class Aside extends Vue {
     get isCollapse() {
         return storeApp.sidebar.opened;
     }
-    @Watch('$route')
-    onRoute() {
-        console.log(this.$route);
-    }
 }
 </script>
 
