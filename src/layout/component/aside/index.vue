@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { storeUser } from '@/store/modules/user';
 import { storeApp } from '@/store/modules/app';
 import RyAsideItem from './aside-item.vue';
