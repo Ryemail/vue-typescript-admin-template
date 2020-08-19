@@ -5,13 +5,25 @@
         <el-table
             :data="data"
             style="width: 100%"
+            ref="table"
             @selection-change="selectionChange"
             border
             header-row-class-name="table-header"
             :header-cell-style="{ background: '#ebebf3', color: '#333', fontSize: '14px' }"
         >
             <template v-for="(item, key) in props.column">
-                <slot v-if="item.type === 'slot'" :name="item.prop"></slot>
+                <el-table-column
+                    v-if="!item.slot"
+                    :key="key"
+                    :prop="item.prop"
+                    :type="item.type"
+                    :label="item.label"
+                    :width="item.width"
+                    :align="item.align"
+                    :fixed="item.fixed"
+                    :show-overflow-tooltip="item.showOverflowTooltip"
+                    :min-width="item.minWidth"
+                />
                 <el-table-column
                     v-else
                     :key="key"
@@ -24,6 +36,9 @@
                     :show-overflow-tooltip="item.showOverflowTooltip"
                     :min-width="item.minWidth"
                 >
+                    <template slot-scope="{ row, $index }">
+                        <slot v-if="item.slot" :name="item.slot" :row="row" :index="$index" />
+                    </template>
                 </el-table-column>
             </template>
         </el-table>
@@ -66,6 +81,9 @@ export default class RyTable extends Vue {
 
     created() {
         this.fetchTableList();
+    }
+    mounted() {
+        console.log(this.$refs.table);
     }
 
     async fetchTableList() {
