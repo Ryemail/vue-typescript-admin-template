@@ -1,4 +1,4 @@
-export declare namespace Home {
+export declare namespace _Home {
     interface User {
         token: string;
     }

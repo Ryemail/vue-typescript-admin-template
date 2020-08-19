@@ -1,6 +1,6 @@
-/* eslint-disable */
+// @ts-nocheck
 
-const Mock = require('mockjs');
+import Mock from 'mockjs';
 
 const List = [];
 const count = 100;
@@ -53,10 +53,11 @@ export default [
             const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1));
 
             return {
-                code: 20000,
+                code: 200,
                 data: {
                     total: mockList.length,
-                    items: pageList,
+                    data: pageList,
+                    message: '请求成功',
                 },
             };
         },
