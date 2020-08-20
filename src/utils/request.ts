@@ -43,6 +43,7 @@ const removePending = (config: AxiosRequestConfig) => {
 
 request.interceptors.request.use(
     config => {
+        console.log(config);
         removePending(config);
 
         config.cancelToken = new CancelToken(c => {
@@ -54,6 +55,7 @@ request.interceptors.request.use(
                 cancel: c,
             });
         });
+        console.log(pending);
         return config;
     },
     err => {

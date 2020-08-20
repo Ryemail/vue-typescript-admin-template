@@ -4,8 +4,8 @@
     <div class="rt-table">
         <el-table
             :data="data"
+            v-loading="loading"
             style="width: 100%"
-            ref="table"
             @selection-change="selectionChange"
             border
             header-row-class-name="table-header"
@@ -44,8 +44,8 @@
         </el-table>
         <el-pagination
             hide-on-single-page
-            @size-change="reload"
-            @current-change="reload"
+            @size-change="pageChange"
+            @current-change="pageChange"
             :current-page="page"
             :total="total"
             layout="total, prev, pager, next, jumper"
@@ -79,11 +79,10 @@ export default class RyTable extends Vue {
 
     page = this.props.page || 1;
 
+    loading = true;
+
     created() {
         this.fetchTableList();
-    }
-    mounted() {
-        console.log(this.$refs.table);
     }
 
     async fetchTableList() {
@@ -98,6 +97,7 @@ export default class RyTable extends Vue {
             this.total = data.total;
             this.$emit('onData', data);
         }
+        this.loading = false;
     }
 
     // 全选
@@ -106,9 +106,14 @@ export default class RyTable extends Vue {
     }
 
     // 分页
-    private reload(page?: number) {
+    private pageChange(page?: number) {
+        this.loading = true;
         this.page = page ? page : 1;
         this.fetchTableList();
+    }
+
+    private reload() {
+        this.pageChange(1);
     }
 }
 </script>

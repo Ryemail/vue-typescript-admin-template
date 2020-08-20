@@ -1,6 +1,7 @@
 <template>
     <section class="table">
-        <ry-table :props="table">
+        <el-button type="primary" @click="reload">刷新</el-button>
+        <ry-table :props="table" ref="table">
             <template #photo="{ row }">
                 <el-image style="height: 100px" :src="row.image_uri" :preview-src-list="[row.image_uri]" />
             </template>
@@ -23,6 +24,11 @@ export default class Table extends Vue {
             { slot: 'photo', prop: 'image_uri', label: '头像' },
         ],
     };
+    reload() {
+        const ref = this.$refs.table as any;
+        console.log(this.$refs.table);
+        ref.reload();
+    }
 }
 </script>
 
