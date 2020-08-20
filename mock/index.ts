@@ -1,5 +1,4 @@
-// @ts-nocheck
-
+//@ts-nocheck
 import Mock from 'mockjs';
 import table from './table';
 import { param2Obj } from './utils';
