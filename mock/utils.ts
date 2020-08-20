@@ -1,5 +1,4 @@
-//@ts-nocheck
-
+// @ts-nocheck
 /**
  * @param {string} url
  * @returns {Object}

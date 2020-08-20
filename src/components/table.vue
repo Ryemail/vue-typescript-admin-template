@@ -1,7 +1,13 @@
-<style lang="less"></style>
+<style lang="less">
+.ry-table {
+    .el-pagination {
+        margin-top: 10px;
+    }
+}
+</style>
 
 <template>
-    <div class="rt-table">
+    <div class="ry-table">
         <el-table
             :data="data"
             v-loading="loading"

@@ -3,7 +3,7 @@
         <ry-logo v-if="showLogo" :collapse="isCollapse" />
         <el-menu
             :class="{ 'logo-container': showLogo }"
-            :default-active="$route.name"
+            :default-active="$route.meta.name || $route.name"
             background-color="#3E3E69"
             text-color="#C3C3DB"
             :collapse="isCollapse"
@@ -34,6 +34,10 @@ export default class Aside extends Vue {
 
     get isCollapse() {
         return storeApp.sidebar.opened;
+    }
+
+    created() {
+        console.log(this.$route.meta.name);
     }
 }
 </script>

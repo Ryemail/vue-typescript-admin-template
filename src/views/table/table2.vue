@@ -3,7 +3,10 @@
         <el-button type="primary" @click="reload">刷新</el-button>
         <ry-table :props="table" ref="table">
             <template #photo="{ row }">
-                <el-image style="height: 100px" :src="row.image_uri" :preview-src-list="[row.image_uri]" />
+                <el-image style="height: 40px;width:40px" :src="row.image_uri" :preview-src-list="[row.image_uri]" />
+            </template>
+            <template #content="{ row }">
+                <div v-html="row.content"></div>
             </template>
         </ry-table>
     </section>
@@ -19,8 +22,9 @@ export default class Table extends Vue {
         url: '/vue-element-admin/article/list',
         column: [
             { prop: 'author', label: '作者' },
-            { prop: 'content', label: '发布内容' },
-            { prop: 'title', label: '标题' },
+            { prop: 'type', label: '类型' },
+            // { slot: 'content', prop: 'content', label: '发布内容', showOverflowTooltip: true },
+            { prop: 'title', label: '标题', showOverflowTooltip: true },
             { slot: 'photo', prop: 'image_uri', label: '头像' },
         ],
     };

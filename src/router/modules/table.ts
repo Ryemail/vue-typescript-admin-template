@@ -13,8 +13,9 @@ export default {
         },
         {
             path: 'detail',
-            name: 'table1',
+            name: 'detail',
             component: () => import('@/views/table/detail.vue'),
+            meta: { name: 'table1' },
         },
         {
             path: 'table2',
