@@ -1,5 +1,5 @@
 <template>
-    <footer class="ry-footer">footer</footer>
+    <footer class="dom-footer">footer</footer>
 </template>
 
 <script lang="ts">
@@ -10,7 +10,7 @@ export default class Footer extends Vue {}
 </script>
 
 <style lang="less">
-.ry-footer {
+.dom-footer {
     text-align: center;
     height: 60px;
     line-height: 60px;

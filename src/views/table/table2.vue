@@ -1,24 +1,24 @@
 <template>
     <section class="table">
         <el-button type="primary" @click="reload">刷新</el-button>
-        <ry-table :props="table" ref="table">
+        <dom-table ref="table" :props="table">
             <template #photo="{ row }">
                 <el-image style="height: 40px;width:40px" :src="row.image_uri" :preview-src-list="[row.image_uri]" />
             </template>
             <template #content="{ row }">
                 <div v-html="row.content"></div>
             </template>
-        </ry-table>
+        </dom-table>
     </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { _Components } from '@/types';
+import { DomTable } from '@/types/components/table';
 
 @Component
 export default class Table extends Vue {
-    table: _Components.TableProps = {
+    table: DomTable.Props = {
         url: '/vue-element-admin/article/list',
         column: [
             { prop: 'author', label: '作者' },

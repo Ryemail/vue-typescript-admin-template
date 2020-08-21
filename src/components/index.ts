@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import RyTable from './table.vue';
+import DomTable from './table.vue';
 
-const components = [RyTable];
+const components = [DomTable];
 
 components.forEach(component => {
     Vue.component(component.name, component);

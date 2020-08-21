@@ -1,5 +1,5 @@
 <style lang="less">
-.ry-table {
+.dom-table {
     .el-pagination {
         margin-top: 10px;
     }
@@ -7,7 +7,7 @@
 </style>
 
 <template>
-    <div class="ry-table">
+    <div class="dom-table">
         <el-table
             :data="data"
             v-loading="loading"
@@ -52,7 +52,7 @@
             hide-on-single-page
             @size-change="pageChange"
             @current-change="pageChange"
-            :current-page="page"
+            :current-page="form.page"
             :total="total"
             layout="total, prev, pager, next, jumper"
         >
@@ -63,27 +63,31 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { fetchTableList } from '@/api/global';
-import { _Components } from '@/types';
+import { DomTable as Table } from '@/types/components/table';
 
 @Component
-export default class RyTable extends Vue {
+export default class DomTable extends Vue {
     @Prop({
         type: Object,
         default: () => ({
             url: '',
             column: [],
-            pagesize: [10],
         }),
     })
-    props!: _Components.TableProps;
+    props!: Table.Props;
+
+    @Prop({ type: Number, default: 10 }) limit!: number;
+
+    @Prop({ type: Number, default: 1 }) page!: number;
 
     data = [];
 
     total = 0;
 
-    limit = this.props.limit || 10;
-
-    page = this.props.page || 1;
+    form = {
+        limit: this.limit,
+        page: this.page,
+    };
 
     loading = true;
 
@@ -92,9 +96,7 @@ export default class RyTable extends Vue {
     }
 
     async fetchTableList() {
-        const query = { page: this.page, limit: this.limit };
-
-        const { data, code } = await fetchTableList(this.props.url, query);
+        const { data, code } = await fetchTableList(this.props.url, { ...this.form });
 
         console.log(data);
 
@@ -114,10 +116,11 @@ export default class RyTable extends Vue {
     // 分页
     private pageChange(page?: number) {
         this.loading = true;
-        this.page = page ? page : 1;
+        this.form.page = page ? page : 1;
         this.fetchTableList();
     }
 
+    // 刷新
     private reload() {
         this.pageChange(1);
     }

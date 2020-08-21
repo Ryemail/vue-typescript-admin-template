@@ -1,7 +1,7 @@
 <template>
-    <header class="ry-header">
+    <header class="dom-header">
         <ry-hamburger :is-active="sidebar.opened" class="hamburger-container " @toggleClick="toggleSideBar" />
-        <el-dropdown trigger="click" class="ry-header-left">
+        <el-dropdown trigger="click" class="dom-header-left">
             <span class="el-dropdown-link"> 阮书垚<i class="el-icon-caret-bottom el-icon--right"></i> </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="clearfix">
@@ -31,7 +31,7 @@ export default class Header extends Vue {
 </script>
 
 <style lang="less">
-.ry-header {
+.dom-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,7 +47,7 @@ export default class Header extends Vue {
     .el-dropdown-link {
         cursor: pointer;
     }
-    .ry-header-left {
+    .dom-header-left {
         padding: 0 16px;
     }
 

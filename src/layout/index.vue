@@ -1,30 +1,30 @@
 <template>
-    <section class="ry-container" :class="{ 'container-open-active': sidebar.opened }">
-        <ry-aside :show-logo="settings.logo" />
+    <section class="dom-container" :class="{ 'container-open-active': sidebar.opened }">
+        <dom-aside :show-logo="settings.logo" />
 
-        <main class="ry-main">
-            <ry-header />
+        <main class="dom-main">
+            <dom-header />
 
             <transition name="fade-transform" mode="out-in">
-                <router-view :key="key" class="ry-main-view" />
+                <router-view :key="key" class="dom-main-view" />
             </transition>
 
-            <ry-footer v-if="settings.footer" />
+            <dom-footer v-if="settings.footer" />
         </main>
     </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { ryFooter, ryHeader, ryAside } from './component';
+import { DomFooter, DomHeader, DomAside } from './component';
 import settings from '@/settings';
 import { storeApp } from '@/store/modules/app';
 
 @Component({
     components: {
-        ryFooter,
-        ryHeader,
-        ryAside,
+        DomFooter,
+        DomHeader,
+        DomAside,
     },
 })
 export default class Layout extends Vue {
@@ -41,28 +41,28 @@ export default class Layout extends Vue {
 </script>
 
 <style lang="less">
-.ry-container {
+.dom-container {
     height: 100vh;
     width: 100%;
     position: relative;
 
-    .ry-main {
+    .dom-main {
         margin-left: 200px;
         position: relative;
         min-height: 100%;
     }
-    .ry-main-view {
+    .dom-main-view {
         padding: 80px 20px 20px;
     }
 
     &.container-open-active {
-        .ry-main {
+        .dom-main {
             margin-left: 56px;
         }
-        .ry-aside {
+        .dom-aside {
             width: 56px;
         }
-        .ry-header {
+        .dom-header {
             width: calc(100% - 56px);
         }
     }

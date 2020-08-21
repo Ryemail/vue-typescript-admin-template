@@ -1,5 +1,5 @@
 <template>
-    <div class="ry-aside">
+    <div class="dom-aside">
         <ry-logo v-if="showLogo" :collapse="isCollapse" />
         <el-menu
             :class="{ 'logo-container': showLogo }"
@@ -10,8 +10,8 @@
             :collapse-transition="false"
             router
         >
-            <el-scrollbar class="ry-aside-scroll">
-                <ry-aside-item v-for="route in routes" :key="route.path" :item="route" />
+            <el-scrollbar class="dom-aside-scroll">
+                <dom-aside-item v-for="route in routes" :key="route.path" :item="route" />
             </el-scrollbar>
         </el-menu>
     </div>
@@ -21,10 +21,10 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { storeUser } from '@/store/modules/user';
 import { storeApp } from '@/store/modules/app';
-import RyAsideItem from './aside-item.vue';
+import DomAsideItem from './aside-item.vue';
 import RyLogo from './logo.vue';
 
-@Component({ components: { RyAsideItem, RyLogo } })
+@Component({ components: { DomAsideItem, RyLogo } })
 export default class Aside extends Vue {
     @Prop({ type: Boolean, default: true }) showLogo!: boolean;
 
@@ -43,7 +43,7 @@ export default class Aside extends Vue {
 </script>
 
 <style lang="less" scoped>
-.ry-aside {
+.dom-aside {
     width: 200px;
     height: 100%;
     overflow: hidden;
@@ -90,7 +90,7 @@ export default class Aside extends Vue {
     // /deep/ .el-submenu > .el-submenu__title {
     //     padding: 0 !important;
     // }
-    .ry-aside-scroll {
+    .dom-aside-scroll {
         height: 100%;
         /deep/ .el-scrollbar__wrap {
             overflow-x: hidden;

@@ -1,8 +1,6 @@
-export declare namespace _Components {
-    interface TableProps {
+export declare namespace DomTable {
+    interface Props {
         url: string;
-        limit?: number;
-        page?: number;
         query?: object;
         column: Column[];
     }

@@ -1,4 +1,4 @@
-export declare namespace _G {
+export declare namespace G {
     interface Limit {
         limit: number;
         page: number;
