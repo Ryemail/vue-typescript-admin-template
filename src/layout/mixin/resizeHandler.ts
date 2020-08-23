@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Vue, Watch, Component } from 'vue-property-decorator';
 import { storeApp } from '@/store/modules/app';
 
@@ -9,7 +8,6 @@ const WIDTH = 992; // refer to Bootstrap's responsive design
 export default class ResizeHandler extends Vue {
     @Watch('$route')
     onRouteChange() {
-        console.log(this, 'device');
         if (this.device === 'mobile' && this.sidebar.opened) {
             storeApp.closeSideBar({ withoutAnimation: false });
         }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import Cookies from 'js-cookie';
 
@@ -15,7 +14,7 @@ export interface AppState {
 @Module({ dynamic: true, store, namespaced: true, name: 'app' })
 class VuexApp extends VuexModule implements AppState {
     sidebar = {
-        opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+        opened: Cookies.get('sidebarStatus') ? !!Number(Cookies.get('sidebarStatus')) : true,
     };
 
     withoutAnimation = false;

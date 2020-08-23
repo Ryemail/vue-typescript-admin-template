@@ -46,7 +46,7 @@ export default class Layout extends Mixins(ResizeHandler) {
 
     get classObj() {
         return {
-            containerActive: this.sidebar.opened,
+            containerActive: !this.sidebar.opened,
             mobile: this.device === 'mobile',
         };
     }
