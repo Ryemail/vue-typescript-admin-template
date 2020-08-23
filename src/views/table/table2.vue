@@ -8,6 +8,10 @@
             <template #content="{ row }">
                 <div v-html="row.content"></div>
             </template>
+            <template #tool="{}">
+                <dom-icon name="el-icon-share" disabled text="详情" />
+                <!-- <el-button type="text" icon="" size="mini" @click="$router.push('/table/detail')"></el-button> -->
+            </template>
         </dom-table>
     </section>
 </template>
@@ -26,6 +30,7 @@ export default class Table extends Vue {
             // { slot: 'content', prop: 'content', label: '发布内容', showOverflowTooltip: true },
             { prop: 'title', label: '标题', showOverflowTooltip: true },
             { slot: 'photo', prop: 'image_uri', label: '头像' },
+            { slot: 'tool', prop: 'status', label: '操作' },
         ],
     };
     reload() {

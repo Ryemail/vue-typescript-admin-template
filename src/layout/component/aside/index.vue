@@ -33,11 +33,7 @@ export default class Aside extends Vue {
     }
 
     get isCollapse() {
-        return storeApp.sidebar.opened;
-    }
-
-    created() {
-        console.log(this.$route.meta.name);
+        return !storeApp.sidebar.opened;
     }
 }
 </script>

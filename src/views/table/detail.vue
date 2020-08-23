@@ -1,5 +1,7 @@
 <template>
-    <section class="detail">detail</section>
+    <section class="detail">
+        <el-page-header @back="$router.back()" content="详情页面"> </el-page-header>
+    </section>
 </template>
 
 <script lang="ts">

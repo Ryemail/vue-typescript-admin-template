@@ -55,7 +55,6 @@ request.interceptors.request.use(
                 cancel: c,
             });
         });
-        console.log(pending);
         return config;
     },
     err => {

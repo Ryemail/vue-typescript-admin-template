@@ -25,7 +25,7 @@ export default class Header extends Vue {
     }
 
     toggleSideBar() {
-        storeApp['toggleSideBar']();
+        storeApp.toggleSideBar();
     }
 }
 </script>
