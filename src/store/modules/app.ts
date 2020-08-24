@@ -35,7 +35,6 @@ class VuexApp extends VuexModule implements AppState {
     CLOSE_SIDEBAR(withoutAnimation: boolean) {
         Cookies.set('sidebarStatus', '0');
         this.sidebar.opened = false;
-        console.log(withoutAnimation, 'sidebarStatus');
         this.withoutAnimation = withoutAnimation;
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <section class="tree">home</section>
+    <section class="tree">tree</section>
 </template>
 
 <script lang="ts">

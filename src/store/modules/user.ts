@@ -31,12 +31,18 @@ class User extends VuexModule implements UserState {
             ],
         },
         {
-            path: '/tree',
+            path: '/tree/index',
             name: 'tree',
             title: 'Tree',
             icon: '',
         },
-        { path: '/form', name: 'form', title: 'form', icon: '' },
+        {
+            path: '/clipboard/index',
+            name: 'clipboard',
+            title: 'ClipboardJS',
+            icon: '',
+        },
+        { path: '/form/index', name: 'form', title: 'form', icon: '' },
     ];
 
     @Mutation

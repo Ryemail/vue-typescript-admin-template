@@ -51,10 +51,6 @@ export default class Layout extends Mixins(ResizeHandler) {
         };
     }
 
-    created() {
-        console.log(this.device, 'device');
-    }
-
     private handleClickOutside() {
         storeApp.closeSideBar({ withoutAnimation: false });
     }

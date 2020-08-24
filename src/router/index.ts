@@ -26,13 +26,25 @@ const routes: Array<RouteConfig> = [
         ],
     },
     {
-        path: '/form',
-        name: 'form',
+        path: '/clipboard',
         component: Layout,
         meta: {},
         children: [
             {
                 path: 'index',
+                name: 'clipboard',
+                component: () => import('../views/clipboard.vue'),
+            },
+        ],
+    },
+    {
+        path: '/form',
+        component: Layout,
+        meta: {},
+        children: [
+            {
+                path: 'index',
+                name: 'form',
                 component: () => import('../views/form.vue'),
             },
         ],
@@ -40,12 +52,12 @@ const routes: Array<RouteConfig> = [
 
     {
         path: '/tree',
-        name: 'tree',
         meta: {},
         component: Layout,
         children: [
             {
                 path: 'index',
+                name: 'tree',
                 component: () => import('../views/tree.vue'),
             },
         ],
