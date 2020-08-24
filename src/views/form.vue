@@ -2,9 +2,11 @@
 
 <template>
     <div class="form">
-        <el-checkbox-group v-model="checkedCities">
-            <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city }}</el-checkbox>
-        </el-checkbox-group>
+        <dom-form ref="form" />
+
+        <dom-dialog :show.sync="show" title="编辑" @confirm="editConfirm">
+            <dom-form ref="form" />
+        </dom-dialog>
     </div>
 </template>
 
@@ -13,7 +15,19 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Form extends Vue {
-    checkedCities = [];
-    cities = ['上海', '北京', '广州', '深圳'];
+    show = false;
+
+    private onSubmit() {
+        console.log('onSubmit');
+    }
+
+    // 编辑确定
+    private editConfirm() {
+        const form = this.$refs['form'] as HTMLFormElement;
+
+        form.onSubmit().then(() => {
+            console.log('fomr');
+        });
+    }
 }
 </script>

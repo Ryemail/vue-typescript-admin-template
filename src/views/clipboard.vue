@@ -29,7 +29,7 @@ export default class extends Vue {
             clipboard.destroy();
         });
 
-        clipboard.on('error', function(e) {
+        clipboard.on('error', function() {
             that.$message.error('复制失败');
             clipboard.destroy();
             // console.error('Trigger:', e.trigger);
