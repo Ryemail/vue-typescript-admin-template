@@ -1,7 +1,13 @@
 <template>
     <section class="dom-clipboard">
-        <el-input id="input" v-model="value" placeholder="请输入内容"></el-input>
-        <el-button class="tag" data-clipboard-target="#input" @click="onClipboard">复制</el-button>
+        <el-row :gutter="10">
+            <el-col :span="10">
+                <el-input id="input" v-model="value" placeholder="请输入内容"></el-input>
+            </el-col>
+            <el-col :span="6">
+                <el-button class="tag" data-clipboard-target="#input" @click="onClipboard">复制</el-button>
+            </el-col>
+        </el-row>
     </section>
 </template>
 
@@ -20,11 +26,13 @@ export default class extends Vue {
         clipboard.on('success', function(e) {
             that.$message.success('复制成功');
             e.clearSelection();
+            clipboard.destroy();
         });
 
         clipboard.on('error', function(e) {
-            that.$message.error('复制成功');
-            console.error('Trigger:', e.trigger);
+            that.$message.error('复制失败');
+            clipboard.destroy();
+            // console.error('Trigger:', e.trigger);
         });
     }
 }
