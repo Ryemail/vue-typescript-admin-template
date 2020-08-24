@@ -5,7 +5,7 @@
         <dom-form ref="form" />
 
         <dom-dialog :show.sync="show" title="编辑" @confirm="editConfirm">
-            <dom-form ref="form" />
+            <dom-form ref="form" :footer="false" />
         </dom-dialog>
     </div>
 </template>
@@ -15,7 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Form extends Vue {
-    show = false;
+    show = true;
 
     private onSubmit() {
         console.log('onSubmit');

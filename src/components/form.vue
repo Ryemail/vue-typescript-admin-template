@@ -51,8 +51,8 @@
                 <el-input type="textarea" v-model="form.desc"></el-input>
             </el-form-item>
         </div>
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-form-item v-if="footer">
+            <el-button type="primary" @click="onSubmit">确定</el-button>
             <el-button>取消</el-button>
         </el-form-item>
     </el-form>
@@ -67,6 +67,10 @@ export default class DomForm extends Vue {
     @Prop({ type: String, default: 'reform' }) reform!: string;
 
     @Prop({ type: Boolean, default: true }) inline!: boolean; // 是否行内表单
+
+    @Prop({ type: Boolean, default: true }) footer!: boolean; // 是否显示footer
+
+    @Prop({ type: Boolean, default: true }) buttonText!: boolean; // 是否自带button
 
     form = {
         name: '',
