@@ -11,7 +11,7 @@
     >
         <div :class="classObj">
             <el-form-item
-                v-for="(item, key) in config"
+                v-for="(item, key) in conf"
                 :key="key"
                 :label="item.label"
                 :prop="item.prop"
@@ -22,12 +22,8 @@
 
                 <!-- select -->
                 <el-select v-if="item.type === 'select'" v-model="form[item.prop]" :placeholder="item.placeholder">
-                    <el-option
-                        v-for="(value, key) in item.option"
-                        :key="key"
-                        label="区域一"
-                        value="shanghai"
-                    ></el-option>
+                    <el-option v-for="(value, key) in item.option" :key="key" :label="value.name" :value="value.id">
+                    </el-option>
                 </el-select>
 
                 <!-- date-picker -->
@@ -52,16 +48,16 @@
 
                 <!-- checkbox -->
                 <el-checkbox-group v-if="item.type === 'checkbox'" v-model="form[item.prop]">
-                    <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                    <el-checkbox label="地推活动" name="type"></el-checkbox>
-                    <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                    <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+                    <el-checkbox v-for="(value, key) in item.option" :key="key" :label="value.id">
+                        {{ value.name }}
+                    </el-checkbox>
                 </el-checkbox-group>
 
                 <!-- radio -->
                 <el-radio-group v-if="item.type === 'radio'" v-model="form[item.prop]">
-                    <el-radio label="线上品牌商赞助"></el-radio>
-                    <el-radio label="线下场地免费"></el-radio>
+                    <el-radio v-for="(value, key) in item.option" :key="key" :label="value.id">
+                        {{ value.name }}
+                    </el-radio>
                 </el-radio-group>
 
                 <!-- textarea -->
@@ -76,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { ElForm } from 'element-ui/types/form';
 import { DomForm as F } from '@/types';
 
@@ -108,6 +104,11 @@ export default class DomForm extends Vue {
         };
     }
 
+    @Watch('config', { deep: true, immediate: true })
+    onChange(value: F.Config[]) {
+        this.conf = value;
+    }
+
     created() {
         this.lazyLoad();
     }
@@ -128,7 +129,7 @@ export default class DomForm extends Vue {
                     });
             }
         });
-        console.log(this.conf, 'config');
+        console.log(this.conf);
     }
 
     // 提交

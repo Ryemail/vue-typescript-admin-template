@@ -8,8 +8,8 @@
             :label-width="0"
             :form="query"
             :rules="queryRules"
-            :inline="false"
             :show-message="true"
+            :inline="false"
             @onSubmit="onSubmit"
         />
 
@@ -31,6 +31,11 @@ export default class Form extends Vue {
         name: '',
         region: '',
         date: '',
+        time: '',
+        checkbox: [],
+        radio: 1,
+        flag: false,
+        desc: '',
     };
 
     queryRules = {
@@ -59,7 +64,43 @@ export default class Form extends Vue {
         {
             type: 'date',
             prop: 'date',
+            placeholder: '请选择日期',
+        },
+        {
+            type: 'time',
+            prop: 'time',
             placeholder: '请选择时间',
+        },
+        {
+            type: 'checkbox',
+            prop: 'checkbox',
+            placeholder: '复选框',
+            lazyLoad(resolve) {
+                resolve([
+                    { id: 1, name: '复选1' },
+                    { id: 2, name: '复选2' },
+                    { id: 3, name: '复选3' },
+                    { id: 4, name: '复选4' },
+                ]);
+            },
+        },
+        {
+            type: 'radio',
+            prop: 'radio',
+            placeholder: '复选框',
+            option: [
+                { id: 1, name: '男' },
+                { id: 2, name: '女' },
+            ],
+        },
+        {
+            type: 'switch',
+            prop: 'switch',
+        },
+        {
+            type: 'textarea',
+            prop: 'desc',
+            placeholder: '请输入文本',
         },
     ];
 

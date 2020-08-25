@@ -20,19 +20,17 @@ export default class extends Vue {
     value = '';
 
     private onClipboard() {
-        const clipboard = new ClipboardJS('.tag'),
-            that = this;
+        const clipboard = new ClipboardJS('.tag');
 
-        clipboard.on('success', function(e) {
-            that.$message.success('复制成功');
+        clipboard.on('success', e => {
+            this.$message.success('复制成功');
             e.clearSelection();
             clipboard.destroy();
         });
 
-        clipboard.on('error', function() {
-            that.$message.error('复制失败');
+        clipboard.on('error', () => {
+            this.$message.success('复制失败');
             clipboard.destroy();
-            // console.error('Trigger:', e.trigger);
         });
     }
 }
