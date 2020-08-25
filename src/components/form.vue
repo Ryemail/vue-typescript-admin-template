@@ -2,53 +2,65 @@
     <el-form
         :ref="reform"
         :model="form"
-        label-width="80px"
+        :label-width="`${labelWidth}px`"
         :inline="inline"
+        :rules="rules"
+        :show-message="showMessage"
+        :hide-required-asterisk="hideRequiredAsterisk"
         :class="[inline ? 'dom-form-inline' : 'dom-form-block']"
     >
         <div :class="classObj">
-            <el-form-item label="活动名称">
-                <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+            <el-form-item
+                v-for="(item, key) in config"
+                :key="key"
+                :label="item.label"
+                :prop="item.prop"
+                :label-width="setLabelWidth(item)"
+            >
+                <!-- input -->
+                <el-input v-if="item.type === 'input'" :placeholder="item.placeholder" v-model="form[item.prop]" />
+
+                <!-- select -->
+                <el-select v-if="item.type === 'select'" v-model="form[item.prop]" :placeholder="item.placeholder">
+                    <el-option v-for="(value, key) in item.option" label="区域一" value="shanghai"></el-option>
                 </el-select>
-            </el-form-item>
-            <el-form-item label="活动时间">
-                <el-col :span="11">
-                    <el-date-picker
-                        type="date"
-                        placeholder="选择日期"
-                        v-model="form.date1"
-                        style="width: 100%;"
-                    ></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                    <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="即时配送">
-                <el-switch v-model="form.delivery"></el-switch>
-            </el-form-item>
-            <el-form-item label="活动性质">
-                <el-checkbox-group v-model="form.type">
+
+                <!-- date-picker -->
+                <el-date-picker
+                    v-if="item.type === 'date'"
+                    type="date"
+                    :placeholder="item.placeholder"
+                    v-model="form[item.prop]"
+                    style="width: 100%;"
+                />
+
+                <!-- time-picker -->
+                <el-time-picker
+                    v-if="item.type === 'time'"
+                    :placeholder="item.placeholder"
+                    v-model="form[item.prop]"
+                    style="width: 100%;"
+                />
+
+                <!-- switch -->
+                <el-switch v-if="item.type === 'switch'" v-model="form[item.prop]"></el-switch>
+
+                <!-- checkbox -->
+                <el-checkbox-group v-if="item.type === 'checkbox'" v-model="form[item.prop]">
                     <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
                     <el-checkbox label="地推活动" name="type"></el-checkbox>
                     <el-checkbox label="线下主题活动" name="type"></el-checkbox>
                     <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
                 </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="特殊资源">
-                <el-radio-group v-model="form.resource">
+
+                <!-- radio -->
+                <el-radio-group v-if="item.type === 'radio'" v-model="form[item.prop]">
                     <el-radio label="线上品牌商赞助"></el-radio>
                     <el-radio label="线下场地免费"></el-radio>
                 </el-radio-group>
-            </el-form-item>
-            <el-form-item label="活动形式">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+
+                <!-- textarea -->
+                <el-input v-if="item.type === 'textarea'" type="textarea" v-model="form[item.prop]"></el-input>
             </el-form-item>
         </div>
         <el-form-item v-if="footer">
@@ -61,6 +73,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { ElForm } from 'element-ui/types/form';
+import { DomForm as F } from '@/types';
 
 @Component
 export default class DomForm extends Vue {
@@ -68,24 +81,49 @@ export default class DomForm extends Vue {
 
     @Prop({ type: Boolean, default: true }) inline!: boolean; // 是否行内表单
 
+    @Prop({ type: Boolean, default: false }) showMessage!: boolean; // 是否显示校验信息
+
+    @Prop({ type: Boolean, default: false }) hideRequiredAsterisk!: boolean; // 是否显示必填星号
+
     @Prop({ type: Boolean, default: true }) footer!: boolean; // 是否显示footer
 
-    @Prop({ type: Boolean, default: true }) buttonText!: boolean; // 是否自带button
+    @Prop({ type: Number, default: 80 }) labelWidth!: boolean; // label 宽度
 
-    form = {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
-    };
+    @Prop({ type: Array, default: () => [] }) config!: F.Config[]; // 配置
+
+    @Prop({ type: Object, default: () => ({}) }) form!: object; // 表单数据
+
+    @Prop({ type: Object, default: () => ({}) }) rules!: object; // 校验规则
+
+    conf = this.config;
+
     get classObj() {
         return {
             'flex-1': this.inline,
         };
+    }
+
+    created() {
+        this.lazyLoad();
+    }
+
+    setLabelWidth(item: F.Config) {
+        const labelWidth = item.labelWidth ? item.labelWidth : this.labelWidth;
+        return `${labelWidth}px`;
+    }
+
+    lazyLoad() {
+        const type = ['select', 'radio', 'checkbox'];
+
+        this.conf.forEach(item => {
+            if (type.includes(item.type)) {
+                item.lazyLoad &&
+                    item.lazyLoad(data => {
+                        item.option = data;
+                    });
+            }
+        });
+        console.log(this.conf, 'config');
     }
 
     // 提交
@@ -94,11 +132,22 @@ export default class DomForm extends Vue {
 
         let flag = false;
 
-        form.validate(valid => (flag = valid));
+        form.validate(valid => {
+            flag = valid;
+            if (flag) this.$emit('onSubmit');
+        });
 
-        if (flag) return Promise.resolve(true);
+        return new Promise((resolve, reject) => {
+            if (flag) resolve(flag);
 
-        return Promise.reject(false);
+            reject(flag);
+        })
+            .then(() => {
+                //
+            })
+            .catch(() => {
+                //
+            });
     }
 }
 </script>
