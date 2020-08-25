@@ -22,7 +22,12 @@
 
                 <!-- select -->
                 <el-select v-if="item.type === 'select'" v-model="form[item.prop]" :placeholder="item.placeholder">
-                    <el-option v-for="(value, key) in item.option" label="区域一" value="shanghai"></el-option>
+                    <el-option
+                        v-for="(value, key) in item.option"
+                        :key="key"
+                        label="区域一"
+                        value="shanghai"
+                    ></el-option>
                 </el-select>
 
                 <!-- date-picker -->
