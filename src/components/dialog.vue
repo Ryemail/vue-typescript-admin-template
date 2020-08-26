@@ -1,6 +1,6 @@
 <style lang="less">
 .dom-dialog-style {
-    max-height: 80%;
+    // max-height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -8,13 +8,10 @@
     .el-dialog__body {
         padding: 0;
         flex: 1;
-        position: relative;
         overflow: hidden;
     }
     .el-scrollbar {
-        position: absolute;
-        top: 0;
-        bottom: 0;
+        height: 100%;
     }
     .el-scrollbar .el-scrollbar__wrap {
         overflow-x: hidden;
@@ -35,10 +32,11 @@
         top="10vh"
         :title="title"
         :visible.sync="visible"
+        :destroy-on-close="false"
         :width="`${width}`"
         @closed="close"
     >
-        <el-scrollbar :style="{ height: height }">
+        <el-scrollbar>
             <div class="dialog-padding"><slot /></div>
         </el-scrollbar>
 
@@ -71,19 +69,6 @@ export default class DomDialog extends Vue {
     @Watch('show')
     onShowChanged(val: boolean) {
         this.visible = val;
-        // val &&
-        //     this.$nextTick(() => {
-        //         const bodyHeight = document.body.clientHeight || document.documentElement.clientHeight;
-
-        //         const dialog = this.$refs.dialog as ElDialog,
-        //             el = dialog.$el.firstChild as Element;
-
-        //         const first = el.firstChild as Element,
-        //             last = el.lastChild as Element;
-        //         this.height = `${el.clientHeight - first.clientHeight - last.clientHeight}px`;
-
-        //         console.log(this.height);
-        //     });
     }
 
     // 弹窗关闭事件
