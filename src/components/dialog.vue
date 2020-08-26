@@ -1,27 +1,13 @@
 <style lang="less">
 .dom-dialog-style {
-    // max-height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-height: 80%;
 
     .el-dialog__body {
-        padding: 0;
         flex: 1;
-        overflow: hidden;
-    }
-    .el-scrollbar {
-        height: 100%;
-    }
-    .el-scrollbar .el-scrollbar__wrap {
-        overflow-x: hidden;
-        margin-bottom: 0 !important;
-    }
-    .el-scrollbar__bar.is-horizontal {
-        display: none;
-    }
-    .dialog-padding {
-        padding: 30px;
+        overflow-y: auto;
     }
 }
 </style>
@@ -36,9 +22,7 @@
         :width="`${width}`"
         @closed="close"
     >
-        <el-scrollbar>
-            <div class="dialog-padding"><slot /></div>
-        </el-scrollbar>
+        <slot />
 
         <div slot="footer" class="dialog-footer">
             <el-button size="medium" @click="close">取 消</el-button>
@@ -55,6 +39,8 @@ import { ElDialog } from 'element-ui/types/dialog';
 export default class DomDialog extends Vue {
     @Prop({ type: [String], default: '40%' }) width!: string; // 弹窗宽度
 
+    // @Prop({ type: [String], default: '' }) height!: string; // 弹窗高度
+
     @Prop({ type: String, default: '' }) title!: string; // 标题
 
     @Prop({ type: Boolean, default: false }) show!: boolean; // 是否显示
@@ -62,8 +48,6 @@ export default class DomDialog extends Vue {
     @Prop({ type: Boolean, default: true }) showConfirm!: boolean; // 是否确定按钮
 
     private visible = this.show;
-
-    height = '100%';
 
     // 监听 show
     @Watch('show')
