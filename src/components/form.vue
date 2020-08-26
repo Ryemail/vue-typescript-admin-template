@@ -74,6 +74,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { ElForm } from 'element-ui/types/form';
 import { DomFormConfig } from '@/types/components/form';
+import { config } from 'vue/types/umd';
 
 @Component
 export default class DomForm extends Vue {
@@ -105,6 +106,7 @@ export default class DomForm extends Vue {
 
     @Watch('config', { deep: true, immediate: true })
     onChange(value: DomFormConfig[]) {
+        console.log(value);
         this.conf = value;
     }
 

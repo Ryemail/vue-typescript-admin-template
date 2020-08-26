@@ -2,7 +2,7 @@
 
 <template>
     <div class="form">
-        <dom-form
+        <!-- <dom-form
             ref="form"
             :config="queryConfig"
             :label-width="0"
@@ -11,11 +11,25 @@
             :show-message="true"
             :inline="false"
             @onSubmit="onSubmit"
-        />
+        /> -->
 
         <dom-dialog :show.sync="show" title="编辑" @confirm="editConfirm">
-            <dom-form ref="form" :footer="false" />
+            <dom-form
+                ref="form"
+                :label-width="0"
+                :config="queryConfig"
+                :inline="false"
+                :rules="queryRules"
+                :form="query"
+                :footer="false"
+            />
         </dom-dialog>
+
+        <el-button @click="dialog1">dialog1</el-button>
+        <el-button @click="dialog2">dialog2</el-button>
+        <el-button @click="show = true">dialog3</el-button>
+        <el-button @click="show = true">dialog4</el-button>
+        <el-button @click="show = true">dialog5</el-button>
     </div>
 </template>
 
@@ -94,6 +108,15 @@ export default class Form extends Vue {
             ],
         },
         {
+            type: 'radio',
+            prop: 'radio',
+            placeholder: '复选框',
+            option: [
+                { id: 1, name: '男' },
+                { id: 2, name: '女' },
+            ],
+        },
+        {
             type: 'switch',
             prop: 'switch',
         },
@@ -106,6 +129,54 @@ export default class Form extends Vue {
 
     private onSubmit() {
         console.log('onSubmit', this.query);
+    }
+
+    private dialog1() {
+        this.queryConfig = [
+            ...this.queryConfig,
+            {
+                type: 'radio',
+                prop: 'radio',
+                placeholder: '复选框',
+                option: [
+                    { id: 1, name: '男' },
+                    { id: 2, name: '女' },
+                ],
+            },
+            {
+                type: 'radio',
+                prop: 'radio',
+                placeholder: '复选框',
+                option: [
+                    { id: 1, name: '男' },
+                    { id: 2, name: '女' },
+                ],
+            },
+        ];
+        this.show = true;
+    }
+    dialog2() {
+        this.queryConfig = [
+            {
+                type: 'radio',
+                prop: 'radio',
+                placeholder: '复选框',
+                option: [
+                    { id: 1, name: '男' },
+                    { id: 2, name: '女' },
+                ],
+            },
+            {
+                type: 'radio',
+                prop: 'radio',
+                placeholder: '复选框',
+                option: [
+                    { id: 1, name: '男' },
+                    { id: 2, name: '女' },
+                ],
+            },
+        ];
+        this.show = true;
     }
 
     // 编辑确定
