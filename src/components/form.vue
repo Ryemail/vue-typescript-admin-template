@@ -74,7 +74,6 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { ElForm } from 'element-ui/types/form';
 import { DomFormConfig } from '@/types/components/form';
-import { config } from 'vue/types/umd';
 
 @Component
 export default class DomForm extends Vue {

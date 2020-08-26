@@ -33,13 +33,10 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
-import { ElDialog } from 'element-ui/types/dialog';
 
 @Component
 export default class DomDialog extends Vue {
     @Prop({ type: [String], default: '40%' }) width!: string; // 弹窗宽度
-
-    // @Prop({ type: [String], default: '' }) height!: string; // 弹窗高度
 
     @Prop({ type: String, default: '' }) title!: string; // 标题
 

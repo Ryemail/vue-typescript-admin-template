@@ -63,7 +63,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { fetchTableList } from '@/api/global';
-import { DomTableColumn, DomTableProps } from '@/types/components/table';
+import { DomTableProps } from '@/types/components/table';
 
 @Component
 export default class DomTable extends Vue {
