@@ -29,7 +29,7 @@ export default class DomIcon extends Vue {
     @Prop({ type: [String, Object], default: '' }) to!: string | Location;
 
     private onClick() {
-        this.to && this.$emit('onClick');
+        !this.to && this.$emit('onClick');
     }
 }
 </script>

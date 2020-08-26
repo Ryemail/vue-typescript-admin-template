@@ -22,8 +22,7 @@
 
                 <!-- select -->
                 <el-select v-if="item.type === 'select'" v-model="form[item.prop]" :placeholder="item.placeholder">
-                    <el-option v-for="(value, key) in item.option" :key="key" :label="value.name" :value="value.id">
-                    </el-option>
+                    <el-option v-for="(value, key) in item.option" :key="key" :label="value.name" :value="value.id" />
                 </el-select>
 
                 <!-- date-picker -->
@@ -74,7 +73,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { ElForm } from 'element-ui/types/form';
-import { DomForm as F } from '@/types';
+import { DomFormConfig } from '@/types/components/form';
 
 @Component
 export default class DomForm extends Vue {
@@ -90,7 +89,7 @@ export default class DomForm extends Vue {
 
     @Prop({ type: Number, default: 80 }) labelWidth!: boolean; // label 宽度
 
-    @Prop({ type: Array, default: () => [] }) config!: F.Config[]; // 配置
+    @Prop({ type: Array, default: () => [] }) config!: DomFormConfig[]; // 配置
 
     @Prop({ type: Object, default: () => ({}) }) form!: object; // 表单数据
 
@@ -105,7 +104,7 @@ export default class DomForm extends Vue {
     }
 
     @Watch('config', { deep: true, immediate: true })
-    onChange(value: F.Config[]) {
+    onChange(value: DomFormConfig[]) {
         this.conf = value;
     }
 
@@ -113,7 +112,7 @@ export default class DomForm extends Vue {
         this.lazyLoad();
     }
 
-    setLabelWidth(item: F.Config) {
+    setLabelWidth(item: DomFormConfig) {
         const labelWidth = item.labelWidth ? item.labelWidth : this.labelWidth;
         return `${labelWidth}px`;
     }

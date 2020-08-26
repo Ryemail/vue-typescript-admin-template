@@ -63,7 +63,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { fetchTableList } from '@/api/global';
-import { DomTable as Table } from '@/types/components/table';
+import { DomTableColumn, DomTableProps } from '@/types/components/table';
 
 @Component
 export default class DomTable extends Vue {
@@ -74,13 +74,13 @@ export default class DomTable extends Vue {
             column: [],
         }),
     })
-    props!: Table.Props;
+    props!: DomTableProps;
 
     @Prop({ type: Number, default: 10 }) limit!: number;
 
     @Prop({ type: Number, default: 1 }) page!: number;
 
-    data = [];
+    data: object[] = [];
 
     total = 0;
 

@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { DomForm } from '@/types';
+import { DomFormConfig, DomForm } from '@/types/components/form';
 
 @Component
 export default class Form extends Vue {
@@ -44,7 +44,7 @@ export default class Form extends Vue {
         date: [{ required: true, message: '请选择时间' }],
     };
 
-    queryConfig: DomForm.Config[] = [
+    queryConfig: DomFormConfig[] = [
         {
             type: 'input',
             prop: 'name',
@@ -110,9 +110,7 @@ export default class Form extends Vue {
 
     // 编辑确定
     private editConfirm() {
-        const form = this.$refs['form'] as HTMLFormElement;
-
-        form.onSubmit().then(() => {
+        (this.$refs.form as DomForm).onSubmit().then(() => {
             console.log('fomr');
         });
     }

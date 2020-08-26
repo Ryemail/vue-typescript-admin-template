@@ -9,7 +9,7 @@
                 <div v-html="row.content"></div>
             </template>
             <template #tool="{}">
-                <dom-icon name="el-icon-share" disabled text="详情" />
+                <dom-icon name="el-icon-share" to="/table/detail" disabled text="详情" />
                 <!-- <el-button type="text" icon="" size="mini" @click="$router.push('/table/detail')"></el-button> -->
             </template>
         </dom-table>
@@ -18,11 +18,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { DomTable } from '@/types/components/table';
+import { DomTableProps, DomTable } from '@/types/components/table';
 
 @Component
 export default class Table extends Vue {
-    table: DomTable.Props = {
+    table: DomTableProps = {
         url: '/vue-element-admin/article/list',
         column: [
             { prop: 'author', label: '作者' },
@@ -34,9 +34,7 @@ export default class Table extends Vue {
         ],
     };
     reload() {
-        const ref = this.$refs.table as any;
-        console.log(this.$refs.table);
-        ref.reload();
+        (this.$refs.table as DomTable).reload();
     }
 }
 </script>
