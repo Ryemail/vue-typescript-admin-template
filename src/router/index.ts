@@ -11,13 +11,6 @@ VueRouter.prototype.push = function push(location: Location) {
     return (originalPush.call(this, location) as any).catch((err: Error) => err);
 };
 
-const files = require.context('@/views', true, /\.vue$/);
-
-files.keys().forEach(item => {
-    const component = files(item).default;
-    console.log(component.name, 'ddddddddddddd');
-});
-
 const routes: Array<RouteConfig> = [
     tableRoutes,
     {
@@ -32,6 +25,7 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
+
     {
         path: '/clipboard',
         component: Layout,
@@ -44,6 +38,7 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
+
     {
         path: '/form',
         component: Layout,
