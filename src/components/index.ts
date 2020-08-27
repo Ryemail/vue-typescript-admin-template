@@ -1,11 +1,9 @@
 import Vue from 'vue';
-import DomTable from './table.vue';
-import DomIcon from './icon.vue';
-import DomForm from './form.vue';
-import DomDialog from './dialog.vue';
 
-const components = [DomTable, DomIcon, DomForm, DomDialog];
+const files = require.context('@/components', false, /\.vue$/);
 
-components.forEach(component => {
+files.keys().forEach(item => {
+    const component = files(item).default;
+
     Vue.component(component.name, component);
 });
