@@ -25,6 +25,7 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
+
     {
         path: '/clipboard',
         component: Layout,
@@ -37,6 +38,7 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
+
     {
         path: '/form',
         component: Layout,
