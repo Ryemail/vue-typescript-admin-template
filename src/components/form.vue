@@ -133,16 +133,19 @@ export default class DomForm extends Vue {
 
         let flag = false;
 
-        form.validate(valid => {
-            flag = valid;
-            if (flag) this.$emit('onSubmit');
-        });
+        form.validate(valid => (flag = valid));
 
         return new Promise((resolve, reject) => {
             if (flag) resolve(flag);
 
             reject(flag);
-        });
+        })
+            .then(() => {
+                this.$emit('onSubmit');
+            })
+            .catch(err => {
+                console.log('表单校验结果：' + err);
+            });
     }
 
     // 重置表单

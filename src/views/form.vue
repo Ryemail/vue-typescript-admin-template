@@ -125,7 +125,7 @@ export default class Form extends Vue {
             },
             {
                 type: 'switch',
-                prop: 'switch',
+                prop: 'flag',
             },
             {
                 type: 'textarea',
