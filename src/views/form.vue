@@ -184,9 +184,14 @@ export default class Form extends Vue {
 
     // 编辑确定
     private editConfirm() {
-        (this.$refs.form as DomForm).onSubmit().then(() => {
-            console.log('fomr');
-        });
+        const form = this.$refs.form as DomForm;
+        form.onSubmit()
+            .then(res => {
+                console.log(res, '验证结果');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 }
 </script>

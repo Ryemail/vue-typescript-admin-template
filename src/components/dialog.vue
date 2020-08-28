@@ -1,30 +1,3 @@
-<style lang="less">
-.dom-dialog-style {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-height: 80%;
-
-    .el-dialog__body {
-        flex: 1;
-        padding: 0;
-        overflow: hidden;
-    }
-    .dialog-content {
-        padding: 30px 20px;
-    }
-    .el-scrollbar {
-        height: 100%;
-    }
-    .el-scrollbar__wrap {
-        overflow-x: hidden;
-        margin-bottom: 0 !important;
-    }
-    .el-scrollbar__bar.is-horizontal {
-        height: 0;
-    }
-}
-</style>
 <template>
     <el-dialog
         custom-class="dom-dialog-style"
@@ -36,7 +9,7 @@
         :width="`${width}`"
         @closed="close"
     >
-        <el-scrollbar>
+        <el-scrollbar wrap-class="dom-scrollbar-wrap">
             <div class="dialog-content">
                 <slot />
             </div>
@@ -91,8 +64,40 @@ export default class DomDialog extends Vue {
 
     // 确定
     private confirm() {
-        this.$emit('update:show', false);
+        // this.$emit('update:show', false);
         this.$emit('confirm');
     }
 }
 </script>
+
+<style lang="less">
+.dom-dialog-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 80%;
+
+    .dialog-content {
+        padding: 30px 20px;
+    }
+
+    .el-dialog__body {
+        flex: 1;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .el-scrollbar {
+        height: 100%;
+    }
+
+    .el-scrollbar__wrap {
+        overflow-x: hidden;
+        margin-bottom: 0 !important;
+    }
+
+    .el-scrollbar__bar.is-horizontal {
+        height: 0;
+    }
+}
+</style>

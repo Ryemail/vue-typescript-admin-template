@@ -142,13 +142,7 @@ export default class DomForm extends Vue {
             if (flag) resolve(flag);
 
             reject(flag);
-        })
-            .then(() => {
-                //
-            })
-            .catch(() => {
-                //
-            });
+        });
     }
 }
 </script>
