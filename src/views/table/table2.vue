@@ -25,12 +25,15 @@ export default class Table extends Vue {
     table: DomTableProps = {
         url: '/vue-element-admin/article/list',
         column: [
-            { prop: 'author', label: '作者' },
+            { prop: 'author', label: '作者', fixed: 'left' },
             { prop: 'type', label: '类型' },
-            // { slot: 'content', prop: 'content', label: '发布内容', showOverflowTooltip: true },
+            { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
+            { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
+            { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
+            { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { prop: 'title', label: '标题', showOverflowTooltip: true },
             { slot: 'photo', prop: 'image_uri', label: '头像' },
-            { slot: 'tool', prop: 'status', label: '操作' },
+            { slot: 'tool', prop: 'status', label: '操作', fixed: 'right' },
         ],
     };
     reload() {
