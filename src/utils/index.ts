@@ -1,4 +1,4 @@
-import * as util from './utils';
+import * as date from './date-format';
 import request from './request';
 
-export { util, request };
+export { date, request };

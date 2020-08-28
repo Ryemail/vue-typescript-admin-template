@@ -105,11 +105,7 @@ export default class DomForm extends Vue {
 
     @Watch('config', { deep: true, immediate: true })
     onChange(value: DomFormConfig[]) {
-        console.log(value);
         this.conf = value;
-    }
-
-    created() {
         this.lazyLoad();
     }
 
@@ -129,7 +125,6 @@ export default class DomForm extends Vue {
                     });
             }
         });
-        console.log(this.conf);
     }
 
     // 提交

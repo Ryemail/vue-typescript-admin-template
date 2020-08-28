@@ -7,7 +7,21 @@
 
     .el-dialog__body {
         flex: 1;
-        overflow-y: auto;
+        padding: 0;
+        overflow: hidden;
+    }
+    .dialog-content {
+        padding: 30px 20px;
+    }
+    .el-scrollbar {
+        height: 100%;
+    }
+    .el-scrollbar__wrap {
+        overflow-x: hidden;
+        margin-bottom: 0 !important;
+    }
+    .el-scrollbar__bar.is-horizontal {
+        height: 0;
     }
 }
 </style>
@@ -16,13 +30,17 @@
         custom-class="dom-dialog-style"
         ref="dialog"
         top="10vh"
+        :destroy-on-close="true"
         :title="title"
         :visible.sync="visible"
-        :destroy-on-close="false"
         :width="`${width}`"
         @closed="close"
     >
-        <slot />
+        <el-scrollbar>
+            <div class="dialog-content">
+                <slot />
+            </div>
+        </el-scrollbar>
 
         <div slot="footer" class="dialog-footer">
             <el-button size="medium" @click="close">取 消</el-button>
@@ -33,8 +51,9 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
+import { ElDialog } from 'element-ui/types/dialog';
 
-@Component
+@Component({})
 export default class DomDialog extends Vue {
     @Prop({ type: [String], default: '40%' }) width!: string; // 弹窗宽度
 
@@ -50,6 +69,18 @@ export default class DomDialog extends Vue {
     @Watch('show')
     onShowChanged(val: boolean) {
         this.visible = val;
+        if (val) this.setDialogBody();
+    }
+
+    setDialogBody() {
+        this.$nextTick(() => {
+            const dialog = this.$refs.dialog as ElDialog;
+
+            const oBody = dialog.$el.querySelector('.el-dialog__body') as HTMLElement,
+                { offsetHeight = 60 } = oBody;
+
+            oBody.style.height = offsetHeight + 'px';
+        });
     }
 
     // 弹窗关闭事件

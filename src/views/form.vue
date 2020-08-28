@@ -27,7 +27,7 @@
 
         <el-button @click="dialog1">dialog1</el-button>
         <el-button @click="dialog2">dialog2</el-button>
-        <el-button @click="show = true">dialog3</el-button>
+        <el-button @click="dialog3">dialog3</el-button>
         <el-button @click="show = true">dialog4</el-button>
         <el-button @click="show = true">dialog5</el-button>
     </div>
@@ -58,74 +58,7 @@ export default class Form extends Vue {
         date: [{ required: true, message: '请选择时间' }],
     };
 
-    queryConfig: DomFormConfig[] = [
-        {
-            type: 'input',
-            prop: 'name',
-            placeholder: '请输入姓名',
-        },
-        {
-            type: 'select',
-            prop: 'region',
-            placeholder: '请选择活动',
-            lazyLoad(resolve) {
-                resolve([
-                    { id: 1, name: '阮垚' },
-                    { id: 2, name: '陈涛' },
-                ]);
-            },
-        },
-        {
-            type: 'date',
-            prop: 'date',
-            placeholder: '请选择日期',
-        },
-        {
-            type: 'time',
-            prop: 'time',
-            placeholder: '请选择时间',
-        },
-        {
-            type: 'checkbox',
-            prop: 'checkbox',
-            placeholder: '复选框',
-            lazyLoad(resolve) {
-                resolve([
-                    { id: 1, name: '复选1' },
-                    { id: 2, name: '复选2' },
-                    { id: 3, name: '复选3' },
-                    { id: 4, name: '复选4' },
-                ]);
-            },
-        },
-        {
-            type: 'radio',
-            prop: 'radio',
-            placeholder: '复选框',
-            option: [
-                { id: 1, name: '男' },
-                { id: 2, name: '女' },
-            ],
-        },
-        {
-            type: 'radio',
-            prop: 'radio',
-            placeholder: '复选框',
-            option: [
-                { id: 1, name: '男' },
-                { id: 2, name: '女' },
-            ],
-        },
-        {
-            type: 'switch',
-            prop: 'switch',
-        },
-        {
-            type: 'textarea',
-            prop: 'desc',
-            placeholder: '请输入文本',
-        },
-    ];
+    queryConfig: DomFormConfig[] = [];
 
     private onSubmit() {
         console.log('onSubmit', this.query);
@@ -133,7 +66,72 @@ export default class Form extends Vue {
 
     private dialog1() {
         this.queryConfig = [
-            ...this.queryConfig,
+            {
+                type: 'input',
+                prop: 'name',
+                placeholder: '请输入姓名',
+            },
+            {
+                type: 'select',
+                prop: 'region',
+                placeholder: '请选择活动',
+                lazyLoad(resolve) {
+                    resolve([
+                        { id: 1, name: '阮垚' },
+                        { id: 2, name: '陈涛' },
+                    ]);
+                },
+            },
+            {
+                type: 'date',
+                prop: 'date',
+                placeholder: '请选择日期',
+            },
+            {
+                type: 'time',
+                prop: 'time',
+                placeholder: '请选择时间',
+            },
+            {
+                type: 'checkbox',
+                prop: 'checkbox',
+                placeholder: '复选框',
+                lazyLoad(resolve) {
+                    resolve([
+                        { id: 1, name: '复选1' },
+                        { id: 2, name: '复选2' },
+                        { id: 3, name: '复选3' },
+                        { id: 4, name: '复选4' },
+                    ]);
+                },
+            },
+            {
+                type: 'radio',
+                prop: 'radio',
+                placeholder: '复选框',
+                option: [
+                    { id: 1, name: '男' },
+                    { id: 2, name: '女' },
+                ],
+            },
+            {
+                type: 'radio',
+                prop: 'radio',
+                placeholder: '复选框',
+                option: [
+                    { id: 1, name: '男' },
+                    { id: 2, name: '女' },
+                ],
+            },
+            {
+                type: 'switch',
+                prop: 'switch',
+            },
+            {
+                type: 'textarea',
+                prop: 'desc',
+                placeholder: '请输入文本',
+            },
             {
                 type: 'radio',
                 prop: 'radio',
@@ -176,6 +174,11 @@ export default class Form extends Vue {
                 ],
             },
         ];
+        this.show = true;
+    }
+
+    dialog3() {
+        this.queryConfig = [];
         this.show = true;
     }
 

@@ -12,6 +12,8 @@ import './permission';
 
 import '@/components';
 
+import '@/directive';
+
 import '../mock';
 
 Vue.config.productionTip = false;
