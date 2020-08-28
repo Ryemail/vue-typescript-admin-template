@@ -9,7 +9,7 @@
         :width="`${width}`"
         @closed="close"
     >
-        <el-scrollbar wrap-class="dom-scrollbar-wrap">
+        <el-scrollbar>
             <div class="dialog-content">
                 <slot />
             </div>
@@ -38,6 +38,8 @@ export default class DomDialog extends Vue {
 
     private visible = this.show;
 
+    private oDialogHeight = 60;
+
     // 监听 show
     @Watch('show')
     onShowChanged(val: boolean) {
@@ -51,6 +53,10 @@ export default class DomDialog extends Vue {
 
             const oBody = dialog.$el.querySelector('.el-dialog__body') as HTMLElement,
                 { offsetHeight = 60 } = oBody;
+
+            if (offsetHeight === this.oDialogHeight) return;
+
+            this.oDialogHeight = offsetHeight;
 
             oBody.style.height = offsetHeight + 'px';
         });

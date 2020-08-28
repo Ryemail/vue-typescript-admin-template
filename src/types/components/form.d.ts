@@ -22,5 +22,25 @@ export interface DomFormConfig {
 }
 
 export declare class DomForm<T = boolean> extends DomComponent {
+    reform: string;
+
+    inline: boolean;
+
+    showMessage: boolean;
+
+    hideRequiredAsterisk: boolean;
+
+    footer: boolean;
+
+    labelWidth: number;
+
+    config: DomFormConfig[];
+
+    form: object[];
+
+    rules: object[];
+
     onSubmit: () => Promise<T>;
+
+    onReset: () => void;
 }

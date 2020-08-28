@@ -2,7 +2,7 @@
 
 <template>
     <div class="form">
-        <!-- <dom-form
+        <dom-form
             ref="form"
             :config="queryConfig"
             :label-width="0"
@@ -11,9 +11,9 @@
             :show-message="true"
             :inline="false"
             @onSubmit="onSubmit"
-        /> -->
+        />
 
-        <dom-dialog :show.sync="show" title="编辑" @confirm="editConfirm">
+        <dom-dialog :show.sync="show" title="编辑" @cancel="onCancel" @confirm="editConfirm">
             <dom-form
                 ref="form"
                 :label-width="0"
@@ -183,15 +183,22 @@ export default class Form extends Vue {
     }
 
     // 编辑确定
-    private editConfirm() {
+    private async editConfirm() {
         const form = this.$refs.form as DomForm;
-        form.onSubmit()
-            .then(res => {
-                console.log(res, '验证结果');
-            })
-            .catch(err => {
-                console.log(err);
-            });
+
+        try {
+            const res = await form.onSubmit();
+
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    onCancel() {
+        const form = this.$refs.form as DomForm;
+
+        form.onReset();
     }
 }
 </script>

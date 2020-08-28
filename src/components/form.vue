@@ -65,7 +65,7 @@
         </div>
         <el-form-item v-if="footer">
             <el-button type="primary" @click="onSubmit">确定</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="onReset">取消</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -143,6 +143,13 @@ export default class DomForm extends Vue {
 
             reject(flag);
         });
+    }
+
+    // 重置表单
+    onReset() {
+        const form = this.$refs[this.reform] as ElForm;
+
+        form.resetFields();
     }
 }
 </script>
