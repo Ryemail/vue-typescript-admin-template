@@ -67,6 +67,7 @@ export default class Layout extends Mixins(ResizeHandler) {
         margin-left: 200px;
         position: relative;
         min-height: 100%;
+        transition: margin-left 0.28s;
     }
     .dom-main-view {
         padding: 80px 20px 20px;
@@ -84,7 +85,14 @@ export default class Layout extends Mixins(ResizeHandler) {
     &.mobile {
         .dom-aside {
             transition: transform 0.28s, -webkit-transform 0.28s;
-            width: 210px !important;
+            width: 200px !important;
+        }
+        .dom-main {
+            margin-left: 0;
+        }
+
+        .dom-header {
+            width: 100%;
         }
     }
 
@@ -102,7 +110,7 @@ export default class Layout extends Mixins(ResizeHandler) {
             .dom-aside {
                 position: fixed;
                 top: 0;
-                transform: translate3d(-210px, 0, 0);
+                transform: translate3d(-200px, 0, 0);
                 transition-duration: 0.3s;
             }
             .dom-main {
