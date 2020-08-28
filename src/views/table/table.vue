@@ -1,6 +1,7 @@
 <template>
     <section class="table">
-        <router-link to="/table/detail">details</router-link>
+        <!-- <router-link to="/table/detail">details</router-link> -->
+        <el-button v-download="{ url: '/', query: { id: 2 } }">下载</el-button>
     </section>
 </template>
 
