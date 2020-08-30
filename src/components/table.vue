@@ -3,6 +3,9 @@
     .el-pagination {
         margin-top: 10px;
     }
+    .el-table__body-wrapper.is-scrolling-middle {
+        overflow: hidden;
+    }
 }
 </style>
 
@@ -10,8 +13,9 @@
     <div class="dom-table">
         <el-table
             :data="data"
+            ref="table"
+            v-scroll-bar
             v-loading="loading"
-            style="width: 100%"
             @selection-change="selectionChange"
             border
             header-row-class-name="table-header"
@@ -48,6 +52,7 @@
                 </el-table-column>
             </template>
         </el-table>
+
         <el-pagination
             hide-on-single-page
             @size-change="pageChange"
@@ -97,8 +102,6 @@ export default class DomTable extends Vue {
 
     async fetchTableList() {
         const { data, code } = await fetchTableList(this.props.url, { ...this.form });
-
-        console.log(data);
 
         if (code === 200) {
             this.data = data.data;
