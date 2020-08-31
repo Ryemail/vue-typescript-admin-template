@@ -54,8 +54,6 @@ export default class DomDialog extends Vue {
             const oBody = dialog.$el.querySelector('.el-dialog__body') as HTMLElement,
                 { offsetHeight = 60 } = oBody;
 
-            if (offsetHeight === this.oDialogHeight) return;
-
             this.oDialogHeight = offsetHeight;
 
             oBody.style.height = offsetHeight + 'px';
