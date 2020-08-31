@@ -4,6 +4,7 @@
 
         <dom-aside :show-logo="settings.logo" />
 
+        <!-- <el-scrollbar style="height:100%"> -->
         <main class="dom-main">
             <dom-header />
 
@@ -13,6 +14,7 @@
 
             <dom-footer v-if="settings.footer" />
         </main>
+        <!-- </el-scrollbar> -->
     </section>
 </template>
 
@@ -62,7 +64,18 @@ export default class Layout extends Mixins(ResizeHandler) {
     height: 100vh;
     width: 100%;
     position: relative;
+    // .el-scrollbar {
+    //     height: 100%;
+    // }
 
+    // .el-scrollbar__wrap {
+    //     overflow-x: hidden;
+    //     margin-bottom: 0 !important;
+    // }
+
+    // .el-scrollbar__bar.is-horizontal {
+    //     height: 0;
+    // }
     .dom-main {
         margin-left: 200px;
         position: relative;

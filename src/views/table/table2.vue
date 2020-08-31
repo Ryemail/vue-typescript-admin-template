@@ -24,6 +24,10 @@ import { DomTableProps, DomTable } from '@/types/components/table';
 export default class Table extends Vue {
     table: DomTableProps = {
         url: '/vue-element-admin/article/list',
+        query: {
+            id: 1,
+            name: '阮垚',
+        },
         column: [
             { prop: 'author', label: '作者', fixed: 'left' },
             { prop: 'type', label: '类型' },

@@ -4,7 +4,6 @@
             :data="data"
             ref="table"
             v-scroll-bar
-            v-if="repaint"
             v-loading="loading"
             @selection-change="selectionChange"
             border
@@ -67,6 +66,7 @@ export default class DomTable extends Vue {
         default: () => ({
             url: '',
             column: [],
+            query: {},
         }),
     })
     props!: DomTableProps;
@@ -91,7 +91,7 @@ export default class DomTable extends Vue {
     }
 
     async fetchTableList() {
-        const { data, code } = await fetchTableList(this.props.url, { ...this.form });
+        const { data, code } = await fetchTableList(this.props.url, { ...this.form, ...this.props.query });
 
         if (code === 200) {
             this.data = data.data;
@@ -120,16 +120,19 @@ export default class DomTable extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .dom-table {
-    .el-pagination {
+    /deep/ .el-pagination {
         margin-top: 10px;
     }
 
-    .el-table--scrollable-x .el-table__body-wrapper {
-        overflow-x: hidden;
+    /deep/ .el-table--scrollable-x {
+        .el-table__body-wrapper {
+            overflow-x: hidden;
+        }
     }
-    .ps__rail-x {
+
+    /deep/ .ps__rail-x {
         background: transparent !important;
         opacity: 0.6;
         height: 6px;
@@ -140,10 +143,12 @@ export default class DomTable extends Vue {
             height: 6px !important;
         }
     }
-    .el-table__fixed-right {
+
+    /deep/ .el-table__fixed-right {
         height: 100% !important;
     }
-    .el-table__fixed {
+
+    /deep/ .el-table__fixed {
         height: 100% !important;
     }
 }
