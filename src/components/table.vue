@@ -1,32 +1,3 @@
-<style lang="less">
-.dom-table {
-    .el-pagination {
-        margin-top: 10px;
-    }
-
-    .el-table--scrollable-x .el-table__body-wrapper {
-        overflow-x: hidden;
-    }
-    .ps__rail-x {
-        background: transparent !important;
-        opacity: 0.6;
-        height: 6px;
-        &.ps--clicking .ps__thumb-x {
-            height: 6px !important;
-        }
-        &:hover > .ps__thumb-x {
-            height: 6px !important;
-        }
-    }
-    .el-table__fixed-right {
-        height: 100% !important;
-    }
-    .el-table__fixed {
-        height: 100% !important;
-    }
-}
-</style>
-
 <template>
     <div class="dom-table">
         <el-table
@@ -88,7 +59,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { fetchTableList } from '@/api/global';
 import { DomTableProps } from '@/types/components/table';
-import { ElTable } from 'element-ui/types/table';
 
 @Component
 export default class DomTable extends Vue {
@@ -114,8 +84,6 @@ export default class DomTable extends Vue {
         page: this.page,
     };
 
-    repaint = false; // 重绘
-
     loading = true;
 
     created() {
@@ -129,12 +97,6 @@ export default class DomTable extends Vue {
             this.data = data.data;
             this.total = data.total;
             this.$emit('onData', data);
-            this.repaint = false;
-            this.$nextTick(() => {
-                const ele = this.$refs.table as ElTable;
-                this.repaint = true;
-                // ele.doLayout();
-            });
         }
         this.loading = false;
     }
@@ -157,3 +119,32 @@ export default class DomTable extends Vue {
     }
 }
 </script>
+
+<style lang="less">
+.dom-table {
+    .el-pagination {
+        margin-top: 10px;
+    }
+
+    .el-table--scrollable-x .el-table__body-wrapper {
+        overflow-x: hidden;
+    }
+    .ps__rail-x {
+        background: transparent !important;
+        opacity: 0.6;
+        height: 6px;
+        &.ps--clicking .ps__thumb-x {
+            height: 6px !important;
+        }
+        &:hover > .ps__thumb-x {
+            height: 6px !important;
+        }
+    }
+    .el-table__fixed-right {
+        height: 100% !important;
+    }
+    .el-table__fixed {
+        height: 100% !important;
+    }
+}
+</style>
