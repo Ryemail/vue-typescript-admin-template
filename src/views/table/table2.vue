@@ -31,8 +31,6 @@ export default class Table extends Vue {
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
-            { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
-            { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { prop: 'title', label: '标题', showOverflowTooltip: true },
             { slot: 'photo', prop: 'image_uri', label: '头像' },
             { slot: 'tool', prop: 'status', label: '操作', fixed: 'right' },
@@ -44,4 +42,8 @@ export default class Table extends Vue {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+img {
+    width: 40px;
+}
+</style>

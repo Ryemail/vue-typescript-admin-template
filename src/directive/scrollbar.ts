@@ -15,28 +15,33 @@ const scrollBar = el => {
         //el上挂一份属性
         el._ps_ = new PerfectScrollbar(el, { suppressScrollY: true });
     }
+
+    // const ele = this.$refs.table as ElTable;
 };
 
 Vue.directive('scroll-bar', {
-    inserted(el, binding) {
-        console.log(binding);
+    inserted(el) {
         const ele = el.querySelector('.el-table__body-wrapper');
         if (!ele) {
             return console.warn('未发现className为el-table__body-wrapper的dom');
         }
+        // console.log(el.doLayout);
         const rules = ['fixed', 'absolute', 'relative'];
 
         if (!rules.includes(window.getComputedStyle(ele, null).position)) {
             console.error(`perfect-scrollbar所在的容器的position属性必须是以下之一：${rules.join('、')}`);
         }
+
         scrollBar(ele);
     },
+
     componentUpdated(el, binding, vnode) {
         const ele = el.querySelector('.el-table__body-wrapper');
 
         if (!ele) {
             return console.warn('未发现className为el-table__body-wrapper的dom');
         }
+
         vnode.context.$nextTick(() => {
             try {
                 scrollBar(ele);
