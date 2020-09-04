@@ -54,13 +54,24 @@ const routes: Array<RouteConfig> = [
 
     {
         path: '/tree',
-
         component: Layout,
         children: [
             {
                 path: 'index',
                 name: 'tree',
                 component: () => import('../views/tree.vue'),
+                meta: {},
+            },
+        ],
+    },
+    {
+        path: '/design',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                name: 'design',
+                component: () => import('../views/design/design.vue'),
                 meta: {},
             },
         ],

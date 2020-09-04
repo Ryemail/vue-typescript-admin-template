@@ -39,7 +39,13 @@ class User extends VuexModule implements UserState {
         {
             path: '/clipboard/index',
             name: 'clipboard',
-            title: 'ClipboardJS',
+            title: '复制',
+            icon: '',
+        },
+        {
+            path: '/design/index',
+            name: 'design',
+            title: '页面设计',
             icon: '',
         },
         { path: '/form/index', name: 'form', title: 'form', icon: '' },
