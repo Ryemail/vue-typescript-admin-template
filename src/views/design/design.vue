@@ -1,9 +1,16 @@
 <template>
     <section class="design">
+        <div class="design-nav">
+            <div class="design-title">组件库</div>
+            <div></div>
+        </div>
         <div class="design-phone">
             <div class="design-phone-title">页面设计</div>
-            <el-scrollbar class="design-phone-wrap">
+            <el-scrollbar ref="scorll" class="design-phone-wrap">
                 <div class="drag-wrap" ref="drag">
+                    <div class="drag-item">
+                        <img class="drag-item-gril" src="@/assets/image/gril.png" />
+                    </div>
                     <div class="drag-item">
                         <img class="drag-item-gril" src="@/assets/image/gril.png" />
                     </div>
@@ -19,54 +26,51 @@
                 </div>
             </el-scrollbar>
         </div>
+        <div class="design-editor">
+            <div class="design-title">组件库</div>
+        </div>
+        <!-- <div class="box">拖拽</div> -->
     </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
 const dragula = require('dragula');
 
 @Component
 export default class Design extends Vue {
     mounted() {
+        const that = this;
         dragula([this.$refs.drag], {
-            moves(el: HTMLElement) {
-                console.log(el.className);
+            moves(el: HTMLElement, source: HTMLElement) {
+                console.log(el.offsetTop, 'el', el.offsetTop - 580);
+
+                // source.childNodes.forEach(ele => {});
                 // if (!el.className.includes('selected')) el.className += ' selected';
-                const parent = el.parentNode;
-                if (parent) {
-                    const children = parent.childNodes;
-
-                    console.log(children);
-
-                    children.forEach(ele => {
-                        console.log(ele.className, 'ele');
-                        console.log(el === ele);
-                        if (el === ele) {
-                            if (!ele.className.includes('selected')) ele.className += ' selected';
-                        } else {
-                            ele.className = ele.className.replace('selected', '');
-                        }
-                    });
-                }
                 return true;
             },
         })
-            .on('drag', function(el: HTMLElement) {
-                console.log(el, 'drag');
-                el.className = el.className.replace('selected', '');
-            })
-            .on('drop', function(el: HTMLElement) {
-                // el.className += ' ex-moved';
-                console.log(el, 'drop');
-            })
-            .on('over', function(el: HTMLElement) {
-                console.log(el, 'over');
-            })
-            .on('out', function(el: HTMLElement) {
-                console.log(el, 'out');
-                // container.className = container.className.replace('ex-over', '');
+            // .on('drag', function(el: HTMLElement) {
+            //     console.log(el, 'drag');
+            //     el.className = el.className.replace('selected', '');
+            // })
+            // .on('drop', function(el: HTMLElement) {
+            //     console.log(el, 'drop');
+            // })
+            // .on('over', function(el: HTMLElement, wrap: HTMLElement) {
+            //     console.log(el, 'over', el.offsetTop);
+            // })
+            // .on('out', function(el: HTMLElement) {
+            //     console.log(el, 'out');
+            //     // container.className = container.className.replace('ex-over', '');
+            // })
+            // .on('shadow', function(el: HTMLElement) {
+            //     console.log(el, 'shadow');
+            //     return true;
+            // })
+            .on('dragging', function(el: HTMLElement) {
+                console.log(el, 'dragging');
+                return true;
             });
     }
 }
@@ -91,6 +95,8 @@ export default class Design extends Vue {
     filter: alpha(opacity=20);
 }
 .design {
+    display: flex;
+    justify-content: space-between;
     .design-phone {
         width: 377px;
         border-radius: 3px;
@@ -131,6 +137,43 @@ export default class Design extends Vue {
                 border: 2px dashed #00a0e9;
                 cursor: move;
             }
+        }
+    }
+
+    .design-nav {
+        width: 285px;
+        height: auto;
+        background: #fdfdfd;
+        border: 1px solid #ddd;
+        padding: 15px 10px;
+        transition: all 0.3s;
+        user-select: none;
+        margin-right: 15px;
+    }
+    .design-editor {
+        width: 400px;
+        height: auto;
+        min-height: 100px;
+        padding: 15px 10px;
+        border: 1px solid #ddd;
+        margin-left: 15px;
+    }
+
+    .design-title {
+        position: relative;
+        padding: 0 22px;
+        height: 30px;
+        line-height: 30px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #eef1f5;
+        &::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 14px;
+            background: #00aeff;
+            top: 8px;
+            left: 9px;
         }
     }
 }
