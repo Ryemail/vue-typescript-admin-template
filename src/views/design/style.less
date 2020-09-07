@@ -1,0 +1,49 @@
+.design-title {
+    position: relative;
+    padding: 0 22px;
+    height: 30px;
+    line-height: 30px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eef1f5;
+    &::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 14px;
+        background: #00aeff;
+        top: 8px;
+        left: 9px;
+    }
+}
+
+/deep/ .design-item {
+    position: relative;
+    overflow: hidden;
+    user-select: none !important;
+    cursor: move;
+    &:hover:before,
+    &.selected:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px dashed #00a0e9;
+        cursor: move;
+    }
+
+    .del {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 32px;
+        line-height: 16px;
+        text-align: center;
+        font-size: 10px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.4);
+        margin-left: 2px;
+        cursor: pointer;
+    }
+}

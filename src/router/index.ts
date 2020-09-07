@@ -71,7 +71,7 @@ const routes: Array<RouteConfig> = [
             {
                 path: 'index',
                 name: 'design',
-                component: () => import('../views/design/design.vue'),
+                component: () => import('../views/design/index.vue'),
                 meta: {},
             },
         ],
