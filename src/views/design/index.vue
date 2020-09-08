@@ -5,21 +5,21 @@
 
         <!-- 手机容器 -->
         <div class="design-phone-wrap">
-            <div class="design-phone-title">页面设计</div>
             <el-scrollbar ref="scorll">
-                <!--   @start="isDragging = true"
-                    @end="isDragging = false" -->
-                <draggable class="list-group" :list="components" :options="dragOptions" :move="onMove" @start="onStart">
-                    <transition-group type="transition" :name="'flip-list'">
-                        <component
-                            v-for="(ele, index) in components"
-                            :data="{ data: ele, $index: index }"
-                            :key="ele + '-' + index"
-                            :is="ele"
-                            @del="delComponent(index)"
-                            class="design-item"
-                        />
-                    </transition-group>
+                <!-- <dom-title /> -->
+                <draggable class="list-group" animation="200" :list="components" @choose="onChoose" :move="onMove">
+                    <!-- <transition-group type="transition" :name="'flip-list'"> -->
+
+                    <component
+                        v-for="(ele, index) in components"
+                        :data="{ data: ele, $index: index }"
+                        :key="ele.nav.name + '-' + index"
+                        :is="ele.nav.name"
+                        :class="['design-item', ele.active ? 'selected' : '']"
+                        @del="delComponent(index)"
+                        @mouseover.native="onChoose({ oldIndex: index, type: 'over' })"
+                    />
+                    <!-- </transition-group> -->
                 </draggable>
             </el-scrollbar>
         </div>
@@ -36,7 +36,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import draggable from 'vuedraggable';
 
 import * as Designs from './components';
-import { DesignNavItem } from '@/types/design';
+import { DesginComponent, DesignNavItem } from '@/types/design';
 
 @Component({
     components: {
@@ -45,36 +45,52 @@ import { DesignNavItem } from '@/types/design';
     },
 })
 export default class Design extends Vue {
-    components: string[] = []; // 组件列表
+    components: DesginComponent[] = [
+        {
+            active: false,
+            nav: {
+                name: 'DomTitle',
+                icon: '',
+                title: '页面设计',
+            },
+        },
+    ]; // 组件列表
 
     isDragging = false;
 
     editor: DesignNavItem | null = null; // 组件库编辑
 
-    dragOptions = {
-        ghostClass: 'selected',
-    };
-
     // 点击添加组件库
     private toggle(data: DesignNavItem) {
         this.editor = data;
-        this.components.push(data.name);
+        this.components.push({
+            active: false,
+            nav: data,
+        });
     }
 
     // 删除组件
     private delComponent(index: number) {
+        this.editor = null;
         this.components.splice(index, 1);
     }
 
-    private onStart(event: Event) {
-        console.log(event);
+    // 元素点击
+    private onChoose({ oldIndex, type }: { oldIndex: number; type: string }) {
+        if (type == 'choose') {
+            this.editor = this.components[oldIndex].nav;
+        }
+
+        this.components.forEach((item, index) => {
+            item.active = index === oldIndex;
+        });
     }
 
-    private onMove({ relatedContext, draggedContext }: any) {
-        console.log(relatedContext, draggedContext);
-        const relatedElement = relatedContext.element;
-        const draggedElement = draggedContext.element;
-        return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed;
+    private onMove(event: any) {
+        console.log(event.draggedContext.element.nav.name);
+        if (event.draggedContext.element.nav.name === 'DomTitle') return false;
+
+        return true;
     }
 }
 </script>
@@ -93,14 +109,7 @@ export default class Design extends Vue {
         box-shadow: 0 3px 10px #dcdcdc;
         border: 1px solid #ddd;
         margin: 0 auto;
-        .design-phone-title {
-            height: 66px;
-            line-height: 88px;
-            font-size: 14px;
-            white-space: nowrap;
-            text-align: center;
-            background: url('~@/assets/image/phone-top-black.png') center center / contain no-repeat rgb(255, 255, 255);
-        }
+
         /deep/ .el-scrollbar {
             height: 580px;
             .el-scrollbar__wrap {
@@ -124,6 +133,9 @@ export default class Design extends Vue {
         padding: 15px 10px;
         border: 1px solid #ddd;
         margin-left: 15px;
+    }
+    .checked {
+        opacity: 1;
     }
 }
 </style>

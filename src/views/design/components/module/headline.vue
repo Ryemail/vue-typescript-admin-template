@@ -1,7 +1,7 @@
 <template>
     <section class="picture-window clear design-item">
         <img src="@/assets/image/gril.png" />
-        <div class="del" @click="del">删除</div>
+        <div class="del" v-if="data.data.active" @click="del">删除</div>
     </section>
 </template>
 
