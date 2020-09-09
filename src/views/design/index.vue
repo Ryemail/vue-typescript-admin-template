@@ -13,82 +13,99 @@
                     <component
                         v-for="(ele, index) in components"
                         :data="{ data: ele, $index: index }"
-                        :key="ele.nav.name + '-' + index"
-                        :is="ele.nav.name"
-                        :class="['design-item', ele.active ? 'selected' : '']"
+                        :key="ele.name + '-' + index"
+                        :is="ele.name"
+                        :class="['design-item', activeIndex === index ? 'selected' : '']"
                         @del="delComponent(index)"
                         @mouseover.native="onChoose({ oldIndex: index, type: 'over' })"
+                        @mouseleave.native="onChoose({ oldIndex: index, type: 'leave' })"
                     />
+                    <!---->
                     <!-- </transition-group> -->
                 </draggable>
             </el-scrollbar>
         </div>
 
         <!-- 组件库编辑 -->
-        <div class="design-editor" v-if="editor">
-            <div class="design-title">{{ editor.title }}</div>
+        <div class="design-editor" v-if="components.length">
+            <template v-for="(ele, index) in components">
+                <div v-if="index === activeIndex" :key="index">
+                    <div class="design-title">{{ ele.title }}</div>
+                    <div class="design-editor-component">
+                        <component :data="{ data: ele.params, $index: index }" :is="ele.editor" />
+                    </div>
+                </div>
+            </template>
         </div>
     </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import draggable from 'vuedraggable';
+import draggable, { DraggedContext } from 'vuedraggable';
 
 import * as Designs from './components';
-import { DesginComponent, DesignNavItem } from '@/types/design';
+import { DesginComponent, DesginNavs, DesignNavItem } from '@/types/design';
+import { storeDesign } from '@/store/modules/design';
+
+const files = require.context('./components/editor', false, /\.vue$/);
+const editors: { [key: string]: Vue } = {};
+
+files.keys().forEach(item => {
+    const component = files(item).default;
+    editors[component.name] = component;
+});
+
+console.log(editors);
 
 @Component({
     components: {
         ...Designs,
+        ...editors,
         draggable,
     },
 })
 export default class Design extends Vue {
-    components: DesginComponent[] = [
-        {
-            active: false,
-            nav: {
-                name: 'DomTitle',
-                icon: '',
-                title: '页面设计',
-            },
-        },
-    ]; // 组件列表
+    components = storeDesign.components; //组件列表
 
     isDragging = false;
 
-    editor: DesignNavItem | null = null; // 组件库编辑
+    activeIndex = 0; // 选中组件的索引
 
     // 点击添加组件库
     private toggle(data: DesignNavItem) {
-        this.editor = data;
         this.components.push({
             active: false,
-            nav: data,
+            ...data,
         });
+        this.activeIndex = this.components.length;
     }
 
     // 删除组件
     private delComponent(index: number) {
-        this.editor = null;
         this.components.splice(index, 1);
     }
 
     // 元素点击
     private onChoose({ oldIndex, type }: { oldIndex: number; type: string }) {
         if (type == 'choose') {
-            this.editor = this.components[oldIndex].nav;
+            this.activeIndex = oldIndex;
         }
 
         this.components.forEach((item, index) => {
             item.active = index === oldIndex;
         });
+
+        // if (type === 'over') {
+        //     this.components[oldIndex].active = true;
+        // }
+        // if (type === 'leave') {
+        //     this.components[oldIndex].active = false;
+        // }
     }
 
-    private onMove(event: any) {
-        console.log(event.draggedContext.element.nav.name);
-        if (event.draggedContext.element.nav.name === 'DomTitle') return false;
+    private onMove({ draggedContext }: { draggedContext: DraggedContext<DesginComponent> }) {
+        if (draggedContext.element.name === 'DomTitle') return false;
 
         return true;
     }
@@ -133,6 +150,9 @@ export default class Design extends Vue {
         padding: 15px 10px;
         border: 1px solid #ddd;
         margin-left: 15px;
+        .design-editor-component {
+            padding: 10px 20px;
+        }
     }
     .checked {
         opacity: 1;

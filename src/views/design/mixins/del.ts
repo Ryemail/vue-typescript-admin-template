@@ -15,6 +15,6 @@ export default class DelMixin extends Vue {
 
     @Watch('data', { deep: true })
     onData(val: DesignProps) {
-        console.log(val, 'val');
+        console.log(val, 'valval');
     }
 }

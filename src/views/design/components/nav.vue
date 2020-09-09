@@ -36,26 +36,39 @@ export default class DesignNav extends Vue {
     media: DesginNavs = {
         title: '媒体组件',
         list: [
-            { title: '图片轮播', name: 'DomCarousel', icon: 'icon-tupian' },
-            { title: '单图组', name: 'DomImage', icon: 'icon-tupian1' },
-            { title: '图片橱窗', name: 'DomPictureWindow', icon: 'icon-buju' },
-            { title: '文章组', name: 'DomArticle', icon: 'icon-24' },
-            { title: '头条快报', name: 'DomHeadline', icon: 'icon-xinwen' },
+            {
+                title: '图片轮播',
+                name: 'DomCarousel',
+                editor: 'DomEditorCarousel',
+                icon: 'icon-tupian',
+                params: {
+                    list: [],
+                    dot: '',
+                    interval: '', //  切换时间
+                    color: '', // 指示点颜色
+                    shape: '', // 指示点形状
+                    position: '', // 指示位置
+                },
+            },
+            { title: '单图组', name: 'DomImage', editor: 'DomEditorImage', icon: 'icon-tupian1' },
+            { title: '图片橱窗', name: 'DomPictureWindow', editor: 'DomEditorPictureWindow', icon: 'icon-buju' },
+            { title: '文章组', name: 'DomArticle', editor: 'DomEditorArticle', icon: 'icon-24' },
+            { title: '头条快报', name: 'DomHeadline', editor: 'DomEditorHeadline', icon: 'icon-xinwen' },
         ],
     };
 
     shop: DesginNavs = {
         title: '商城组件',
         list: [
-            { title: '搜索框', name: 'DomSearch', icon: 'icon-search' },
-            { title: '公告组', name: 'DomAnnouncement', icon: 'icon-gonggao' },
-            { title: '导航组', name: 'DomNavigation', icon: 'icon-daohang' },
-            { title: '商品组', name: 'DomGoods', icon: 'icon-shangpinguanli' },
-            { title: '优惠券组', name: 'DomCoupon', icon: 'icon-youhuiquan' },
-            { title: '拼团商品', name: 'DomPieceTogether', icon: 'icon-pintuan' },
-            { title: '砍价商品', name: 'DomBargaining', icon: 'icon-kanjia' },
-            { title: '秒杀商品', name: 'DomSeckill', icon: 'icon-miaosha' },
-            { title: '线下门店', name: 'DomOfflineStores', icon: 'icon-store_icon' },
+            { title: '搜索框', name: 'DomSearch', editor: 'DomEditorSearch', icon: 'icon-search' },
+            { title: '公告组', name: 'DomAnnouncement', editor: 'DomEditorAnnouncement', icon: 'icon-gonggao' },
+            { title: '导航组', name: 'DomNavigation', editor: 'DomEditorNavigation', icon: 'icon-daohang' },
+            { title: '商品组', name: 'DomGoods', editor: 'DomEditorGoods', icon: 'icon-shangpinguanli' },
+            { title: '优惠券组', name: 'DomCoupon', editor: 'DomEditorCoupon', icon: 'icon-youhuiquan' },
+            { title: '拼团商品', name: 'DomPieceTogether', editor: 'DomEditorTogether', icon: 'icon-pintuan' },
+            { title: '砍价商品', name: 'DomBargaining', editor: 'DomEditorBargaining', icon: 'icon-kanjia' },
+            { title: '秒杀商品', name: 'DomSeckill', editor: 'DomEditorSeckill', icon: 'icon-miaosha' },
+            { title: '线下门店', name: 'DomOfflineStores', editor: 'DomEditorOfflineStores', icon: 'icon-store_icon' },
         ],
     };
 

@@ -1,26 +1,14 @@
 <template>
-    <section class="design-phone-title no-drag">{{ asyncTitle }}</section>
+    <section class="design-phone-title no-drag">{{ data.data.title }}</section>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { DesginComponent } from '@/types/design';
-
-interface DesignProps extends DesginComponent {
-    $index: number;
-}
+import { DesginComponent, DesignParams } from '@/types/design';
 
 @Component
 export default class DomTitle extends Vue {
-    // @Prop({ type: Object, default: () => ({}) }) data!: DesignProps;
-
-    asyncTitle = '页面设计';
-
-    // @Watch('data', { deep: true, immediate: true })
-    // onData(val: DesignProps) {
-    //     console.log(val, 'dd');
-    //     this.asyncTitle = val.nav.title;
-    // }
+    @Prop({ type: Object, default: () => ({}) }) data!: DesignParams<{ title: string }>;
 }
 </script>
 
