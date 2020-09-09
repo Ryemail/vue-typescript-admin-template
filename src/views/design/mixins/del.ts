@@ -12,9 +12,4 @@ export default class DelMixin extends Vue {
     private del() {
         this.$emit('del', this.data['$index']);
     }
-
-    @Watch('data', { deep: true })
-    onData(val: DesignProps) {
-        console.log(val, 'valval');
-    }
 }

@@ -11,7 +11,15 @@
 .c-input {
     .el-input__inner {
         border: 0;
+        border-radius: 0;
         padding: 0;
+        height: 28px;
+        line-height: 28px;
+        transition: all 0.5s;
+        border-bottom: 1px solid #e6e6e6;
+        background-color: transparent;
+        &:focus {
+            border-color: #61c5c1;
+        }
     }
-    border-bottom: 1px solid #e6e6e6;
 }

@@ -8,7 +8,13 @@ import { DesginComponent, DesignParams } from '@/types/design';
 
 @Component
 export default class DomTitle extends Vue {
-    @Prop({ type: Object, default: () => ({}) }) data!: DesignParams<{ title: string }>;
+    @Prop({
+        type: Object,
+        default: () => ({
+            data: { title: '' },
+        }),
+    })
+    data!: DesignParams<{ title: string }>;
 }
 </script>
 

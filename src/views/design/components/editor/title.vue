@@ -1,10 +1,10 @@
 <template>
     <section class="dom-editor-title">
-        <div class="flex flex-start flex-item-center font-14">
-            <label class="label margin-r-20">页面标题</label>
+        <div class="design-editor-group font-12">
+            <label class="editor-label">页面标题</label>
             <el-input
                 type="text"
-                class="c-input flex-1"
+                class="c-input design-editor-content"
                 placeholder="请输入页面标题"
                 v-model="data.data.title"
                 maxlength="10"
@@ -36,4 +36,6 @@ export default class DomEditorTitle extends Vue {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+@import url('./style');
+</style>

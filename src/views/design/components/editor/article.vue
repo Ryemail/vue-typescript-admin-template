@@ -19,7 +19,7 @@ export default class DomEditorCarousel extends Vue {
     })
     data!: DesignParams;
 
-    @Watch('data', { deep: true })
+    @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {
         storeDesign.updateCompoent(this.data);
     }

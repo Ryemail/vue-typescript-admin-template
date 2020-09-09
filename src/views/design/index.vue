@@ -5,11 +5,16 @@
 
         <!-- 手机容器 -->
         <div class="design-phone-wrap">
+            <!-- <dom-title /> -->
             <el-scrollbar ref="scorll">
-                <!-- <dom-title /> -->
-                <draggable class="list-group" animation="200" :list="components" @choose="onChoose" :move="onMove">
+                <draggable
+                    class="list-group clear"
+                    animation="200"
+                    :list="components"
+                    @choose="onChoose"
+                    :move="onMove"
+                >
                     <!-- <transition-group type="transition" :name="'flip-list'"> -->
-
                     <component
                         v-for="(ele, index) in components"
                         :data="{ data: ele, $index: index }"
@@ -76,9 +81,9 @@ export default class Design extends Vue {
     private toggle(data: DesignNavItem) {
         this.components.push({
             active: false,
-            ...data,
+            ...{ ...data },
         });
-        this.activeIndex = this.components.length;
+        this.activeIndex = this.components.length - 1;
     }
 
     // 删除组件
@@ -128,7 +133,7 @@ export default class Design extends Vue {
         margin: 0 auto;
 
         /deep/ .el-scrollbar {
-            height: 580px;
+            height: 646px;
             .el-scrollbar__wrap {
                 overflow-x: hidden;
             }
@@ -150,9 +155,9 @@ export default class Design extends Vue {
         padding: 15px 10px;
         border: 1px solid #ddd;
         margin-left: 15px;
-        .design-editor-component {
-            padding: 10px 20px;
-        }
+        // .design-editor-component {
+        //     padding: 10px 0;
+        // }
     }
     .checked {
         opacity: 1;

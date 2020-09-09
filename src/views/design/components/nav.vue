@@ -30,6 +30,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { DesginNavs, DesignNavItem } from '@/types/design';
+import defaultImg from '@/assets/image/default.png';
 
 @Component
 export default class DesignNav extends Vue {
@@ -42,15 +43,31 @@ export default class DesignNav extends Vue {
                 editor: 'DomEditorCarousel',
                 icon: 'icon-tupian',
                 params: {
-                    list: [],
-                    dot: '',
-                    interval: '', //  切换时间
-                    color: '', // 指示点颜色
-                    shape: '', // 指示点形状
+                    list: [
+                        { img: defaultImg, url: '' },
+                        { img: defaultImg, url: '' },
+                    ],
+                    interval: 2000, //  切换时间
+                    color: '#fff', // 指示点颜色
+                    shape: 'round', // 指示点形状
                     position: '', // 指示位置
                 },
             },
-            { title: '单图组', name: 'DomImage', editor: 'DomEditorImage', icon: 'icon-tupian1' },
+            {
+                title: '单图组',
+                name: 'DomImage',
+                editor: 'DomEditorImage',
+                icon: 'icon-tupian1',
+                params: {
+                    list: [
+                        { img: defaultImg, url: '' },
+                        { img: defaultImg, url: '' },
+                    ],
+                    marginX: 0,
+                    marginY: 0,
+                    background: '#fff', // 指示点颜色
+                },
+            },
             { title: '图片橱窗', name: 'DomPictureWindow', editor: 'DomEditorPictureWindow', icon: 'icon-buju' },
             { title: '文章组', name: 'DomArticle', editor: 'DomEditorArticle', icon: 'icon-24' },
             { title: '头条快报', name: 'DomHeadline', editor: 'DomEditorHeadline', icon: 'icon-xinwen' },
@@ -74,7 +91,7 @@ export default class DesignNav extends Vue {
 
     private toggleNav(item: DesignNavItem) {
         console.log(item, 'item');
-        this.$emit('toggle', item);
+        this.$emit('toggle', { ...item });
     }
 }
 </script>
