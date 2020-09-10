@@ -1,23 +1,31 @@
 <template>
-    <section class="design-image clear design-item">
-        <img v-for="(item, key) in imgList" :key="key" :src="item" />
+    <section
+        class="design-image clear design-item"
+        :style="{ paddingBottom: params.marginY + 'px', background: params.background }"
+    >
+        <template v-for="(item, key) in params.list">
+            <a
+                :href="item.url ? item.url : 'javascript:;'"
+                :key="key"
+                class="dom-a-link"
+                :style="{ padding: `${params.marginY}px ${params.marginX}px 0` }"
+            >
+                <img :src="item.img" class="desing-module-img" />
+            </a>
+        </template>
 
         <div class="del" v-if="data.data.active" @click="del">删除</div>
-        {{ data.data.params }}
     </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import defaultImg from '@/assets/image/default.png';
-import { DesignEditor } from '@/types/design';
+import { DesignEditor, ImageProps } from '@/types/design';
 
 @Component
 export default class DomImage extends Vue {
-    @Prop({ type: Array, default: () => [defaultImg, defaultImg] })
-    imgList!: string[];
-    @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor;
+    @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor<ImageProps>;
 
     get params() {
         return this.data.data.params;
@@ -29,4 +37,11 @@ export default class DomImage extends Vue {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.dom-a-link {
+    display: block;
+}
+.desing-module-img {
+    object-fit: cover;
+}
+</style>

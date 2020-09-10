@@ -1,16 +1,15 @@
 <template>
-    <section class="design-phone-title no-drag">{{ data.data.title }}</section>
+    <section class="design-phone-title no-drag">{{ params.title }}</section>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import { DesignEditor } from '@/types/design';
 
 @Component
 export default class DomTitle extends Vue {
-    @Prop({ type: Object, default: () => ({}) })
-    data!: DesignEditor<{ title: string }>;
+    @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor<{ title: string }>;
 
     get params() {
         return this.data.data.params;

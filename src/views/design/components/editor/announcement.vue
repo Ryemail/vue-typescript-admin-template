@@ -18,7 +18,12 @@
         <div class="design-editor-group clear">
             <label class="editor-label">公告图标</label>
             <div class="design-editor-content">
-                <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/">
+                <el-upload
+                    class="upload-demo"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :on-success="onAddSuccess"
+                    :before-upload="onAddBeforeUpload"
+                >
                     <img class="editor-img" :src="data.data.icon ? data.data.icon : defaultImg" alt="" />
                     <span class="color-999">建议尺寸：32×32</span>
                 </el-upload>
@@ -42,20 +47,27 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { storeDesign } from '@/store/modules/design';
 
 import defaultImg from '@/assets/image/default.png';
+import { AnnouncementProps } from '@/types/design';
 
 @Component
 export default class DomEditorAnnouncement extends Vue {
-    @Prop({
-        type: Object,
-        default: () => ({}),
-    })
-    data!: object;
+    @Prop({ type: Object, default: () => ({}) }) data!: { data: AnnouncementProps } & { $index: number };
 
     defaultImg = defaultImg;
 
     @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {
         storeDesign.updateCompoent({ ...this.data });
+    }
+
+    // 添加一个
+    private onAddSuccess(response: Response, file: File) {
+        // console.log(response, file);
+    }
+
+    // 上传之前
+    private onAddBeforeUpload(file: File) {
+        this.data.data.icon = URL.createObjectURL(file);
     }
 }
 </script>

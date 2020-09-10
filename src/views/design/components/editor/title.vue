@@ -27,13 +27,7 @@ interface TitleProps {
 
 @Component
 export default class DomEditorTitle extends Vue {
-    @Prop({
-        type: Object,
-        default: () => ({
-            data: { title: '' },
-        }),
-    })
-    data!: TitleProps;
+    @Prop({ type: Object, default: () => ({}) }) data!: TitleProps;
 
     @Watch('data', { deep: true })
     onForm(value: object) {

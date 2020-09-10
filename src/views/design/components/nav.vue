@@ -98,7 +98,7 @@ export default class DesignNav extends Vue {
                     poster: '', // 视频封面
                     height: 150,
                     marginY: 0,
-                    auto: 1, // 是否自动播放
+                    auto: 0, // 是否自动播放
                 },
             },
         ],
@@ -125,8 +125,8 @@ export default class DesignNav extends Vue {
                 icon: 'icon-gonggao',
                 params: {
                     marginY: 6, // 上下边距
-                    background: '', // 背景颜色
-                    color: '', // 文字颜色
+                    background: '#fffbe8', // 背景颜色
+                    color: '#ed6a0c', // 文字颜色
                     icon: '', // 公告图标
                     text: '', // 公告内容
                 },

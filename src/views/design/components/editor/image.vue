@@ -23,8 +23,13 @@
                 <div class="design-editor-group clear">
                     <label class="editor-label">图片</label>
                     <div class="design-editor-content">
-                        <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/">
-                            <img class="editor-img" :src="item.img" alt="" />
+                        <el-upload
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            :on-success="onAddSuccess"
+                            :before-upload="onAddBeforeUpload"
+                            @click.native="listIndex = key"
+                        >
+                            <img class="editor-img" :src="item.img" />
                         </el-upload>
                     </div>
                 </div>
@@ -38,27 +43,26 @@
             </li>
         </ul>
 
-        <button class="design-add-btn">添加一个</button>
+        <el-upload
+            class="design-add-btn"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-success="onAddSuccess"
+            :before-upload="onAddBeforeUpload"
+            @click.native="listIndex = data.data.list.length"
+        >
+            <div>添加一个</div>
+        </el-upload>
     </section>
 </template>
 
 <script lang="ts">
 import { storeDesign } from '@/store/modules/design';
+import { ImageProps } from '@/types/design';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
-interface ImageProps {
-    $index: number;
-    data: {
-        list: { url: string; img: string }[];
-        marginX: number;
-        marginY: number;
-        background: string; // 指示点颜色
-    };
-}
 
 @Component
 export default class DomEditorImage extends Vue {
-    @Prop({ type: Object, default: () => ({}) }) data!: ImageProps;
+    @Prop({ type: Object, default: () => ({}) }) data!: { data: ImageProps } & { $index: number };
 
     @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {
@@ -66,8 +70,22 @@ export default class DomEditorImage extends Vue {
         storeDesign.updateCompoent(this.data);
     }
 
+    listIndex = -1;
+
     private delImg(index: number) {
         this.data.data.list.splice(index, 1);
+    }
+
+    // 添加一个
+    private onAddSuccess(response: Response, file: File) {
+        // console.log(response, file);
+    }
+
+    // 上传之前
+    private onAddBeforeUpload(file: File) {
+        if (this.listIndex != -1) {
+            this.data.data.list.splice(this.listIndex, 1, { url: '', img: URL.createObjectURL(file) });
+        }
     }
 }
 </script>

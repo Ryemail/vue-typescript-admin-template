@@ -17,7 +17,11 @@
         <div class="design-editor-group clear">
             <label class="editor-label">视频封面</label>
             <div class="design-editor-content">
-                <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/">
+                <el-upload
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :on-success="onAddSuccess"
+                    :before-upload="onAddBeforeUpload"
+                >
                     <img class="editor-img" :src="data.data.poster ? data.data.poster : defaultImg" />
                 </el-upload>
             </div>
@@ -41,35 +45,33 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
+import { VideoProps } from '@/types/design';
 import { storeDesign } from '@/store/modules/design';
 
 import defaultImg from '@/assets/image/default.png';
 
-interface VideoProps {
-    $index: number;
-    data: {
-        url: string;
-        poster: string;
-        height: number;
-        marginY: number;
-        auto: number;
-    };
-}
-
 @Component
 export default class DomEditorVideo extends Vue {
-    @Prop({
-        type: Object,
-        default: () => ({}),
-    })
-    data!: VideoProps;
+    @Prop({ type: Object, default: () => ({}) }) data!: { data: VideoProps } & { $index: number };
 
     defaultImg = defaultImg;
 
     @Watch('data', { deep: true, immediate: true })
-    onForm(value: object) {
+    onForm() {
+        console.log(this.data);
         storeDesign.updateCompoent(this.data);
+    }
+
+    // 添加一个
+    private onAddSuccess(response: Response, file: File) {
+        console.log(response, file);
+    }
+
+    // 上传之前
+    private onAddBeforeUpload(file: File) {
+        console.log(URL.createObjectURL(file), 'file');
+        this.data.data.poster =
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599742186346&di=744dbb274d9fe1c67ef3341bb6896f77&imgtype=0&src=http%3A%2F%2Ft9.baidu.com%2Fit%2Fu%3D583874135%2C70653437%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D3607%26h%3D2408';
     }
 }
 </script>

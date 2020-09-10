@@ -16,28 +16,33 @@
 }
 .editor-img {
     width: 100px;
+    object-fit: cover;
 }
 .img-size {
     color: #838fa1;
     margin-top: 12px;
 }
 .design-add-btn {
-    width: 100%;
     background: #fdfdfd;
     color: #6b6b6b;
     border: 1px solid #efefef;
     outline: none;
-    padding: 10px 16px;
+    height: 34px;
+    line-height: 32px;
+    margin: 0 10px;
     border-radius: 2px;
     font-size: 12px;
-    line-height: 1;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
     user-select: none;
     transition: all 0.3s;
+    box-sizing: border-box;
     &:hover {
         opacity: 0.6;
+    }
+    .el-upload--text {
+        display: block;
     }
 }
 
