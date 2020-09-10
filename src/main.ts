@@ -18,6 +18,8 @@ import '../mock';
 
 Vue.config.productionTip = false;
 
+// Vue.prototype._=
+
 Vue.use(ElementUI);
 
 new Vue({

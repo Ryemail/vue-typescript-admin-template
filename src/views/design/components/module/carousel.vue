@@ -10,14 +10,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop } from 'vue-property-decorator';
-import DelMixin from '@/views/design/mixins/del';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
+import { DesignEditor } from '@/types/design';
 
 @Component
-export default class DomCarousel extends Mixins(DelMixin) {
+export default class DomCarousel extends Vue {
     @Prop({ type: Number, default: 160 }) height!: number;
+    @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor;
 
     bannerList = [require('@/assets/image/gril.png')];
+
+    get params() {
+        return this.data.data.params;
+    }
+
+    private del() {
+        this.$emit('del', this.data['$index']);
+    }
 }
 </script>
 

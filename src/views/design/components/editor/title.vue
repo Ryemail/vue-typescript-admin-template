@@ -16,8 +16,14 @@
 
 <script lang="ts">
 import { storeDesign } from '@/store/modules/design';
-import { DesignParams } from '@/types/design';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+interface TitleProps {
+    $index: number;
+    data: {
+        title: string;
+    };
+}
 
 @Component
 export default class DomEditorTitle extends Vue {
@@ -27,7 +33,7 @@ export default class DomEditorTitle extends Vue {
             data: { title: '' },
         }),
     })
-    data!: DesignParams<{ title: string }>;
+    data!: TitleProps;
 
     @Watch('data', { deep: true })
     onForm(value: object) {

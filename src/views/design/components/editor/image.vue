@@ -44,19 +44,25 @@
 
 <script lang="ts">
 import { storeDesign } from '@/store/modules/design';
-import { DesignParams } from '@/types/design';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+interface ImageProps {
+    $index: number;
+    data: {
+        list: { url: string; img: string }[];
+        marginX: number;
+        marginY: number;
+        background: string; // 指示点颜色
+    };
+}
 
 @Component
 export default class DomEditorImage extends Vue {
-    @Prop({
-        type: Object,
-        default: () => ({}),
-    })
-    data!: DesignParams;
+    @Prop({ type: Object, default: () => ({}) }) data!: ImageProps;
 
     @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {
+        console.log(value, 'image');
         storeDesign.updateCompoent(this.data);
     }
 

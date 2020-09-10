@@ -1,17 +1,17 @@
 <template>
-    <section class="picture-window clear design-item">
-        <div></div>
+    <section class="dom-announcement clear design-item">
+        <img src="@/assets/image/gril.png" />
         <div class="del" v-if="data.data.active" @click="del">删除</div>
     </section>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { DesignEditor } from '@/types/design';
 
 @Component
-export default class DomPictureWindow extends Vue {
+export default class DomAnnouncement extends Vue {
     @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor;
 
     get params() {
@@ -24,4 +24,4 @@ export default class DomPictureWindow extends Vue {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less"></style>

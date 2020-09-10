@@ -18,7 +18,6 @@ export default new Vuex.Store<RootState>({
         createPersistedState({
             storage: window.sessionStorage,
             reducer(val) {
-                // console.log(val, 'ddd');
                 return {
                     token: val.user.token,
                     name: val.user.name,

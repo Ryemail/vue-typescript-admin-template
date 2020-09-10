@@ -1,0 +1,66 @@
+<template>
+    <section class="dom-editor-search clear font-12">
+        <div class="design-editor-group clear font-12">
+            <label class="editor-label">文字提示</label>
+            <el-input
+                type="text"
+                class="c-input design-editor-content"
+                placeholder="请输入关键字进行搜索"
+                v-model="data.data.keywords"
+            />
+        </div>
+        <div class="design-editor-group clear">
+            <label class="editor-label">搜索框样式</label>
+            <div class="design-editor-content">
+                <el-radio-group v-model="data.data.style">
+                    <el-radio label="square">方形</el-radio>
+                    <el-radio label="radius">圆角</el-radio>
+                    <el-radio label="arc">圆弧</el-radio>
+                </el-radio-group>
+            </div>
+        </div>
+        <div class="design-editor-group clear">
+            <label class="editor-label">文字对齐</label>
+            <div class="design-editor-content">
+                <el-radio-group v-model="data.data.align">
+                    <el-radio label="left">居左</el-radio>
+                    <el-radio label="center">居中</el-radio>
+                    <el-radio label="right">居右</el-radio>
+                </el-radio-group>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+import { storeDesign } from '@/store/modules/design';
+
+import defaultImg from '@/assets/image/default.png';
+
+interface SearchProps {
+    $index: number;
+    data: {
+        keywords: string;
+        style: 'square' | 'radius' | 'arc'; // 样式 square radius arc
+        align: 'left' | 'center' | 'right';
+    };
+}
+
+@Component
+export default class DomEditorSearch extends Vue {
+    @Prop({
+        type: Object,
+        default: () => ({}),
+    })
+    data!: SearchProps;
+
+    @Watch('data', { deep: true, immediate: true })
+    onForm(value: object) {
+        storeDesign.updateCompoent(this.data);
+    }
+}
+</script>
+
+<style lang="less"></style>

@@ -53,8 +53,18 @@
 
 <script lang="ts">
 import { storeDesign } from '@/store/modules/design';
-import { DesignParams } from '@/types/design';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+interface CarouselProps {
+    $index: number;
+    data: {
+        list: { url: string; img: string }[];
+        interval: number;
+        color: string;
+        shape: 'round' | '';
+        position: 'in' | 'out' | 'none';
+    };
+}
 
 @Component
 export default class DomEditorCarousel extends Vue {
@@ -62,7 +72,7 @@ export default class DomEditorCarousel extends Vue {
         type: Object,
         default: () => ({}),
     })
-    data!: DesignParams;
+    data!: CarouselProps;
 
     @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {

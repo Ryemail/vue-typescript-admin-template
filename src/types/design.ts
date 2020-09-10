@@ -3,7 +3,7 @@ export interface DesignNavItem {
     icon?: string;
     title: string;
     editor: string;
-    params?: any;
+    params?: object;
 }
 
 export interface DesginNavs {
@@ -11,11 +11,16 @@ export interface DesginNavs {
     list: DesignNavItem[];
 }
 
-export interface DesginComponent extends DesignNavItem {
-    active?: boolean;
+export interface DesginModule<T = object> {
+    active: boolean;
+    name: string;
+    icon?: string;
+    title: string;
+    editor: string;
+    params?: object;
 }
 
-export interface DesignParams<T = any> {
+export interface DesignEditor<T = object> {
+    data: DesginModule<T>;
     $index: number;
-    data: T;
 }

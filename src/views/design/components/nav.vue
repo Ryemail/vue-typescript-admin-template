@@ -30,6 +30,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { DesginNavs, DesignNavItem } from '@/types/design';
+import _ from 'lodash';
+
 import defaultImg from '@/assets/image/default.png';
 
 @Component
@@ -65,20 +67,70 @@ export default class DesignNav extends Vue {
                     ],
                     marginX: 0,
                     marginY: 0,
+                    background: '#fff', // 背景颜色
+                },
+            },
+            {
+                title: '图片橱窗',
+                name: 'DomPictureWindow',
+                editor: 'DomEditorPictureWindow',
+                icon: 'icon-buju',
+                params: {
+                    list: [
+                        { img: defaultImg, url: '' },
+                        { img: defaultImg, url: '' },
+                        { img: defaultImg, url: '' },
+                        { img: defaultImg, url: '' },
+                    ],
+                    marginX: 0,
+                    marginY: 0,
+                    layout: 'column-2', // 布局方式
                     background: '#fff', // 指示点颜色
                 },
             },
-            { title: '图片橱窗', name: 'DomPictureWindow', editor: 'DomEditorPictureWindow', icon: 'icon-buju' },
-            { title: '文章组', name: 'DomArticle', editor: 'DomEditorArticle', icon: 'icon-24' },
-            { title: '头条快报', name: 'DomHeadline', editor: 'DomEditorHeadline', icon: 'icon-xinwen' },
+            {
+                title: '视频组',
+                name: 'DomVideo',
+                editor: 'DomEditorVideo',
+                icon: 'icon-24',
+                params: {
+                    url: '', // 视频地址
+                    poster: '', // 视频封面
+                    height: 150,
+                    marginY: 0,
+                    auto: 1, // 是否自动播放
+                },
+            },
         ],
     };
 
     shop: DesginNavs = {
         title: '商城组件',
         list: [
-            { title: '搜索框', name: 'DomSearch', editor: 'DomEditorSearch', icon: 'icon-search' },
-            { title: '公告组', name: 'DomAnnouncement', editor: 'DomEditorAnnouncement', icon: 'icon-gonggao' },
+            {
+                title: '搜索框',
+                name: 'DomSearch',
+                editor: 'DomEditorSearch',
+                icon: 'icon-search',
+                params: {
+                    keywords: '',
+                    style: 'square', // 样式 square radius arc
+                    align: 'left', // 文字对齐
+                },
+            },
+            {
+                title: '公告组',
+                name: 'DomAnnouncement',
+                editor: 'DomEditorAnnouncement',
+                icon: 'icon-gonggao',
+                params: {
+                    marginY: 6, // 上下边距
+                    background: '', // 背景颜色
+                    color: '', // 文字颜色
+                    icon: '', // 公告图标
+                    text: '', // 公告内容
+                },
+            },
             { title: '导航组', name: 'DomNavigation', editor: 'DomEditorNavigation', icon: 'icon-daohang' },
             { title: '商品组', name: 'DomGoods', editor: 'DomEditorGoods', icon: 'icon-shangpinguanli' },
             { title: '优惠券组', name: 'DomCoupon', editor: 'DomEditorCoupon', icon: 'icon-youhuiquan' },
@@ -90,8 +142,7 @@ export default class DesignNav extends Vue {
     };
 
     private toggleNav(item: DesignNavItem) {
-        console.log(item, 'item');
-        this.$emit('toggle', { ...item });
+        this.$emit('toggle', _.cloneDeep(item));
     }
 }
 </script>
@@ -99,6 +150,7 @@ export default class DesignNav extends Vue {
 <style lang="less" scoped>
 .design-nav {
     width: 265px;
+    min-width: 265px;
     height: auto;
     background: #fdfdfd;
     border: 1px solid #ddd;

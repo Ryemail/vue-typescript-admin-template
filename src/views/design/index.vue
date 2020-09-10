@@ -25,14 +25,13 @@
                         @mouseover.native="onChoose({ oldIndex: index, type: 'over' })"
                         @mouseleave.native="onChoose({ oldIndex: index, type: 'leave' })"
                     />
-                    <!---->
                     <!-- </transition-group> -->
                 </draggable>
             </el-scrollbar>
         </div>
 
         <!-- 组件库编辑 -->
-        <div class="design-editor" v-if="components.length">
+        <div :class="['design-editor', !components.length ? 'no-border' : '']" v-if="components.length">
             <template v-for="(ele, index) in components">
                 <div v-if="index === activeIndex" :key="index">
                     <div class="design-title">{{ ele.title }}</div>
@@ -50,7 +49,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import draggable, { DraggedContext } from 'vuedraggable';
 
 import * as Designs from './components';
-import { DesginComponent, DesginNavs, DesignNavItem } from '@/types/design';
+import { DesginModule, DesignNavItem } from '@/types/design';
 import { storeDesign } from '@/store/modules/design';
 
 const files = require.context('./components/editor', false, /\.vue$/);
@@ -79,11 +78,7 @@ export default class Design extends Vue {
 
     // 点击添加组件库
     private toggle(data: DesignNavItem) {
-        this.components.push({
-            active: false,
-            ...{ ...data },
-        });
-        this.activeIndex = this.components.length - 1;
+        this.components.push({ active: false, ...data });
     }
 
     // 删除组件
@@ -109,7 +104,7 @@ export default class Design extends Vue {
         // }
     }
 
-    private onMove({ draggedContext }: { draggedContext: DraggedContext<DesginComponent> }) {
+    private onMove({ draggedContext }: { draggedContext: DraggedContext<DesginModule> }) {
         if (draggedContext.element.name === 'DomTitle') return false;
 
         return true;
@@ -127,6 +122,7 @@ export default class Design extends Vue {
 
     .design-phone-wrap {
         width: 377px;
+        min-width: 377px;
         border-radius: 3px;
         box-shadow: 0 3px 10px #dcdcdc;
         border: 1px solid #ddd;
@@ -150,14 +146,16 @@ export default class Design extends Vue {
 
     .design-editor {
         width: 400px;
+        min-width: 400px;
         height: auto;
         min-height: 100px;
         padding: 15px 10px;
         border: 1px solid #ddd;
         margin-left: 15px;
-        // .design-editor-component {
-        //     padding: 10px 0;
-        // }
+        box-sizing: border-box;
+        &.no-border {
+            border: 0;
+        }
     }
     .checked {
         opacity: 1;
