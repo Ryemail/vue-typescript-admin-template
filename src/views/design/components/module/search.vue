@@ -1,6 +1,12 @@
 <template>
     <section class="dom-search clear design-item">
-        <img src="@/assets/image/gril.png" />
+        <van-search
+            v-model="params.keywords"
+            :shape="params.shape"
+            :input-align="params.align"
+            :background="params.background"
+            placeholder="请输入搜索关键词"
+        />
         <div class="del" v-if="data.data.active" @click="del">删除</div>
     </section>
 </template>

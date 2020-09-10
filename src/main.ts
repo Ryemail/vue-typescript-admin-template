@@ -8,6 +8,14 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+import { NoticeBar, Icon, Search, Swipe, SwipeItem } from 'vant';
+
+Vue.use(NoticeBar)
+    .use(Icon)
+    .use(Search)
+    .use(Swipe)
+    .use(SwipeItem);
+
 import './permission';
 
 import '@/components';

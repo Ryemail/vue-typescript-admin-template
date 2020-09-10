@@ -40,9 +40,29 @@ export interface VideoProps {
 }
 
 export interface AnnouncementProps {
-    marginY: number;
     background: string;
     color: string;
     icon: string;
     text: string;
+    height: number;
+    wrapable: 1 | 0;
+    scrollable: 1 | 0;
+    mode: 'none' | 'link' | 'closeable';
+}
+
+export interface SearchProps {
+    keywords: string;
+    style: 'square' | 'radius'; // 样式 square radius arc
+    align: 'left' | 'center' | 'right';
+    background: string;
+}
+
+export interface CarouselProps {
+    list: { url: string; img: string }[];
+    interval: number;
+    color: string;
+    height: number | 'auto';
+    shape: 'round' | 'square';
+    position: 'in' | 'out' | 'none';
+    showIndicators: true;
 }

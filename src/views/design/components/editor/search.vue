@@ -1,5 +1,9 @@
 <template>
     <section class="dom-editor-search clear font-12">
+        <div class="design-editor-group clear">
+            <label class="editor-label">背景颜色</label>
+            <el-color-picker class="design-editor-content" v-model="data.data.background"></el-color-picker>
+        </div>
         <div class="design-editor-group clear font-12">
             <label class="editor-label">文字提示</label>
             <el-input
@@ -12,10 +16,9 @@
         <div class="design-editor-group clear">
             <label class="editor-label">搜索框样式</label>
             <div class="design-editor-content">
-                <el-radio-group v-model="data.data.style">
+                <el-radio-group v-model="data.data.shape">
                     <el-radio label="square">方形</el-radio>
-                    <el-radio label="radius">圆角</el-radio>
-                    <el-radio label="arc">圆弧</el-radio>
+                    <el-radio label="round">圆角</el-radio>
                 </el-radio-group>
             </div>
         </div>
@@ -38,15 +41,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { storeDesign } from '@/store/modules/design';
 
 import defaultImg from '@/assets/image/default.png';
-
-interface SearchProps {
-    $index: number;
-    data: {
-        keywords: string;
-        style: 'square' | 'radius' | 'arc'; // 样式 square radius arc
-        align: 'left' | 'center' | 'right';
-    };
-}
+import { DesignEditor, SearchProps } from '@/types/design';
 
 @Component
 export default class DomEditorSearch extends Vue {
@@ -54,7 +49,7 @@ export default class DomEditorSearch extends Vue {
         type: Object,
         default: () => ({}),
     })
-    data!: SearchProps;
+    data!: { data: SearchProps } & { $index: number };
 
     @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {

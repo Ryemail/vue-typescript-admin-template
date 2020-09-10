@@ -7,6 +7,14 @@
                 <el-radio label="rect">长方形</el-radio>
             </el-radio-group>
         </div>
+        <div class="design-editor-group clear flex flex-item-center">
+            <label class="editor-label">指示点位置</label>
+            <el-radio-group class="design-editor-content" v-model="data.data.position">
+                <el-radio label="in">容器之内</el-radio>
+                <el-radio label="out">容器之外</el-radio>
+                <el-radio label="none">无</el-radio>
+            </el-radio-group>
+        </div>
         <div class="design-editor-group clear">
             <label class="editor-label ">指示点颜色</label>
             <el-color-picker class="design-editor-content" v-model="data.data.color"></el-color-picker>
@@ -31,7 +39,12 @@
                 <div class="design-editor-group clear">
                     <label class="editor-label">图片</label>
                     <div class="design-editor-content">
-                        <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/">
+                        <el-upload
+                            class="upload-demo"
+                            :on-success="onAddSuccess"
+                            :before-upload="onAddBeforeUpload"
+                            @click.native="listIndex = key"
+                        >
                             <img class="editor-img" :src="item.img" alt="" />
                             <div class="img-size">建议尺寸750x360</div>
                         </el-upload>
@@ -47,24 +60,22 @@
             </li>
         </ul>
 
-        <button class="design-add-btn">添加一个</button>
+        <el-upload
+            class="design-add-btn"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-success="onAddSuccess"
+            :before-upload="onAddBeforeUpload"
+            @click.native="listIndex = data.data.list.length"
+        >
+            <div>添加一个</div>
+        </el-upload>
     </section>
 </template>
 
 <script lang="ts">
 import { storeDesign } from '@/store/modules/design';
+import { CarouselProps } from '@/types/design';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
-interface CarouselProps {
-    $index: number;
-    data: {
-        list: { url: string; img: string }[];
-        interval: number;
-        color: string;
-        shape: 'round' | '';
-        position: 'in' | 'out' | 'none';
-    };
-}
 
 @Component
 export default class DomEditorCarousel extends Vue {
@@ -72,7 +83,9 @@ export default class DomEditorCarousel extends Vue {
         type: Object,
         default: () => ({}),
     })
-    data!: CarouselProps;
+    data!: { data: CarouselProps } & { $index: number };
+
+    listIndex = -1;
 
     @Watch('data', { deep: true, immediate: true })
     onForm(value: object) {
@@ -81,6 +94,18 @@ export default class DomEditorCarousel extends Vue {
 
     private delImg(index: number) {
         this.data.data.list.splice(index, 1);
+    }
+
+    // 添加一个
+    private onAddSuccess(response: Response, file: File) {
+        // console.log(response, file);
+    }
+
+    // 上传之前
+    private onAddBeforeUpload(file: File) {
+        if (this.listIndex != -1) {
+            this.data.data.list.splice(this.listIndex, 1, { url: '', img: URL.createObjectURL(file) });
+        }
     }
 }
 </script>

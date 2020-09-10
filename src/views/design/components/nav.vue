@@ -49,10 +49,11 @@ export default class DesignNav extends Vue {
                         { img: defaultImg, url: '' },
                         { img: defaultImg, url: '' },
                     ],
+                    showIndicators: true,
                     interval: 2000, //  切换时间
                     color: '#fff', // 指示点颜色
                     shape: 'round', // 指示点形状
-                    position: '', // 指示位置
+                    position: 'in', // 指示位置 in out none
                 },
             },
             {
@@ -114,7 +115,8 @@ export default class DesignNav extends Vue {
                 icon: 'icon-search',
                 params: {
                     keywords: '',
-                    style: 'square', // 样式 square radius arc
+                    background: '',
+                    shape: 'square', // 样式 square round
                     align: 'left', // 文字对齐
                 },
             },
@@ -124,11 +126,15 @@ export default class DesignNav extends Vue {
                 editor: 'DomEditorAnnouncement',
                 icon: 'icon-gonggao',
                 params: {
-                    marginY: 6, // 上下边距
+                    mode: 'none', //模式 closeable link ‘none’
+                    scrollable: true, // 是否滚动
+                    wrapable: false, // 是否多行
                     background: '#fffbe8', // 背景颜色
                     color: '#ed6a0c', // 文字颜色
                     icon: '', // 公告图标
-                    text: '', // 公告内容
+                    height: 40,
+                    text:
+                        '在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准', // 公告内容
                 },
             },
             { title: '导航组', name: 'DomNavigation', editor: 'DomEditorNavigation', icon: 'icon-daohang' },

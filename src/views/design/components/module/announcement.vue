@@ -1,9 +1,21 @@
 <template>
-    <section class="dom-announcement clear design-item" :style="{ background: `${params.background}` }">
-        <div class="flex notice-wrap flex-item-center" :style="{ padding: `${params.marginY}px 0` }">
+    <section class="dom-announcement clear design-item">
+        <van-notice-bar
+            :scrollable="!!params.scrollable"
+            :wrapable="!!params.wrapable"
+            :color="params.color"
+            :background="params.background"
+            :text="params.text"
+            :mode="params.mode"
+            :left-icon="params.icon ? params.icon : 'volume-o'"
+            :style="{ height: params.height + 'px' }"
+        >
+            <template #left-icon> </template>
+        </van-notice-bar>
+        <!-- <div class="flex notice-wrap flex-item-center" :style="{ padding: `${params.marginY}px 0` }">
             <img v-if="params.icon" class="notice-icon" :src="params.icon" />
             <div :style="{ color: `${params.color}` }" class="notice-text">{{ params.text }}</div>
-        </div>
+        </div> -->
         <div class="del" v-if="data.data.active" @click="del">删除</div>
     </section>
 </template>
@@ -11,11 +23,11 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import { DesignEditor } from '@/types/design';
+import { AnnouncementProps, DesignEditor } from '@/types/design';
 
 @Component
 export default class DomAnnouncement extends Vue {
-    @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor;
+    @Prop({ type: Object, default: () => ({}) }) data!: DesignEditor<AnnouncementProps>;
 
     get params() {
         return this.data.data.params;
@@ -28,9 +40,6 @@ export default class DomAnnouncement extends Vue {
 </script>
 
 <style lang="less" scoped>
-.dom-announcement {
-    padding: 0 16px;
-}
 .notice-wrap {
     min-height: 20px;
     line-height: 20px;

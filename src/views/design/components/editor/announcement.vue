@@ -1,10 +1,38 @@
 <template>
     <section class="dom-editor-announcement font-12">
         <div class="design-editor-group flex flex-item-center clear">
-            <label class="editor-label">上下边距</label>
+            <label class="editor-label">公告栏高度</label>
             <div class="design-editor-content flex flex-item-center">
-                <el-slider v-model="data.data.marginY" :max="50" height="4"></el-slider>
-                <span class="padding-l-20">{{ data.data.marginY }}px (像素)</span>
+                <el-slider v-model="data.data.height" :max="100" :min="36" height="4"></el-slider>
+                <span class="padding-l-20">{{ data.data.height }}px (像素)</span>
+            </div>
+        </div>
+        <div class="design-editor-group flex flex-item-center clear">
+            <label class="editor-label">通知栏模式</label>
+            <div class="design-editor-content">
+                <el-radio-group v-model="data.data.mode">
+                    <el-radio label="link">link</el-radio>
+                    <el-radio label="closeable">closeable</el-radio>
+                    <el-radio label="none">none</el-radio>
+                </el-radio-group>
+            </div>
+        </div>
+        <div class="design-editor-group flex flex-item-center clear">
+            <label class="editor-label">行数</label>
+            <div class="design-editor-content">
+                <el-radio-group v-model="data.data.wrapable">
+                    <el-radio :label="0">一行</el-radio>
+                    <el-radio :label="1">多行</el-radio>
+                </el-radio-group>
+            </div>
+        </div>
+        <div class="design-editor-group flex flex-item-center clear">
+            <label class="editor-label">是否滚动</label>
+            <div class="design-editor-content">
+                <el-radio-group v-model="data.data.scrollable">
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="0">否</el-radio>
+                </el-radio-group>
             </div>
         </div>
         <div class="design-editor-group clear">
@@ -24,8 +52,13 @@
                     :on-success="onAddSuccess"
                     :before-upload="onAddBeforeUpload"
                 >
-                    <img class="editor-img" :src="data.data.icon ? data.data.icon : defaultImg" alt="" />
-                    <span class="color-999">建议尺寸：32×32</span>
+                    <van-icon
+                        class="editor-img"
+                        size="32"
+                        :color="data.data.color"
+                        :name="data.data.icon ? data.data.icon : 'volume-o'"
+                    />
+                    <div class="color-999">建议尺寸：32×32</div>
                 </el-upload>
             </div>
         </div>
@@ -78,6 +111,9 @@ export default class DomEditorAnnouncement extends Vue {
     .editor-img {
         width: 32px;
         height: 32px;
+    }
+    /deep/ .el-upload.el-upload--text {
+        text-align: left;
     }
 }
 .el-slider {
