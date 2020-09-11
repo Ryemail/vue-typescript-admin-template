@@ -89,13 +89,13 @@ export default class DomEditorAnnouncement extends Vue {
     defaultImg = defaultImg;
 
     @Watch('data', { deep: true, immediate: true })
-    onForm(value: object) {
+    onForm() {
         storeDesign.updateCompoent({ ...this.data });
     }
 
     // 添加一个
     private onAddSuccess(response: Response, file: File) {
-        // console.log(response, file);
+        console.log(response, file);
     }
 
     // 上传之前

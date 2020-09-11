@@ -20,7 +20,7 @@ export interface DesginModule<T = object> {
     params?: object;
 }
 
-export interface DesignEditor<T = object> {
+export interface DesignEditor<T> {
     data: DesginModule<T>;
     $index: number;
 }
@@ -65,4 +65,12 @@ export interface CarouselProps {
     shape: 'round' | 'square';
     position: 'in' | 'out' | 'none';
     showIndicators: true;
+}
+
+export interface PictureWindowProps {
+    list: { url: string; img: string }[];
+    marginX: number;
+    marginY: number;
+    layout: 'column-2' | 'column-3' | 'column-4' | 'showcase'; // 布局方式
+    background: string; // 背景颜色
 }

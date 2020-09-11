@@ -40,7 +40,7 @@
                     <label class="editor-label">图片</label>
                     <div class="design-editor-content">
                         <el-upload
-                            class="upload-demo"
+                            action="https://jsonplaceholder.typicode.com/posts/"
                             :on-success="onAddSuccess"
                             :before-upload="onAddBeforeUpload"
                             @click.native="listIndex = key"
@@ -88,7 +88,7 @@ export default class DomEditorCarousel extends Vue {
     listIndex = -1;
 
     @Watch('data', { deep: true, immediate: true })
-    onForm(value: object) {
+    onForm() {
         storeDesign.updateCompoent(this.data);
     }
 
@@ -98,7 +98,7 @@ export default class DomEditorCarousel extends Vue {
 
     // 添加一个
     private onAddSuccess(response: Response, file: File) {
-        // console.log(response, file);
+        console.log(response, file);
     }
 
     // 上传之前

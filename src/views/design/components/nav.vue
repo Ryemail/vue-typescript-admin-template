@@ -114,8 +114,8 @@ export default class DesignNav extends Vue {
                 editor: 'DomEditorSearch',
                 icon: 'icon-search',
                 params: {
-                    keywords: '',
-                    background: '',
+                    keywords: '请输入搜索关键词',
+                    background: '#ffffff',
                     shape: 'square', // 样式 square round
                     align: 'left', // 文字对齐
                 },

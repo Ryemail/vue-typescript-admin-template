@@ -3,8 +3,7 @@ import Vue from 'vue';
 //  整数指令
 Vue.directive('number', {
     inserted: function(el) {
-        const reg = /^\d*\.?\d+$/,
-            dom = el as HTMLElement,
+        const dom = el as HTMLElement,
             input = dom.querySelector('input') as HTMLInputElement;
         input.oninput = function() {
             input.value = input.value.replace(/[^\d.]/g, ''); //清除"数字"和"."以外的字符

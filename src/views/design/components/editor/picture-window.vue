@@ -37,7 +37,12 @@
                 <div class="design-editor-group clear">
                     <label class="editor-label">图片</label>
                     <div class="design-editor-content">
-                        <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/">
+                        <el-upload
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            :on-success="onAddSuccess"
+                            :before-upload="onAddBeforeUpload"
+                            @click.native="listIndex = key"
+                        >
                             <img class="editor-img" :src="item.img" alt="" />
                         </el-upload>
                     </div>
@@ -52,40 +57,48 @@
             </li>
         </ul>
 
-        <button class="design-add-btn">添加一个</button>
+        <el-upload
+            class="design-add-btn"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-success="onAddSuccess"
+            :before-upload="onAddBeforeUpload"
+            @click.native="listIndex = data.data.list.length"
+        >
+            <div>添加一个</div>
+        </el-upload>
     </section>
 </template>
 
 <script lang="ts">
 import { storeDesign } from '@/store/modules/design';
+import { PictureWindowProps } from '@/types/design';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
-interface PrctWindowProps {
-    $index: number;
-    data: {
-        list: { url: string; img: string }[];
-        marginX: number;
-        marginY: number;
-        layout: 'column-2' | 'column-3' | 'column-3' | 'showcase'; // 布局方式
-        background: string; // 指示点颜色
-    };
-}
 
 @Component
 export default class DomEditorPictureWindow extends Vue {
-    @Prop({
-        type: Object,
-        default: () => ({}),
-    })
-    data!: PrctWindowProps;
+    @Prop({ type: Object, default: () => ({}) }) data!: { data: PictureWindowProps } & { $index: number };
+
+    listIndex = -1;
 
     @Watch('data', { deep: true, immediate: true })
-    onForm(value: object) {
+    onForm() {
         storeDesign.updateCompoent(this.data);
     }
 
     private delImg(index: number) {
         this.data.data.list.splice(index, 1);
+    }
+
+    // 添加一个
+    private onAddSuccess(response: Response, file: File) {
+        console.log(response, file);
+    }
+
+    // 上传之前
+    private onAddBeforeUpload(file: File) {
+        if (this.listIndex != -1) {
+            this.data.data.list.splice(this.listIndex, 1, { url: '', img: URL.createObjectURL(file) });
+        }
     }
 }
 </script>

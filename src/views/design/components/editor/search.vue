@@ -40,8 +40,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 import { storeDesign } from '@/store/modules/design';
 
-import defaultImg from '@/assets/image/default.png';
-import { DesignEditor, SearchProps } from '@/types/design';
+import { SearchProps } from '@/types/design';
 
 @Component
 export default class DomEditorSearch extends Vue {
@@ -52,7 +51,7 @@ export default class DomEditorSearch extends Vue {
     data!: { data: SearchProps } & { $index: number };
 
     @Watch('data', { deep: true, immediate: true })
-    onForm(value: object) {
+    onForm() {
         storeDesign.updateCompoent(this.data);
     }
 }

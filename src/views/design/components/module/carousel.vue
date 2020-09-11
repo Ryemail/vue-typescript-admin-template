@@ -1,7 +1,7 @@
 <template>
-    <section class="design-carousel clear design-item">
+    <section class="design-carousel  design-item">
         <van-swipe
-            class="clear"
+            :class="[params.position === 'out' ? 'custom-swipe' : '']"
             @change="onChange"
             :autoplay="params.interval"
             :height="params.height"
@@ -18,7 +18,7 @@
                         v-for="(item, index) in params.list"
                         :style="{ background: current === index ? params.color : '' }"
                         :key="index"
-                        :class="[params.shape, 'indicator-item']"
+                        :class="['indicator-item', params.shape]"
                     ></span>
                 </div>
             </template>
@@ -58,9 +58,11 @@ export default class DomCarousel extends Vue {
     width: 100%;
     transition: transform 0.4s ease-in-out;
 }
-.design-item,
-.van-swipe {
-    overflow: auto;
+.custom-swipe {
+    padding-bottom: 30px;
+    .custom-indicator {
+        bottom: 9px;
+    }
 }
 
 .design-carousel-item {
@@ -69,18 +71,13 @@ export default class DomCarousel extends Vue {
 }
 .in {
     bottom: 10px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
 }
 
-.in {
+.custom-indicator {
+    position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
-}
-.custom-indicator {
-    position: absolute;
     text-align: center;
     .indicator-item {
         display: inline-block;

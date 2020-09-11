@@ -78,7 +78,7 @@ export default class DomEditorImage extends Vue {
 
     // 添加一个
     private onAddSuccess(response: Response, file: File) {
-        // console.log(response, file);
+        console.log(response, file);
     }
 
     // 上传之前

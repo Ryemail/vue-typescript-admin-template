@@ -30,7 +30,7 @@ export default class DomEditorTitle extends Vue {
     @Prop({ type: Object, default: () => ({}) }) data!: TitleProps;
 
     @Watch('data', { deep: true })
-    onForm(value: object) {
+    onForm() {
         storeDesign.updateCompoent(this.data);
     }
 }

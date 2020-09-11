@@ -1,5 +1,5 @@
 <template>
-    <section class="dom-announcement clear design-item">
+    <section class="dom-announcement">
         <van-notice-bar
             :scrollable="!!params.scrollable"
             :wrapable="!!params.wrapable"
@@ -12,10 +12,6 @@
         >
             <template #left-icon> </template>
         </van-notice-bar>
-        <!-- <div class="flex notice-wrap flex-item-center" :style="{ padding: `${params.marginY}px 0` }">
-            <img v-if="params.icon" class="notice-icon" :src="params.icon" />
-            <div :style="{ color: `${params.color}` }" class="notice-text">{{ params.text }}</div>
-        </div> -->
         <div class="del" v-if="data.data.active" @click="del">删除</div>
     </section>
 </template>
