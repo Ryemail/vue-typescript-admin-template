@@ -65,7 +65,12 @@
                     </el-radio-group>
 
                     <!-- textarea -->
-                    <el-input v-if="item.type === 'textarea'" type="textarea" v-model="form[item.prop]" />
+                    <el-input
+                        v-if="item.type === 'textarea'"
+                        type="textarea"
+                        :placeholder="item.placeholder"
+                        v-model="form[item.prop]"
+                    />
                 </el-form-item>
 
                 <!-- 联级选择 start -->
@@ -168,10 +173,13 @@ export default class DomForm extends Vue {
             }
         };
 
-        this.conf.forEach(item => {
+        this.conf.forEach((item, index) => {
             if (Array.isArray(item)) return setOpt(item[0]);
 
-            if (item.type.includes('button')) this.buttonColums.push(item);
+            if (item.type.includes('button')) {
+                this.buttonColums.push(item);
+                this.conf.splice(index, 1);
+            }
 
             setOpt(item);
         });
@@ -181,7 +189,9 @@ export default class DomForm extends Vue {
     onSelectChange(item: DomFormConfig[], index: number) {
         const key = index + 1,
             len = item.length,
-            nextOpt = item[key];
+            nextOpt = item[key],
+            form = this.$refs[this.reform] as ElForm,
+            prop = item.map(it => it.prop);
 
         for (let i = key; i < len; i++) {
             this.form[item[i].prop] = '';
@@ -191,11 +201,19 @@ export default class DomForm extends Vue {
         nextOpt &&
             nextOpt.lazyLoad &&
             nextOpt.lazyLoad(data => (nextOpt.option = data), { ...nextOpt, row: this.form });
+
+        form.clearValidate(prop);
     }
 
     // 表单事件
     onEvent(item: DomFormConfig) {
-        if (item.prop === 'submit') return this.onSubmit(item);
+        if (item.prop === 'submit') {
+            const form = this.$refs[this.reform] as ElForm;
+
+            const valider = (valid: boolean) => valid && this.$emit('event', { ...item, row: this.form });
+
+            return form.validate(valider);
+        }
 
         if (item.prop === 'reset') this.onReset();
 
@@ -203,7 +221,7 @@ export default class DomForm extends Vue {
     }
 
     // 提交
-    onSubmit(item: DomFormConfig) {
+    onSubmit() {
         const form = this.$refs[this.reform] as ElForm;
 
         let flag = false;
@@ -214,19 +232,12 @@ export default class DomForm extends Vue {
             if (flag) resolve(this.form);
 
             reject(null);
-        })
-            .then(() => {
-                this.$emit('event', { ...item, row: this.form });
-            })
-            .catch(err => {
-                console.log('表单校验结果：' + err);
-            });
+        });
     }
 
     // 重置表单
     onReset() {
         const form = this.$refs[this.reform] as ElForm;
-
         form.resetFields();
     }
 }

@@ -8,11 +8,11 @@
         <main class="dom-main">
             <dom-header />
 
-            <transition name="fade-transform" mode="out-in">
-                <div class="dom-main-view">
+            <div class="dom-main-view">
+                <transition name="fade-transform" mode="out-in">
                     <router-view :key="key" />
-                </div>
-            </transition>
+                </transition>
+            </div>
 
             <dom-footer v-if="settings.footer" />
         </main>

@@ -1,16 +1,11 @@
 <template>
     <div class="form">
+        <h1>查询表单</h1>
         <dom-form ref="form" :config="queryConfig" :label-width="0" :form="query" :inline="false" @event="formEvent" />
 
+        <h1>dialog 表单</h1>
         <dom-dialog :show.sync="show" title="编辑" @cancel="onCancel" @confirm="editConfirm">
-            <dom-form
-                ref="form"
-                :label-width="0"
-                :config="queryConfig"
-                :inline="false"
-                :rules="queryRules"
-                :form="query"
-            />
+            <dom-form ref="form" :config="queryConfig" :inline="false" :rules="queryRules" :form="query" />
         </dom-dialog>
 
         <el-button @click="dialog1">dialog1</el-button>
@@ -43,6 +38,9 @@ export default class Form extends Vue {
         name: [{ required: true, message: '请输入姓名' }],
         region: [{ required: true, message: ' ' }],
         date: [{ required: true, message: '请选择时间' }],
+        province: [{ required: true, message: '请选择时间' }],
+        city: [{ required: true, message: '请选择时间' }],
+        county: [{ required: true, message: '请选择时间' }],
     };
 
     queryConfig: (DomFormConfig | DomFormConfig[])[] = [
@@ -152,92 +150,92 @@ export default class Form extends Vue {
     ];
 
     private dialog1() {
-        this.queryConfig = [
-            {
-                type: 'input',
-                prop: 'name',
-                placeholder: '请输入姓名',
-            },
-            {
-                type: 'select',
-                prop: 'region',
-                placeholder: '请选择活动',
-                lazyLoad(resolve) {
-                    resolve([
-                        { id: 1, name: '阮垚' },
-                        { id: 2, name: '陈涛' },
-                    ]);
-                },
-            },
-            {
-                type: 'date',
-                prop: 'date',
-                placeholder: '请选择日期',
-            },
-            {
-                type: 'time',
-                prop: 'time',
-                placeholder: '请选择时间',
-            },
-            {
-                type: 'checkbox',
-                prop: 'checkbox',
-                placeholder: '复选框',
-                lazyLoad(resolve) {
-                    resolve([
-                        { id: 1, name: '复选1' },
-                        { id: 2, name: '复选2' },
-                        { id: 3, name: '复选3' },
-                        { id: 4, name: '复选4' },
-                    ]);
-                },
-            },
-            {
-                type: 'radio',
-                prop: 'radio',
-                placeholder: '复选框',
-                option: [
-                    { id: 1, name: '男' },
-                    { id: 2, name: '女' },
-                ],
-            },
-            {
-                type: 'radio',
-                prop: 'radio',
-                placeholder: '复选框',
-                option: [
-                    { id: 1, name: '男' },
-                    { id: 2, name: '女' },
-                ],
-            },
-            {
-                type: 'switch',
-                prop: 'flag',
-            },
-            {
-                type: 'textarea',
-                prop: 'desc',
-                placeholder: '请输入文本',
-            },
-            {
-                type: 'radio',
-                prop: 'radio',
-                placeholder: '复选框',
-                option: [
-                    { id: 1, name: '男' },
-                    { id: 2, name: '女' },
-                ],
-            },
-            {
-                type: 'radio',
-                prop: 'radio',
-                placeholder: '复选框',
-                option: [
-                    { id: 1, name: '男' },
-                    { id: 2, name: '女' },
-                ],
-            },
-        ];
+        // this.queryConfig = [
+        //     {
+        //         type: 'input',
+        //         prop: 'name',
+        //         placeholder: '请输入姓名',
+        //     },
+        //     {
+        //         type: 'select',
+        //         prop: 'region',
+        //         placeholder: '请选择活动',
+        //         lazyLoad(resolve) {
+        //             resolve([
+        //                 { id: 1, name: '阮垚' },
+        //                 { id: 2, name: '陈涛' },
+        //             ]);
+        //         },
+        //     },
+        //     {
+        //         type: 'date',
+        //         prop: 'date',
+        //         placeholder: '请选择日期',
+        //     },
+        //     {
+        //         type: 'time',
+        //         prop: 'time',
+        //         placeholder: '请选择时间',
+        //     },
+        //     {
+        //         type: 'checkbox',
+        //         prop: 'checkbox',
+        //         placeholder: '复选框',
+        //         lazyLoad(resolve) {
+        //             resolve([
+        //                 { id: 1, name: '复选1' },
+        //                 { id: 2, name: '复选2' },
+        //                 { id: 3, name: '复选3' },
+        //                 { id: 4, name: '复选4' },
+        //             ]);
+        //         },
+        //     },
+        //     {
+        //         type: 'radio',
+        //         prop: 'radio',
+        //         placeholder: '复选框',
+        //         option: [
+        //             { id: 1, name: '男' },
+        //             { id: 2, name: '女' },
+        //         ],
+        //     },
+        //     {
+        //         type: 'radio',
+        //         prop: 'radio',
+        //         placeholder: '复选框',
+        //         option: [
+        //             { id: 1, name: '男' },
+        //             { id: 2, name: '女' },
+        //         ],
+        //     },
+        //     {
+        //         type: 'switch',
+        //         prop: 'flag',
+        //     },
+        //     {
+        //         type: 'textarea',
+        //         prop: 'desc',
+        //         placeholder: '请输入文本',
+        //     },
+        //     {
+        //         type: 'radio',
+        //         prop: 'radio',
+        //         placeholder: '复选框',
+        //         option: [
+        //             { id: 1, name: '男' },
+        //             { id: 2, name: '女' },
+        //         ],
+        //     },
+        //     {
+        //         type: 'radio',
+        //         prop: 'radio',
+        //         placeholder: '复选框',
+        //         option: [
+        //             { id: 1, name: '男' },
+        //             { id: 2, name: '女' },
+        //         ],
+        //     },
+        // ];
         this.show = true;
     }
 
@@ -259,8 +257,7 @@ export default class Form extends Vue {
     }
 
     onCancel() {
-        const form = this.$refs.form as DomForm;
-        form.onReset();
+        (this.$refs.form as DomForm).onReset();
     }
 }
 </script>
