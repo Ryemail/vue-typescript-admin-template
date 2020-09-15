@@ -10,62 +10,99 @@
         :class="[inline ? 'dom-form-inline' : 'dom-form-block']"
     >
         <div :class="classObj">
-            <el-form-item
-                v-for="(item, key) in conf"
-                :key="key"
-                :label="item.label"
-                :prop="item.prop"
-                :label-width="setLabelWidth(item)"
-            >
-                <!-- input -->
-                <el-input v-if="item.type === 'input'" :placeholder="item.placeholder" v-model="form[item.prop]" />
+            <template v-for="(item, key) in conf">
+                <el-form-item
+                    v-if="item.length === undefined"
+                    :key="key"
+                    :label="item.label"
+                    :prop="setFormProp(item)"
+                    :label-width="setLabelWidth(item)"
+                >
+                    <el-input v-if="item.type === 'input'" :placeholder="item.placeholder" v-model="form[item.prop]" />
 
-                <!-- select -->
-                <el-select v-if="item.type === 'select'" v-model="form[item.prop]" :placeholder="item.placeholder">
-                    <el-option v-for="(value, key) in item.option" :key="key" :label="value.name" :value="value.id" />
-                </el-select>
+                    <!-- select -->
+                    <el-select v-if="item.type === 'select'" v-model="form[item.prop]" :placeholder="item.placeholder">
+                        <el-option
+                            v-for="(value, key) in item.option"
+                            :key="key"
+                            :label="value.name"
+                            :value="value.id || value.name"
+                        />
+                    </el-select>
 
-                <!-- date-picker -->
-                <el-date-picker
-                    v-if="item.type === 'date'"
-                    type="date"
-                    :placeholder="item.placeholder"
-                    v-model="form[item.prop]"
-                    style="width: 100%;"
-                />
+                    <!-- date-picker -->
+                    <el-date-picker
+                        v-if="item.type === 'date'"
+                        type="date"
+                        :placeholder="item.placeholder"
+                        v-model="form[item.prop]"
+                        style="width: 100%;"
+                    />
 
-                <!-- time-picker -->
-                <el-time-picker
-                    v-if="item.type === 'time'"
-                    :placeholder="item.placeholder"
-                    v-model="form[item.prop]"
-                    style="width: 100%;"
-                />
+                    <!-- time-picker -->
+                    <el-time-picker
+                        v-if="item.type === 'time'"
+                        :placeholder="item.placeholder"
+                        v-model="form[item.prop]"
+                        style="width: 100%;"
+                    />
 
-                <!-- switch -->
-                <el-switch v-if="item.type === 'switch'" v-model="form[item.prop]"></el-switch>
+                    <!-- switch -->
+                    <el-switch v-if="item.type === 'switch'" v-model="form[item.prop]"></el-switch>
 
-                <!-- checkbox -->
-                <el-checkbox-group v-if="item.type === 'checkbox'" v-model="form[item.prop]">
-                    <el-checkbox v-for="(value, key) in item.option" :key="key" :label="value.id">
-                        {{ value.name }}
-                    </el-checkbox>
-                </el-checkbox-group>
+                    <!-- checkbox -->
+                    <el-checkbox-group v-if="item.type === 'checkbox'" v-model="form[item.prop]">
+                        <el-checkbox v-for="(value, key) in item.option" :key="key" :label="value.id">
+                            {{ value.name }}
+                        </el-checkbox>
+                    </el-checkbox-group>
 
-                <!-- radio -->
-                <el-radio-group v-if="item.type === 'radio'" v-model="form[item.prop]">
-                    <el-radio v-for="(value, key) in item.option" :key="key" :label="value.id">
-                        {{ value.name }}
-                    </el-radio>
-                </el-radio-group>
+                    <!-- radio -->
+                    <el-radio-group v-if="item.type === 'radio'" v-model="form[item.prop]">
+                        <el-radio v-for="(value, key) in item.option" :key="key" :label="value.id">
+                            {{ value.name }}
+                        </el-radio>
+                    </el-radio-group>
 
-                <!-- textarea -->
-                <el-input v-if="item.type === 'textarea'" type="textarea" v-model="form[item.prop]"></el-input>
-            </el-form-item>
+                    <!-- textarea -->
+                    <el-input v-if="item.type === 'textarea'" type="textarea" v-model="form[item.prop]" />
+                </el-form-item>
+
+                <!-- 联级选择 start -->
+                <template v-else>
+                    <el-form-item
+                        v-for="(value, index) in item"
+                        :key="value.prop"
+                        :label="value.label"
+                        :prop="setFormProp(value)"
+                        :label-width="setLabelWidth(value)"
+                    >
+                        <el-select
+                            v-model="form[value.prop]"
+                            :placeholder="value.placeholder"
+                            @change="onSelectChange(item, index)"
+                        >
+                            <el-option
+                                v-for="(opt, key) in value.option"
+                                :key="key"
+                                :label="opt.name"
+                                :value="opt.id || opt.name"
+                            />
+                        </el-select>
+                    </el-form-item>
+                </template>
+                <!-- 联级选择 end  -->
+            </template>
         </div>
-        <el-form-item v-if="footer">
-            <el-button type="primary" @click="onSubmit">确定</el-button>
-            <el-button @click="onReset">取消</el-button>
+        <el-form-item v-if="buttonColums.length">
+            <el-button
+                v-for="(item, key) in buttonColums"
+                :key="key"
+                :type="setButtonType(item.type)"
+                @click="onEvent(item)"
+            >
+                {{ item.placeholder }}
+            </el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -85,17 +122,17 @@ export default class DomForm extends Vue {
 
     @Prop({ type: Boolean, default: false }) hideRequiredAsterisk!: boolean; // 是否显示必填星号
 
-    @Prop({ type: Boolean, default: true }) footer!: boolean; // 是否显示footer
-
     @Prop({ type: Number, default: 80 }) labelWidth!: boolean; // label 宽度
 
-    @Prop({ type: Array, default: () => [] }) config!: DomFormConfig[]; // 配置
+    @Prop({ type: Array, default: () => [] }) config!: (DomFormConfig | DomFormConfig[])[]; // 配置
 
-    @Prop({ type: Object, default: () => ({}) }) form!: object; // 表单数据
+    @Prop({ type: Object, default: () => ({}) }) form!: { [key: string]: any }; // 表单数据
 
     @Prop({ type: Object, default: () => ({}) }) rules!: object; // 校验规则
 
     conf = this.config;
+
+    buttonColums: DomFormConfig[] = [];
 
     get classObj() {
         return {
@@ -114,21 +151,59 @@ export default class DomForm extends Vue {
         return `${labelWidth}px`;
     }
 
+    setButtonType(type: string) {
+        return type.includes('-') ? type.split('-')[1] : type;
+    }
+
+    setFormProp(item: DomFormConfig) {
+        return /button/g.test(item.type) ? '' : item.prop;
+    }
+
     lazyLoad() {
         const type = ['select', 'radio', 'checkbox'];
 
-        this.conf.forEach(item => {
+        const setOpt = (item: DomFormConfig) => {
             if (type.includes(item.type)) {
-                item.lazyLoad &&
-                    item.lazyLoad(data => {
-                        item.option = data;
-                    });
+                item.lazyLoad && item.lazyLoad(data => (item.option = data), { ...item, row: this.form });
             }
+        };
+
+        this.conf.forEach(item => {
+            if (Array.isArray(item)) return setOpt(item[0]);
+
+            if (item.type.includes('button')) this.buttonColums.push(item);
+
+            setOpt(item);
         });
     }
 
+    //联级选择
+    onSelectChange(item: DomFormConfig[], index: number) {
+        const key = index + 1,
+            len = item.length,
+            nextOpt = item[key];
+
+        for (let i = key; i < len; i++) {
+            this.form[item[i].prop] = '';
+            item[i].option = [];
+        }
+
+        nextOpt &&
+            nextOpt.lazyLoad &&
+            nextOpt.lazyLoad(data => (nextOpt.option = data), { ...nextOpt, row: this.form });
+    }
+
+    // 表单事件
+    onEvent(item: DomFormConfig) {
+        if (item.prop === 'submit') return this.onSubmit(item);
+
+        if (item.prop === 'reset') this.onReset();
+
+        this.$emit('event', { ...item, row: this.form });
+    }
+
     // 提交
-    onSubmit() {
+    onSubmit(item: DomFormConfig) {
         const form = this.$refs[this.reform] as ElForm;
 
         let flag = false;
@@ -136,12 +211,12 @@ export default class DomForm extends Vue {
         form.validate(valid => (flag = valid));
 
         return new Promise((resolve, reject) => {
-            if (flag) resolve(flag);
+            if (flag) resolve(this.form);
 
-            reject(flag);
+            reject(null);
         })
             .then(() => {
-                this.$emit('onSubmit');
+                this.$emit('event', { ...item, row: this.form });
             })
             .catch(err => {
                 console.log('表单校验结果：' + err);

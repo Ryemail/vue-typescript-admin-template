@@ -9,7 +9,9 @@
             <dom-header />
 
             <transition name="fade-transform" mode="out-in">
-                <router-view :key="key" class="dom-main-view" />
+                <div class="dom-main-view">
+                    <router-view :key="key" />
+                </div>
             </transition>
 
             <dom-footer v-if="settings.footer" />

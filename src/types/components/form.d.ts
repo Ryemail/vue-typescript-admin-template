@@ -2,7 +2,23 @@ import { DomComponent } from './components';
 
 type Resolve = (data: DomFormOption[]) => void;
 
-type lazyLoad = (resolve: Resolve) => void;
+// type lazyLoadParams = DomFormConfig extends DomFormConfig {
+//     row:{[key:string]:any}
+// }
+
+export interface lazyLoadParams<T = object> extends DomFormConfig {
+    row: T;
+}
+
+type lazyLoad = (resolve: Resolve, params?: lazyLoadParams) => void;
+
+export type ButtonType =
+    | 'button'
+    | 'button-primary'
+    | 'button-success'
+    | 'button-info'
+    | 'button-warning'
+    | 'button-danger';
 
 export type FormItemType = 'input' | 'select' | 'radio' | 'checkbox' | 'textarea' | 'switch' | 'date' | 'time';
 
@@ -12,13 +28,13 @@ export interface DomFormOption {
 }
 
 export interface DomFormConfig {
-    type: FormItemType;
+    type: FormItemType | ButtonType;
     prop: string;
     label?: string;
     labelWidth?: number;
-    placeholder?: string;
+    placeholder?: string; // 占位符
     option?: DomFormOption[];
-    lazyLoad?: lazyLoad;
+    lazyLoad?: lazyLoad; //数据是否懒加载
 }
 
 export declare class DomForm<T = boolean> extends DomComponent {
@@ -29,8 +45,6 @@ export declare class DomForm<T = boolean> extends DomComponent {
     showMessage: boolean;
 
     hideRequiredAsterisk: boolean;
-
-    footer: boolean;
 
     labelWidth: number;
 
