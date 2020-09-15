@@ -22,6 +22,7 @@
                     :fixed="item.fixed"
                     :show-overflow-tooltip="item.showOverflowTooltip"
                     :min-width="item.minWidth"
+                    :formatter="item.formatter"
                 />
                 <el-table-column
                     v-else

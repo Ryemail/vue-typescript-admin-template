@@ -189,9 +189,7 @@ export default class DomForm extends Vue {
     onSelectChange(item: DomFormConfig[], index: number) {
         const key = index + 1,
             len = item.length,
-            nextOpt = item[key],
-            form = this.$refs[this.reform] as ElForm,
-            prop = item.map(it => it.prop);
+            nextOpt = item[key];
 
         for (let i = key; i < len; i++) {
             this.form[item[i].prop] = '';
@@ -201,8 +199,6 @@ export default class DomForm extends Vue {
         nextOpt &&
             nextOpt.lazyLoad &&
             nextOpt.lazyLoad(data => (nextOpt.option = data), { ...nextOpt, row: this.form });
-
-        form.clearValidate(prop);
     }
 
     // 表单事件

@@ -1,4 +1,5 @@
 import { DomComponent } from './components';
+import { ElTableColumn } from 'element-ui/types/table-column';
 
 export interface DomTableColumn {
     label?: string;
@@ -9,6 +10,7 @@ export interface DomTableColumn {
     align?: string;
     minWidth?: number;
     slot?: string;
+    formatter?: (row: object, column: ElTableColumn, cellValue: string, index: number) => string;
     showOverflowTooltip?: boolean;
 }
 

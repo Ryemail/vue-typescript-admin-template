@@ -97,7 +97,13 @@ export default class Table extends Vue {
         },
         column: [
             { prop: 'author', label: '作者', fixed: 'left' },
-            { prop: 'type', label: '类型' },
+            {
+                prop: 'type',
+                label: '类型',
+                formatter(row: any) {
+                    return row.type;
+                },
+            },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
