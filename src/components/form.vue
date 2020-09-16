@@ -119,7 +119,7 @@ import { DomFormConfig } from '@/types/components/form';
 
 @Component
 export default class DomForm extends Vue {
-    @Prop({ type: String, default: 'reform' }) reform!: string;
+    @Prop({ type: String, default: 'form' }) reform!: string;
 
     @Prop({ type: Boolean, default: true }) inline!: boolean; // 是否行内表单
 

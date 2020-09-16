@@ -5,7 +5,7 @@
 
         <h1>dialog 表单</h1>
         <dom-dialog :show.sync="show" title="编辑" @cancel="onCancel" @confirm="editConfirm">
-            <dom-form ref="form" :config="queryConfig" :inline="false" :rules="queryRules" :form="query" />
+            <dom-form ref="dialogForm" :config="queryConfig" :inline="false" :rules="queryRules" :form="query" />
         </dom-dialog>
 
         <el-button @click="dialog1">dialog1</el-button>
@@ -257,7 +257,7 @@ export default class Form extends Vue {
     }
 
     onCancel() {
-        (this.$refs.form as DomForm).onReset();
+        (this.$refs.dialogForm as DomForm).onReset();
     }
 }
 </script>

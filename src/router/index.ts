@@ -76,14 +76,24 @@ const routes: Array<RouteConfig> = [
             },
         ],
     },
+    {
+        path: '*',
+        component: Layout,
+        children: [
+            {
+                path: '404',
+                name: '404',
+                component: () => import('@/views/404.vue'),
+                meta: {},
+            },
+        ],
+    },
 
     {
         path: 'login',
         name: 'login',
         component: () => import('../views/login.vue'),
     },
-
-    { path: '*', name: '404', component: () => import('@/views/404.vue') },
 ];
 
 const router = new VueRouter({

@@ -16,3 +16,12 @@ export const isArr = param => Object.prototype.toString.call(param) === '[object
 export const isFunc = param => Object.prototype.toString.call(param) === '[object Function]';
 
 export const isObj = param => Object.prototype.toString.call(param) === '[object Object]';
+
+export const _is = param => {
+    const type = ['Number', 'String', 'Boolean', 'Symbol', 'Undefined', 'Null', 'Array', 'Function', 'Object'],
+        obj = {};
+    type.forEach(item => {
+        obj[item] = () => Object.prototype.toString.call(param) === `[object ${item}]`;
+    });
+    return obj;
+};
