@@ -15,8 +15,8 @@
             <template #content="{ row }">
                 <div v-html="row.content"></div>
             </template>
-            <template #tool="{}">
-                <dom-icon name="el-icon-share" to="/table/detail" disabled text="详情" />
+            <template #tool="{index}">
+                <dom-icon name="el-icon-share" :to="`/table/detail?index=${index}`" disabled text="详情" />
             </template>
         </dom-table>
     </section>
