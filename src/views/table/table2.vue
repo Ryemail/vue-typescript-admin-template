@@ -100,9 +100,9 @@ export default class Table extends Vue {
             {
                 prop: 'type',
                 label: '类型',
-                formatter(row: any) {
-                    return row.type;
-                },
+                // formatter(row: any) {
+                //     return row.type;
+                // },
             },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
