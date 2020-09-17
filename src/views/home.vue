@@ -11,6 +11,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import _ from 'lodash';
 import { _reg, _types } from '@/utils';
 
+function h() {
+    return {
+        render() {},
+    };
+}
+
 @Component
 export default class Home extends Vue {
     value = '';

@@ -103,6 +103,7 @@ const createRouter = () =>
         base: process.env.BASE_URL,
         routes,
     });
+
 const router = createRouter();
 
 // export function resetRouter() {
