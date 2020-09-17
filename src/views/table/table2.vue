@@ -26,6 +26,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { DomTableProps, DomTable } from '@/types/components/table';
 import { DomFormConfig, lazyLoadParams } from '@/types/components/form';
+import { ElTableColumn, TableColumn } from 'element-ui/types/table-column';
 
 @Component
 export default class Table extends Vue {
@@ -100,9 +101,10 @@ export default class Table extends Vue {
             {
                 prop: 'type',
                 label: '类型',
-                // formatter(row: any) {
-                //     return row.type;
-                // },
+                formatter(row: any) {
+                    console.log(this);
+                    return row.type;
+                },
             },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },
             { slot: 'content', prop: 'content', label: '发布内容', width: 200, showOverflowTooltip: true },

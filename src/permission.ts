@@ -56,6 +56,8 @@ router.beforeEach(async (to, from, next) => {
             NProgress.done();
         }
     }
+
+    console.log(to, 'beforeEach');
 });
 
 router.afterEach(() => {

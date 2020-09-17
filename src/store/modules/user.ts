@@ -1,6 +1,6 @@
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '@/store';
-import { getToken } from '@/utils/auth';
+import { getToken, removeToken } from '@/utils/auth';
 
 export interface UserState {
     token: string;
@@ -48,7 +48,7 @@ class User extends VuexModule implements UserState {
             title: '页面设计',
             icon: '',
         },
-        { path: '/form/index', name: 'form', title: 'form', icon: '' },
+        { path: '/form', name: 'form', title: 'form', icon: '' },
     ];
 
     @Mutation
@@ -64,6 +64,10 @@ class User extends VuexModule implements UserState {
     @Action
     public async getInfo() {
         // const{} = await ()
+    }
+    @Action
+    public async logout() {
+        removeToken();
     }
 }
 

@@ -77,29 +77,37 @@ const routes: Array<RouteConfig> = [
         ],
     },
     {
-        path: '*',
+        path: '/error',
+        name: 'error',
         component: Layout,
         children: [
             {
                 path: '404',
                 name: '404',
                 component: () => import('@/views/404.vue'),
-                meta: {},
             },
         ],
     },
+    { path: '*', name: '*', redirect: '/error/404' },
 
     {
-        path: 'login',
+        path: '/login',
         name: 'login',
         component: () => import('../views/login.vue'),
     },
 ];
 
-const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes,
-});
+const createRouter = () =>
+    new VueRouter({
+        mode: 'history',
+        base: process.env.BASE_URL,
+        routes,
+    });
+const router = createRouter();
+
+// export function resetRouter() {
+//     const newRouter = createRouter();
+//     router.matcher = newRouter.matcher; // reset router
+// }
 
 export default router;

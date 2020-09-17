@@ -4,7 +4,7 @@
         <el-dropdown trigger="click" class="dom-header-left">
             <span class="el-dropdown-link"> 阮书垚<i class="el-icon-caret-bottom el-icon--right"></i> </span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item class="clearfix">
+                <el-dropdown-item command="out" class="clearfix" @click.native="logout">
                     退出
                 </el-dropdown-item>
             </el-dropdown-menu>
@@ -26,6 +26,11 @@ export default class Header extends Vue {
 
     toggleSideBar() {
         storeApp.toggleSideBar();
+    }
+
+    async logout() {
+        await this.$store.dispatch('user/logout');
+        this.$router.push(`/login?redirect=${this.$route.fullPath}`);
     }
 }
 </script>
