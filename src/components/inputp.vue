@@ -5,8 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Input } from 'element-ui';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class DomInputp extends Vue {
@@ -15,9 +14,6 @@ export default class DomInputp extends Vue {
         this.$emit('input', this.value); // 在组件A中传递过来的事件
     }
 }
-// export default {
-//     extends: Input,
-// };
 </script>
 
 <style lang="less"></style>

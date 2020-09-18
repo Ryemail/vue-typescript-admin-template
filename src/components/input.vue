@@ -102,16 +102,28 @@
 
 <script lang="ts">
 import { Input } from 'element-ui';
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-    name: 'DomInput',
+@Component({
     extends: Input,
+})
+export default class DomInput extends Vue {
+    value = '';
     created() {
         this.$on('change', (value: string) => {
             console.log(value);
         });
-    },
-};
+    }
+}
+// export default {
+//     name: 'DomInput',
+//     extends: Input,
+//     created() {
+//         this.$on('change', (value: string) => {
+//             console.log(value);
+//         });
+//     },
+// };
 </script>
 
 <style lang="less"></style>

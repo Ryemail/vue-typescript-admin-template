@@ -1,5 +1,7 @@
 <template>
-    <section class="tree">tree</section>
+    <section class="tree">
+        <dom-tree></dom-tree>
+    </section>
 </template>
 
 <script lang="ts">

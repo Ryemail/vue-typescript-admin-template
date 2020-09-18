@@ -1,5 +1,6 @@
 import { DomComponent } from './components';
 import { ElTableColumn } from 'element-ui/types/table-column';
+import { VNode } from 'vue';
 
 export interface DomTableColumn {
     label?: string;

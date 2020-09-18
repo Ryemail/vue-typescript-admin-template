@@ -11,19 +11,11 @@ import { Component, Vue } from 'vue-property-decorator';
 import _ from 'lodash';
 import { _reg, _types } from '@/utils';
 
-function h() {
-    return {
-        render() {},
-    };
-}
-
 @Component
 export default class Home extends Vue {
     value = '';
     domValue = '';
     created() {
-        //
-        console.log(_.add(0.1, 0.2));
         console.log(_.intersection([1, 3], [3, 4, 5])); // 数组求交集
 
         const objects = [
@@ -42,11 +34,11 @@ export default class Home extends Vue {
 
         console.log(_.intersectionWith(objects, others, _.isEqual));
 
-        const users = [
-            { user: 'barney', active: false },
-            { user: 'fred', active: false },
-            { user: 'pebbles', active: true },
-        ];
+        // const users = [
+        //     { user: 'barney', active: false },
+        //     { user: 'fred', active: false },
+        //     { user: 'pebbles', active: true },
+        // ];
 
         console.log(_.last([1, 2, 34]));
 
