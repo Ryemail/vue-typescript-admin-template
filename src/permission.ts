@@ -9,7 +9,7 @@ NProgress.configure({ showSpinner: false });
 
 const whiteList = ['/login']; // no redirect whitelist
 
-setToken('12345');
+setToken('6666');
 
 router.beforeEach(async (to, from, next) => {
     // start progress bar

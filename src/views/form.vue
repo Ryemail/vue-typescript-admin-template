@@ -9,6 +9,7 @@
         </dom-dialog>
 
         <el-button @click="dialog1">dialog1</el-button>
+        <el-button @click="showModal">modal</el-button>
     </div>
 </template>
 
@@ -149,6 +150,21 @@ export default class Form extends Vue {
         { type: 'button', prop: 'reset', placeholder: '重置' },
     ];
 
+    private created() {
+        // this.$result({ code: 200, message: '操作成功', data: {} });
+    }
+
+    private showModal() {
+        this.$modal({
+            type: 'warning',
+            title: '成功导入数据100条，失败数据25条！ ',
+            message: '请前往基础配置-操作日志-导入操作日志，下载失败数据。',
+            callback(action: string) {
+                console.log(action);
+            },
+        });
+    }
+
     private dialog1() {
         // this.queryConfig = [
         //     {
@@ -245,12 +261,11 @@ export default class Form extends Vue {
 
     // 编辑确定
     private async editConfirm() {
-        const form = this.$refs.form as DomForm;
+        const form = this.$refs.dialogForm as DomForm;
 
         try {
             const res = await form.onSubmit();
-
-            console.log(res);
+            console.log(res, 'dialog');
         } catch (e) {
             console.log(e);
         }

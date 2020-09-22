@@ -5,7 +5,7 @@
         </header>
         <section class="content">
             <div class="content-form">
-                <div class="rectangle"><img src="@/assets/image/rectangle.png" /></div>
+                <!-- <div class="rectangle"><img src="@/assets/image/rectangle.png" /></div> -->
                 <el-form ref="form" class="login-form" :model="form">
                     <div class="login-form-title">登录</div>
                     <el-form-item label="企业账号">
@@ -30,7 +30,7 @@
                 <p>Add：杭州市 西湖区 西湖国际科技大厦 D楼 中座 617</p>
                 <p>Copyright © 2015-2016 Golive All Rights Reserved 浙ICP备14020207号-4</p>
             </div>
-            <div>
+            <div class="qrcode-wrap">
                 <img src="@/assets/image/code.png" class="qrcode" />
                 <p>青橄榄网络</p>
             </div>
@@ -115,14 +115,19 @@ export default class Login extends Vue {
         font-size: 14px;
         font-family: PingFangSC-Regular, PingFang SC;
         .content-form {
-            display: flex;
             width: 740px;
             height: 360px;
             overflow: hidden;
             background: linear-gradient(32deg, rgba(159, 238, 235, 0.3) 0%, rgba(255, 255, 255, 1) 100%);
+            background-image: url('~@/assets/image/rectangle.png');
+            background-size: 384px 100%;
+            background-position: left center;
+            background-repeat: no-repeat;
             border-radius: 10px;
             .login-form {
-                flex: 1;
+                float: right;
+                width: 316px;
+                height: 100%;
                 background-color: #fff;
                 padding: 0 20px;
             }
@@ -148,23 +153,31 @@ export default class Login extends Vue {
     }
     .login-footer {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
-        padding: 0 182px 0 165px;
-        height: 130px;
+        padding: 20px 60px;
         background: #fff;
         font-size: 14px;
         font-family: PingFangSC-Regular, PingFang SC;
         color: #333333;
         line-height: 20px;
+        &.padding-footer {
+            padding: 20px 0;
+        }
+        .copyright {
+            padding: 0 20px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .qrcode-wrap {
+            text-align: center;
+        }
         .qrcode {
             width: 70px;
             height: 70px;
+            padding: 0 20px;
             object-fit: contain;
             object-position: center;
-            .copyright {
-                text-align: left;
-            }
         }
         p {
             margin: 0;

@@ -391,7 +391,7 @@ $--notification-radius: 8px !default;
 $--notification-shadow: $--box-shadow-light !default;
 /// color||Color|0
 $--notification-border-color: $--border-color-lighter !default;
-$--notification-icon-size: 24px !default;
+$--notification-icon-size: 40px !default;
 $--notification-close-font-size: $--message-close-size !default;
 $--notification-group-margin-left: 13px !default;
 $--notification-group-margin-right: 8px !default;
@@ -400,7 +400,7 @@ $--notification-content-font-size: $--font-size-base !default;
 /// color||Color|0
 $--notification-content-color: $--color-text-regular !default;
 /// fontSize||Font|1
-$--notification-title-font-size: 16px !default;
+$--notification-title-font-size: 18px !default;
 /// color||Color|0
 $--notification-title-color: $--color-text-primary !default;
 

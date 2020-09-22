@@ -22,6 +22,8 @@ import '@/components';
 
 import '@/directive';
 
+import '@/utils';
+
 import '../mock';
 
 Vue.config.productionTip = false;

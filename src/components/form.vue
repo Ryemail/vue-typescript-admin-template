@@ -123,7 +123,7 @@ export default class DomForm extends Vue {
 
     @Prop({ type: Boolean, default: true }) inline!: boolean; // 是否行内表单
 
-    @Prop({ type: Boolean, default: false }) showMessage!: boolean; // 是否显示校验信息
+    @Prop({ type: Boolean, default: true }) showMessage!: boolean; // 是否显示校验信息
 
     @Prop({ type: Boolean, default: false }) hideRequiredAsterisk!: boolean; // 是否显示必填星号
 
@@ -222,7 +222,10 @@ export default class DomForm extends Vue {
 
         let flag = false;
 
-        form.validate(valid => (flag = valid));
+        form.validate(valid => {
+            flag = valid;
+            console.log(valid, this.rules);
+        });
 
         return new Promise((resolve, reject) => {
             if (flag) resolve(this.form);

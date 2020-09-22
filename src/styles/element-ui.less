@@ -23,3 +23,64 @@
         }
     }
 }
+.el-notification {
+    .el-notification__title {
+        font-size: 18px;
+    }
+    .el-notification__icon {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        &.el-icon-success {
+            color: #61c5c1;
+        }
+        &.el-icon-warning {
+            color: #ff7e7e;
+        }
+    }
+    .el-notification__content {
+        color: #888;
+    }
+}
+.dom-message-box {
+    min-width: 500px;
+    .el-message-box__header {
+        padding-bottom: 5px;
+    }
+    .dom-modal-title {
+        font-size: 18px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.85);
+        line-height: 24px;
+    }
+
+    .dom-modal-message {
+        font-size: 16px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #666666;
+        line-height: 22px;
+    }
+    .el-message-box__content {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    }
+    .el-message-box__btns {
+        padding-top: 10px;
+    }
+
+    .el-message-box__status {
+        width: 40px;
+        height: 40px;
+        font-size: 40px !important;
+        + .el-message-box__message {
+            padding-left: 50px;
+        }
+        &.el-icon-question {
+            color: #faad14;
+        }
+        &.el-icon-warning {
+            color: #ff7e7e;
+        }
+    }
+}

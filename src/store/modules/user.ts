@@ -48,7 +48,7 @@ class User extends VuexModule implements UserState {
             title: '页面设计',
             icon: '',
         },
-        { path: '/form', name: 'form', title: 'form', icon: '' },
+        { path: '/form/index', name: 'form', title: 'form', icon: '' },
     ];
 
     @Mutation

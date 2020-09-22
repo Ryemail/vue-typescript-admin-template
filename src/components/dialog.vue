@@ -15,10 +15,10 @@
             </div>
         </el-scrollbar>
 
-        <div slot="footer" class="dialog-footer">
+        <template slot="footer" class="dialog-footer">
             <el-button size="medium" @click="close">取 消</el-button>
             <el-button type="primary" v-if="showConfirm" size="medium" @click="confirm">确 定</el-button>
-        </div>
+        </template>
     </el-dialog>
 </template>
 

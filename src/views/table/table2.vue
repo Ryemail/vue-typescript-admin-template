@@ -26,7 +26,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { DomTableProps, DomTable } from '@/types/components/table';
 import { DomFormConfig, lazyLoadParams } from '@/types/components/form';
-import { ElTableColumn, TableColumn } from 'element-ui/types/table-column';
 
 @Component
 export default class Table extends Vue {
@@ -134,7 +133,7 @@ export default class Table extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 img {
     width: 40px;
 }
