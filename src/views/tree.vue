@@ -1,11 +1,18 @@
 <template>
     <section class="tree">
         <dom-cascader-panel :options="options"></dom-cascader-panel>
-        <el-cascader-panel v-model="checkedValue" :options="options" :props="defaultProps"></el-cascader-panel>
+        <!-- <div></div> -->
+        <el-cascader-panel
+            ref="panel"
+            v-model="checkedValue"
+            :options="options"
+            :props="defaultProps"
+        ></el-cascader-panel>
     </section>
 </template>
 
 <script lang="ts">
+import { ElCascaderPanel } from 'element-ui/types/cascader-panel';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component
@@ -289,14 +296,21 @@ export default class Tree extends Vue {
         console.log(this.checkedValue);
     }
 
-    created() {
-        const first = [[this.options[0]]];
+    @Watch('options', { deep: true })
+    onOptions() {
+        console.log('dd');
+        this.getPanelWidth();
+    }
 
-        first.forEach(item => {
-            first.push(item);
+    getPanelWidth() {
+        this.$nextTick(() => {
+            const panel = this.$refs.panel as ElCascaderPanel;
+            const children = [...panel.$el.children];
+
+            children.forEach(ele => {
+                console.log(ele.clientWidth);
+            });
         });
-
-        console.log(this.options, first);
     }
 }
 </script>
