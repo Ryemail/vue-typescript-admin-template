@@ -1,12 +1,12 @@
 <template>
     <section class="tree">
         <dom-cascader-panel :options="options"></dom-cascader-panel>
-        <el-cascader-panel :options="options" :props="defaultProps"></el-cascader-panel>
+        <el-cascader-panel v-model="checkedValue" :options="options" :props="defaultProps"></el-cascader-panel>
     </section>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component
 export default class Tree extends Vue {
@@ -278,13 +278,25 @@ export default class Tree extends Vue {
             ],
         },
     ];
-
+    checkedValue = [];
     defaultProps = {
         multiple: true,
         expandTrigger: 'hover',
     };
+
+    @Watch('checkedValue', { deep: true })
+    onCheckedValue() {
+        console.log(this.checkedValue);
+    }
+
     created() {
-        //
+        const first = [[this.options[0]]];
+
+        first.forEach(item => {
+            first.push(item);
+        });
+
+        console.log(this.options, first);
     }
 }
 </script>
