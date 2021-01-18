@@ -7,7 +7,7 @@ import { getToken, setToken } from '@/utils/auth'; // get token from cookie
 
 NProgress.configure({ showSpinner: false });
 
-const whiteList = ['/login']; // no redirect whitelist
+const whiteList = ['/login'];
 
 setToken('6666');
 
