@@ -85,7 +85,8 @@ export default class Table extends Vue {
     ];
 
     table: DomTableProps = {
-        url: '/vue-element-admin/article/list',
+        // url: '/vue-element-admin/article/list',
+        url: '/api/table/list',
         query: {
             name: '',
             region: '',
