@@ -97,12 +97,11 @@ export default class Table extends Vue {
             county: '',
         },
         column: [
-            { prop: 'author', label: '作者', fixed: 'left' },
+            { prop: 'name', label: '作者', fixed: 'left' },
             {
                 prop: 'type',
                 label: '类型',
                 formatter(row: any) {
-                    console.log(this);
                     return row.type;
                 },
             },
